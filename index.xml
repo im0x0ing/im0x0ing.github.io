@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+    <channel>
+      <title>INGwiki</title>
+      <link>https://im0x0ing.github.io</link>
+      <description>Last 10 notes on INGwiki</description>
+      <generator>Quartz -- quartz.jzhao.xyz</generator>
+      <item>
+    <title>Welcome</title>
+    <link>https://im0x0ing.github.io/</link>
+    <guid>https://im0x0ing.github.io/</guid>
+    <description><![CDATA[ Welcome to my Quartz garden. Use this page to highlight your latest notes or add an introduction. ]]></description>
+    <pubDate>Fri, 28 Nov 2025 13:05:09 GMT</pubDate>
+  </item><item>
+    <title>未命名</title>
+    <link>https://im0x0ing.github.io/%E6%9C%AA%E5%91%BD%E5%90%8D</link>
+    <guid>https://im0x0ing.github.io/%E6%9C%AA%E5%91%BD%E5%90%8D</guid>
+    <description><![CDATA[ test!. ]]></description>
+    <pubDate>Fri, 28 Nov 2025 00:00:00 GMT</pubDate>
+  </item>
+    </channel>
+  </rss>
