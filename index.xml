@@ -9,12 +9,24 @@
     <title>🏠 首页</title>
     <link>https://im0x0ing.github.io/</link>
     <guid>https://im0x0ing.github.io/</guid>
-    <description><![CDATA[ 欢迎来到 INGwiki！。 📂 导航 Golang 学习笔记 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 既然来了，就随便逛逛吧！. ]]></description>
-    <pubDate>Sat, 29 Nov 2025 02:01:13 GMT</pubDate>
+    <description><![CDATA[ 欢迎来到 ING wiki！ 持续建设中… 📂 导航 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 . ]]></description>
+    <pubDate>Sat, 29 Nov 2025 03:07:50 GMT</pubDate>
+  </item><item>
+    <title>Obsidian插件</title>
+    <link>https://im0x0ing.github.io/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Obsidian%E6%8F%92%E4%BB%B6</link>
+    <guid>https://im0x0ing.github.io/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Obsidian%E6%8F%92%E4%BB%B6</guid>
+    <description><![CDATA[ templater 可以把Templates文件夹下的笔记作为模板,左侧功能栏点击即可套用到其他笔记上.不会影响已写的内容. ]]></description>
+    <pubDate>Sat, 29 Nov 2025 00:00:00 GMT</pubDate>
+  </item><item>
+    <title>博客搭建</title>
+    <link>https://im0x0ing.github.io/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA</link>
+    <guid>https://im0x0ing.github.io/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA</guid>
+    <description><![CDATA[ 基于Obsidian和Quartz4.流程: 将quartz4仓库克隆到本地.然后将content文件夹重定向到本地obsidian仓库的public文件夹.这样两边的内容会进行一个同步. ]]></description>
+    <pubDate>Sat, 29 Nov 2025 00:00:00 GMT</pubDate>
   </item><item>
     <title>04 slice切片动态数组类型</title>
-    <link>https://im0x0ing.github.io/Golang/04-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</link>
-    <guid>https://im0x0ing.github.io/Golang/04-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</guid>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/04-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/04-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</guid>
     <description><![CDATA[ tips // 原写法 s := []byte{} 得到的不是nil切片 // 替代写法 var s []byte 得到的是nil切片,但是可以照常append go自己会处理 也可以s := make([]byte, 0) //注意切片是左闭右开, 固定长度数组array 但是在go中不等同于其他语言数组的地位,可以说slice才是go语言的数组. ]]></description>
     <pubDate>Fri, 28 Nov 2025 00:00:00 GMT</pubDate>
   </item>
