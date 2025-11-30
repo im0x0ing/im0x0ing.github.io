@@ -9,38 +9,62 @@
     <title>🏠 首页</title>
     <link>https://im0x0ing.github.io/</link>
     <guid>https://im0x0ing.github.io/</guid>
-    <description><![CDATA[ 欢迎来到 ING wiki！ 持续建设中… 📂 导航 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 . ]]></description>
-    <pubDate>Sat, 29 Nov 2025 05:54:38 GMT</pubDate>
+    <description><![CDATA[ 欢迎来到 ING wiki！ 本质自用, 持续建设中… 📂 导航 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 . ]]></description>
+    <pubDate>Sun, 30 Nov 2025 07:49:18 GMT</pubDate>
   </item><item>
-    <title>Obsidian插件</title>
-    <link>https://im0x0ing.github.io/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Obsidian%E6%8F%92%E4%BB%B6</link>
-    <guid>https://im0x0ing.github.io/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/Obsidian%E6%8F%92%E4%BB%B6</guid>
-    <description><![CDATA[ templater 可以把Templates文件夹下的笔记作为模板,左侧功能栏点击即可套用到其他笔记上.不会影响已写的内容. ]]></description>
-    <pubDate>Sat, 29 Nov 2025 00:00:00 GMT</pubDate>
+    <title>fmt</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/fmt</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/fmt</guid>
+    <description><![CDATA[ print fmt.Scanln(&amp;n)//读取到的数据放入到这个地址中. ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
   </item><item>
-    <title>博客搭建</title>
-    <link>https://im0x0ing.github.io/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA</link>
-    <guid>https://im0x0ing.github.io/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA</guid>
-    <description><![CDATA[ 基于Obsidian和Quartz4.流程: 将quartz4仓库克隆到本地.然后将content文件夹重定向到本地obsidian仓库的public文件夹.这样两边的内容会进行一个同步. ]]></description>
-    <pubDate>Sat, 29 Nov 2025 00:00:00 GMT</pubDate>
+    <title>strings</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/strings</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/strings</guid>
+    <description><![CDATA[ strings.Builder 常用于在循环中对字符串进行增加的操作.builder就相当于一个缓冲区,在最后才生成最终的字符串. ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
   </item><item>
-    <title>test</title>
-    <link>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/test</link>
-    <guid>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/test</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Sat, 29 Nov 2025 00:00:00 GMT</pubDate>
+    <title>值传递与引用传递</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E5%80%BC%E4%BC%A0%E9%80%92%E4%B8%8E%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92</guid>
+    <description><![CDATA[ go的默认传参方式是copy,如果传递的不是地址的话,对参数的修改无法生效. ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
   </item><item>
-    <title>test</title>
-    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/test</link>
-    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/test</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Sat, 29 Nov 2025 00:00:00 GMT</pubDate>
+    <title>01 introduction</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/01-introduction</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/01-introduction</guid>
+    <description><![CDATA[ 操作系统概述 定义与设计目标 操作系统： 职能：资源管理系统 存在：本质上是软件程序 最基础最中央的部分是内核kernel 设计目标： 可靠性和安全性 异常处理机制：中断 权限管理系统：特权 易用性 方便用户使用系统资源：系统调用 高效性 任务执行设计：批处理系统-》分时系统 公平性 进程管理的冲突与饥饿starvation 可拓展性、易维护性 设计与实现 从目标/需求开始：user goals &amp; system goals 机制和策略相分离 flashcard 机制/规则被存在酒店的中心服务器上（database） 和策略分离开了,比如配置文件就相当于policy 例题 操作系统提供... ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
   </item><item>
-    <title>04 slice切片动态数组类型</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/04-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/04-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</guid>
-    <description><![CDATA[ tips // 原写法 s := []byte{} 得到的不是nil切片 // 替代写法 var s []byte 得到的是nil切片,但是可以照常append go自己会处理 也可以s := make([]byte, 0) //注意切片是左闭右开, 固定长度数组array 但是在go中不等同于其他语言数组的地位,可以说slice才是go语言的数组. ]]></description>
-    <pubDate>Fri, 28 Nov 2025 00:00:00 GMT</pubDate>
+    <title>02.1 进程</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02.1-%E8%BF%9B%E7%A8%8B</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02.1-%E8%BF%9B%E7%A8%8B</guid>
+    <description><![CDATA[ 进程基本概念 flashcard 一段本质上是静态的、存储在硬盘上的指令数据，而当它附带运行程序所需要的必要信息进入内存，得到相关资源后，它成为一个动态的、与计算机资源互动的实体，这个实体就是进程(process)。简单来说就是运行中的一个实例。 process=job。 进程的形式 flashcard 在内存中需要一块虚拟的地址空间来存储。包含两个部分 虚拟地址空间中的用户部分 text section(code) 存储代码 加载到内存前以 executable file 的形式存储在 disk 中 stack section 常说的栈 存储一些暂时性的数据，如函数传参、返回值、局部变量等 ... ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
+  </item><item>
+    <title>02.2 调度</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02.2-%E8%B0%83%E5%BA%A6</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02.2-%E8%B0%83%E5%BA%A6</guid>
+    <description><![CDATA[ 就绪队列(ready queue)和等待队列(wait queue) flashcard 实际上换进程就是换PCB的指针位置放到哪个队列（kernel负责移动） ready quene（里面的process都处在ready状态）（ CPU等待队列：） 实际实现中，由于等待的io或者事件不同，可能维护多个等待队列。 IO设备等待队列：device queue 等待完用好IO设备之后PCB被移走 不需要等待其他设备也不需要使用处理器的进程？：空闲状态、将要结束的状态等，这样的进程就不会出现在上述队列中，会被放在job queue（系统中所有进程都在其中） 进程状态state flashcard 进... ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
+  </item><item>
+    <title>02.3 线程</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02.3-%E7%BA%BF%E7%A8%8B</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/02.3-%E7%BA%BF%E7%A8%8B</guid>
+    <description><![CDATA[ 多线程编程Multi-Threaded Programming flashcard 》线程是一种轻量级的进程，它在进程的基础上进行划分，是进程内的一个可调度的执行单元，以减小进程 folk 和切换的开销为目的。 》对于支持线程的操作系统，实际调度的是内核级线程而非进程。也就是说，线程是运行以及 CPU 调度的基本单元。（而进程是分配资源的基本单元。） 同一进程的若干线程 共享代码、数据等“相对静态”的资源 各自维护寄存器、栈、PC 等“相对动态”的资源 优点 立线程相比进程是很经济的，因为 code, data &amp; heap 已经在内存中了。在同一进程的线程间进行 context sw... ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
+  </item><item>
+    <title>04.1 主存</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/04.1-%E4%B8%BB%E5%AD%98</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/04.1-%E4%B8%BB%E5%AD%98</guid>
+    <description><![CDATA[  内存是一个很大的字节数组，CPU 根据 PC (Program Counter) 的值从内存中提取指令。程序需要运行，至少部分程序及其访问的数据应在内存中（或者更明确地，内存中的一个进程里） CPU 可以直接访问的通用存储只有 main memory 和 registers。对 registers 的访问通常可以在一个 CPU 时钟周期中完成，而完成内存的访问可能需要多个时钟周期。在这些时钟周期里，由于没有用来完成指令的数据，这会引起 stall）。 为了补救，在 CPU 芯片上增设更快的内存，称为 cache 。 同时，需要保护内存空间，防止用户程序修改操作系统或其他用户程序的代码或者数据... ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
+  </item><item>
+    <title>04.2 virtual memory</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/04.2-virtual-memory</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/04.2-virtual-memory</guid>
+    <description><![CDATA[ 地址空间与异常 地址空间 (address space) 指的是地址取值的全集。 物理地址空间 例如，对于一个 32 位寻址的体系结构，其 物理地址空间（物理地址的集合）就是 ，亦即 0x00000000 ~ 0xffffffff。 - flat memory内存模型: 在引入分段 / 分页技术之前，各个进程和操作系统共同使用同一个物理地址空间。它会带来比较大的碎片，同时隔离性较差，内存的保护较弱。 虚拟地址空间 而在引入了分段 / 分页技术之后，每个进程都有了自己的一套 logical memory (a.k.a. ]]></description>
+    <pubDate>Sun, 30 Nov 2025 00:00:00 GMT</pubDate>
   </item>
     </channel>
   </rss>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>04.1 主存</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Sans SC:wght@400;700&amp;family=Noto Serif SC:ital,wght@0,400;0,600;1,400;1,600&amp;family=JetBrains Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="ING wiki"/><meta property="og:title" content="04.1 主存"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="04.1 主存"/><meta name="twitter:description" content="内存是一个很大的字节数组，CPU 根据 PC (Program Counter) 的值从内存中提取指令。程序需要运行，至少部分程序及其访问的数据应在内存中（或者更明确地，内存中的一个进程里） CPU 可以直接访问的通用存储只有 main memory 和 registers。对 registers 的访问通常可以在一个 CPU 时钟周期中完成，而完成内存的访问可能需要多个时钟周期。在这些时钟周期里，由于没有用来完成指令的数据，这会引起 stall）。 为了补救，在 CPU 芯片上增设更快的内存，称为 cache 。 同时，需要保护内存空间，防止用户程序修改操作系统或其他用户程序的代码或者数据..."/><meta property="og:description" content="内存是一个很大的字节数组，CPU 根据 PC (Program Counter) 的值从内存中提取指令。程序需要运行，至少部分程序及其访问的数据应在内存中（或者更明确地，内存中的一个进程里） CPU 可以直接访问的通用存储只有 main memory 和 registers。对 registers 的访问通常可以在一个 CPU 时钟周期中完成，而完成内存的访问可能需要多个时钟周期。在这些时钟周期里，由于没有用来完成指令的数据，这会引起 stall）。 为了补救，在 CPU 芯片上增设更快的内存，称为 cache 。 同时，需要保护内存空间，防止用户程序修改操作系统或其他用户程序的代码或者数据..."/><meta property="og:image:alt" content="内存是一个很大的字节数组，CPU 根据 PC (Program Counter) 的值从内存中提取指令。程序需要运行，至少部分程序及其访问的数据应在内存中（或者更明确地，内存中的一个进程里） CPU 可以直接访问的通用存储只有 main memory 和 registers。对 registers 的访问通常可以在一个 CPU 时钟周期中完成，而完成内存的访问可能需要多个时钟周期。在这些时钟周期里，由于没有用来完成指令的数据，这会引起 stall）。 为了补救，在 CPU 芯片上增设更快的内存，称为 cache 。 同时，需要保护内存空间，防止用户程序修改操作系统或其他用户程序的代码或者数据..."/><meta property="twitter:domain" content="im0x0ing.github.io"/><meta property="og:url" content="https://im0x0ing.github.io/课程笔记/操作系统/04.1-主存"/><meta property="twitter:url" content="https://im0x0ing.github.io/课程笔记/操作系统/04.1-主存"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="内存是一个很大的字节数组，CPU 根据 PC (Program Counter) 的值从内存中提取指令。程序需要运行，至少部分程序及其访问的数据应在内存中（或者更明确地，内存中的一个进程里） CPU 可以直接访问的通用存储只有 main memory 和 registers。对 registers 的访问通常可以在一个 CPU 时钟周期中完成，而完成内存的访问可能需要多个时钟周期。在这些时钟周期里，由于没有用来完成指令的数据，这会引起 stall）。 为了补救，在 CPU 芯片上增设更快的内存，称为 cache 。 同时，需要保护内存空间，防止用户程序修改操作系统或其他用户程序的代码或者数据..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  padding: 2rem;
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL2hvbWUvcnVubmVyL3dvcmsvaW0weDBpbmctYmxvZy1wcml2YXRlL2ltMHgwaW5nLWJsb2ctcHJpdmF0ZS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcGFkZGluZzogMnJlbTtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://im0x0ing.github.io/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://im0x0ing.github.io/课程笔记/操作系统/04.1-主存-og-image.webp"/><meta property="og:image:url" content="https://im0x0ing.github.io/课程笔记/操作系统/04.1-主存-og-image.webp"/><meta name="twitter:image" content="https://im0x0ing.github.io/课程笔记/操作系统/04.1-主存-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="课程笔记/操作系统/04.1-主存"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">ING wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slug===\&quot;\&quot;||node.slug.startsWith(\&quot;\\u8BFE\\u7A0B\\u7B14\\u8BB0\&quot;)&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-27"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-27" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-3"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><header><nav class="my-navbar "><div class="links"><a href="/课程笔记/">课程笔记</a><a href="/技术积累/">技术积累</a><a href="/工具使用/">工具使用</a><a href="/生活杂谈/">生活杂谈</a></div></nav></header><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/">课程笔记</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/操作系统/">操作系统</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>04.1 主存</a></div></nav><h1 class="article-title">04.1 主存</h1><p show-comma="true" class="content-meta"><time datetime="2025-11-30T00:00:00.000Z">Nov 30, 2025</time><span>27 min read</span></p><ul class="tags"><li><a href="../../tags/flashcard" class="internal tag-link">flashcard</a></li></ul></div></div><article class="popover-hint"><ul>
+<li>内存是一个很大的字节数组，CPU 根据 PC (Program Counter) 的值从内存中提取指令。程序需要运行，至少部分程序及其访问的数据应在内存中（或者更明确地，内存中的一个进程里）</li>
+<li>CPU 可以直接访问的通用存储只有 main memory 和 registers。对 registers 的访问通常可以在一个 CPU 时钟周期中完成，而完成内存的访问可能需要多个时钟周期。在这些时钟周期里，由于没有用来完成指令的数据，这会引起 <strong>stall</strong>）。
+<ul>
+<li>为了补救，在 CPU 芯片上增设更快的内存，称为 <strong>cache</strong> 。</li>
+</ul>
+</li>
+<li>同时，需要保护内存空间，防止用户程序修改操作系统或其他用户程序的代码或者数据。</li>
+</ul>
+<h4 id="address-binding-flashcard">Address Binding <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#address-binding-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li><span class="text-highlight">.c->.o的过程</span>
+<ul>
+<li><code>编译器complier</code>将源代码中的地址绑定到Relocatable Address
+<ul>
+<li>源代码中的地址通常是用符号表示（<strong>symbolic</strong>）： 例如各种变量、函数名；汇编中的 label 等</li>
+<li>Relocatable Address：可重定位地址。相对于某一个段/模块等的偏移，例如 <code>sp - 8</code>, <code>ds:[0]</code>。即把源代码符号地址背后的具体内容重排到源程序的相对位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span class="text-highlight">.p->.exe</span>（and其他可执行文件形式）的过程
+<ul>
+<li><code>链接器linker</code> 收集所有.o文件，将每个代码文件的地址绑定成相对整个程序的地址</li>
+</ul>
+</li>
+<li><code>加载器loader</code> 将可执行文件绑定到内存地址中，得到最终的绝对地址Absolute Address
+<ul>
+<li>当然，如果编译器在编译时就知道程序所处的内存地址，则会生成 absolute code-》program in memory<br/>
+<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251103110827.png" width="auto" height="auto" alt/></li>
+</ul>
+</li>
+</ul>
+
+<h2 id="连续内存分配"><strong>连续内存分配</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#连续内存分配" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>在 Batch（批处理）系统中，每次只有一个程序被加载入物理内存，并被运行至结束。
+<ul>
+<li>如果程序所需的存储空间比物理内存大，则将程序分开为可以运行至产生某个结果且大小可以放入空余内存的部分，逐个运行，将运行结果传递给下一个部分。</li>
+</ul>
+</li>
+<li>现在我们需要把多个进程同时放在内存中，并且支持其彼此之间的快速切换。最简单的内存分配方法之一，就是将内存分成许多的 partition，每个 partition 包含一个进程。其要求有：
+<ul>
+<li><strong>Protection:</strong> 保证进程之间不会互相闯入对方的存储。</li>
+<li><strong>Fast execution:</strong> 不能由于 protection 降低访问内存的效率。</li>
+<li><strong>Fast context switch:</strong> 每当进行 context switch 时，可以比较快地找到并访问当前进程的内存。</li>
+</ul>
+</li>
+<li>当进程进入系统，操作系统根据各个进程的内存需要以及当前的空闲内存空间来决定为哪些进程分配内存。当一个进程被分配到了空间，他将被载入到内存中，并与其他进程竞争 CPU 时间。当一个进程结束时，它释放它的空间。</li>
+<li>如果一个进程请求空间来运行，但没有足够的内存来满足其要求
+<ul>
+<li>直接拒绝其请求并给出一个错误信息</li>
+<li>或将其加入 waiting queue 中，当有内存被释放时 CPU 来检查是否为其分配内存。</li>
+</ul>
+</li>
+</ul>
+<h3 id="内存分区策略partion-flashcard">内存分区策略partion <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#内存分区策略partion-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="fixed-partition-固定大小partition">Fixed Partition 固定大小partition<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#fixed-partition-固定大小partition" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>固定 partition 的大小（除了 OS 使用的内存），只需要记录每个partition是否被占用即可。</li>
+<li><strong>Internal Fragmentation</strong>：一个partition中剩余的空间不能够被别的进程所使用。【 不可用内存分布在 partition 之内】</li>
+</ul>
+<h4 id="variable-partition">Variable Partition<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#variable-partition" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>不固定 partition 的大小，维护一个表，记录可用和已用的内存。</li>
+<li>最开始时是一大块可用内存块（可用内存块称为hole），经过一段时间运行后可能就会包含一系列不同大小的孔<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251104221420.png" width="auto" height="auto" alt/></li>
+<li><strong>External Fragmentation：</strong> 一段时间运行后，内存空间被分为大量的hole，加起来可以满足要求但是并不连续，所以无法被利用。【 不可用内存分布在 partition 之外】</li>
+</ul>
+
+
+<h3 id="动态存储分配问题-dynamic-storage-allocation-problem-flashcard">动态存储分配问题 Dynamic Storage-Allocation Problem <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#动态存储分配问题-dynamic-storage-allocation-problem-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>根据一组 hole 来分配大小为 n 的请求，的问题<br/>
+解决方法有：</p>
+<ul>
+<li><strong>first-fit</strong> 分配首个足够大的 hole。这种方法会使得分配集中在低地址区，并在此处产生大量的碎片，在每次尝试分配的时候都会遍历到，增大查找的开销。</li>
+<li><strong>best-fit</strong> 分配最小的足够大的 hole。除非空闲列表按大小排序，否则这种方法需要对整个列表进行遍历。这种方法同样会留下许多碎片。</li>
+<li><strong>worst-fit</strong> 分配最大的 hole。同样，除非列表有序，否则我们需要遍历整个列表。这种方法的好处是每次分配后通常不会使剩下的空闲块太小，这在中小进程较多的情况下性能较好，并且产生碎片的几率更小。</li>
+</ul>
+
+
+<h3 id="内存保护机制protection-flashcard">内存保护机制Protection <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#内存保护机制protection-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>保证一个进程能且仅能访问自己空间中的地址。通过一套 <strong>base</strong> 和 <strong>limit</strong> 寄存器来确定一个程序的空间：<br/>
+<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251104221756.png" width="auto" height="auto" alt/></p>
+<ol>
+<li>每当 context switch 到一个新的进程时，CPU 会 load 这两个寄存器的值</li>
+<li>每当 user mode 想要进行一次内存访问时，CPU 都要检查其<span class="text-highlight">是否试图访问非法地址</span>；如果是，则会引发一个 trap 并被当做致命错误处理（通常会 terminate 掉进程 ）：<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251104221831.png" width="auto" height="auto" alt/></li>
+</ol>
+
+
+<h2 id="分段segmentation"><strong>分段Segmentation</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#分段segmentation" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="basic-method">Basic Method<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#basic-method" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>虽然我们程序中的主函数、数组、符号表、子函数等等内部需要有一定的顺序，但是这些模块之间的先后顺序是无关紧要的。<br/>
+<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251104222027.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>一个程序是由一组 <strong>segment</strong> （段）构成的，每个 segment 都有其名称和长度。我们只要知道 segment 在物理内存中的基地址 (base) 和段内偏移地址 (offset) 就可以对应到物理地址中了。</li>
+<li>对于每一个 segment，我们给其一个编号。即，我们通过二元有序组 表示了一个地址。这种表示称为 <strong>logical address</strong>（逻辑地址）或 <strong>virtual address</strong>（虚拟地址）。<br/>
+通常，在编译用户程序时，编译器会自动构造段。</li>
+</ul>
+<h3 id="segmentationlogical-address--mmu">Segmentation—Logical Address &amp; MMU<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#segmentationlogical-address--mmu" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>要将逻辑地址映射到物理地址，首先我们需要找到段的基地址。</p>
+<ul>
+<li><strong>segment table</strong>
+<ul>
+<li>其中每个条目以 segment-number 索引</li>
+<li>存储其 <strong>段基地址 segment-base</strong> 和 <strong>段界限 segment-limit</strong>（可能还包含权限位）。</li>
+<li>因此逻辑地址的映射方式如下图：<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106125059.png" width="auto" height="auto" alt/>如果offset&lt;limit，则加上base得到物理地址</li>
+</ul>
+</li>
+<li>这一过程是由硬件设备 <strong>MMU (Memory-Management Unit, 内存管理单元)</strong> 完成的。CPU 使用的是逻辑地址，而内存寻址使用的是物理地址，MMU 完成的是翻译（映射）和保护工作：<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106125308.png" width="auto" height="auto" alt/>这里的 <strong>relocation register</strong> 即为 base register。</li>
+</ul>
+<h3 id="problems">Problems<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#problems" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>分段将一个程序分为数个部分，但是其内存分配的策略与简单的 partition 是一致的。因此，分段仍然会存在 external fragmentation 的问题：<span class="text-highlight">其表征是总空余内存是足够的，但是由于它不连续导致其无法使用。</span>也就是说，这个问题的核心点在于 <strong>not contiguous</strong>。我们有两种思路来解决这一问题：将</p>
+<ul>
+<li>内存重排使得 holes 连成一块
+<ul>
+<li><strong>Compaction</strong> 就是将内存中的内容重排使得所有空闲空间连续。这一操作要求内存中的程序是 <strong>relocatable</strong>  的，即其地址是相对 base 的偏移；这一要求在前面两种内存分配方式中是满足的。但是这一操作需要将内存逐一复制，这将消耗很多时间。</li>
+</ul>
+</li>
+<li>或者设计方案让程序不再需要连续的地址。
+<ul>
+<li>实际上，分段已经是这个方向上做出的一种尝试了，因为它将程序分为了几块，相比于简单的 partition，分段有助于减小 external fragmentation。为了更好地解决这个问题，我们提出 paging。</li>
+</ul>
+</li>
+</ul>
+<h2 id="分页paging"><strong>分页Paging</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#分页paging" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Paging （分页）是一种允许进程的物理地址空间不连续的内存管理方案。它避免了 external fragmentation 和 Compaction。各种形式的 paging 被大多数操作系统采用；实现 paging 需要 OS 和硬件的协作</p>
+<h3 id="basic-method-1">Basic Method<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#basic-method-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>物理地址:</strong>
+<ul>
+<li>将 <span class="text-highlight">physical memory</span> 切分成等大小的块（2 的幂，通常为 4KB = 2^12B ），称为 <strong>frames</strong>（帧）</li>
+<li>当一个进程要执行时，其内容填到一些可用的 frame 中，其中的每一个地址可以用这个 frame 的 base/number(唯一)以及相对这个 base 的 offset 表示<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251119193707.png" width="auto" height="auto" alt/></li>
+</ul>
+</li>
+<li><strong>逻辑地址:</strong>
+<ul>
+<li>将 <span class="text-highlight">logical memory</span> 切分成同样大小的块，称为 <strong>pages</strong>（页）</li>
+<li>同时 CPU 生成逻辑地址，逻辑地址包含一个 page number 和一个 page offset；另有一个 <strong>page table</strong>，它以 page number 索引，其中的第 <em>i</em> 项存储的是 page number 为 <em>i</em> 的 page <span class="text-highlight">所在物理内存的 frame 的 base</span>。这样，每一个 page 将通过其 page number 映射到一个 frame 上；进而 page 中的每一个地址也通过 offset 与frame中的对应地址建立映射。</li>
+</ul>
+</li>
+<li>也就是说，当 <span class="text-highlight">MMU</span> 需要将一个 logical address 翻译为 physical address 时，它需要获取 page number <em>p</em>，在 page table 中找到第 <em>p</em> 个 page 对应的的 frame number（也就是 frame base） <em>f</em> ，在 <em>f</em> 后面连接上 offset <em>d</em> 就得到了对应的 physical address。如我们之前所说，<span class="text-highlight">logical address 和 physical address 的 offset 应是一致的。</span><br/>
+<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106130616.png" width="auto" height="auto" alt/><br/>
+当一个进程需要执行时，其每一页都需要一帧。因此，如果进程需要 n 页，则内存中需要有 n 个帧。如果有，那么就可以分配给新进程：进程的每一页装入一个帧，frame number 放入进程的 page table 中。<br/>
+<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106130642.png" width="auto" height="auto" alt/>由于操作系统管理物理内存，它应该知道物理内存的分配细节，即共有多少帧、帧是否空闲等。这些信息保存在 <strong>frame table</strong> 中，每个条目对应一个帧，保存其是否被占用；如果被占用，是被哪个进程的哪个页占用。</li>
+</ul>
+<h3 id="why-not-contiguous">Why “Not Contiguous”<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#why-not-contiguous" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h3 id="page-table-硬件实现">Page table 硬件实现<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#page-table-硬件实现" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h4 id="1-simplest-method">1. Simplest method<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-simplest-method" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>最简单的方法是用一组专用的寄存器来实现。</p>
+<ul>
+<li>这一实现方法的优点是使用时非常迅速，因为对寄存器的访问是十分高效的。</li>
+<li>但是，由于成本等原因，寄存器的数量有限，因此这种方法要求 page table 的大小很小；同时，由于专用寄存器只有一组，因此 context switch 时需要存储并重新加载这些寄存器。</li>
+</ul>
+<h4 id="2-page-table-in-memory--ptbr">2. Page table in memory &amp; PTBR<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-page-table-in-memory--ptbr" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>大多数现代计算机允许页表非常大，因此对于这些机器，采用快速寄存器实现页表就不可行了。我们将页表放在内存中，并用 <strong>Page-Table Base Register (PTBR)</strong> 指向页表。在 context switch 时只需要修改 PTBR。</li>
+<li>但是这种方法的效率存在问题。要访问 logical address 对应的 physical address，我们首先要根据 PTBR 和 page number 来找到页表在内存的位置，并在其中得到 page 对应的 frame number，这需要一次内存访问；然后我们根据 frame number 和 page offset 算出真实的 physical address，并访问对应的字节内容。即，访问一个字节需要<span class="text-highlight">两次内存访问</span>，这会加倍原本的内存访问的时间，这是难以接受的。</li>
+</ul>
+<h4 id="3-tlb-flashcard">3. TLB <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-tlb-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>这个问题的解决方法用到一个专用的<span class="text-highlight">高速查找硬件 cache</span> (<strong>associative memory</strong>，支持 <strong>parallel search</strong>)，这里称它为 <strong>translation look-aside buffer (TLB)</strong>。<span class="text-highlight">总之就是缓存!</span></li>
+<li>TLB 的每个条目由 key &amp; value 组成，分别表示 page number 和 frame number，通常有 64<del>1024 个条目（PPT 上说 64</del>1024，课本上说 32~1024，区别不大）</li>
+<li>当我们需要找到一个 page number 对应的 frame number 时，TLB 会 <strong>同时</strong>与其中所有的 key 进行比较：如果找到对应条目，就不必访问内存；如果没有找到（称为 <strong>TLB miss</strong>），则访问内存并将新的 key &amp; value 存入 TLB 中，这会替换掉 TLB 原有的一个条目。</li>
+<li>替换的策略包括 least recently used (LRU), round-robin, random 等。有些 TLB 支持将某些条目<span class="orange-comment">[比如重要的内核代码]</span> wired down，即他们不会从 TLB 中被替换。在 MIPS 架构中，TLB miss 作为 exception 由操作系统处理；在 X86 架构中，TLB miss 由硬件处理。<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106131203.png" width="auto" height="auto" alt/></li>
+</ul>
+
+<h5 id="tlb-with-asid">TLB with ASID<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tlb-with-asid" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ol>
+<li>每个进程都有自己的页表,每个页是按照多级结构存储的<br/>
+如同我们提到过的，<span class="text-highlight">每个 process 都有其自己的 page table。因此切换进程时也需要切换 page table</span>。亦即，我们需要保证 TLB 与当前进程的 page table 是一致的。</li>
+</ol>
+<ul>
+<li>为了保证这一要求，我们可以在每次切换时 <strong>flush</strong> TLB。</li>
+<li>或者，有些 TLB 还在每个条目中保存 <strong>Address-Space Identifier (ASID)</strong>，每个 ASID 唯一标识一个进程。当 TLB 进行匹配时，除了 page number 外也对 ASID 进行匹配。</li>
+</ul>
+<h5 id="effective-memory-access-time-eat">Effective memory-access time EAT<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#effective-memory-access-time-eat" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../课程笔记/操作系统/attachments/Pasted-image-20251119185127.png" width="auto" height="auto" alt/></p>
+<h3 id="memory-protection内存保护">Memory Protection内存保护<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#memory-protection内存保护" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>分页环境下的内存保护由与每个 frame 关联的 protection bits 实现。这些 bits 通常保存在页表中。例如 valid-invalid bit：</p>
+<ul>
+<li><strong><code>v</code> (Valid/有效)：</strong> 表示对应的页是进程合法地址空间的一部分，因此地址转换可以正常进行。</li>
+<li><strong><code>i</code> (Invalid/无效)：</strong> 表示对应的页不是进程合法地址空间的一部分，如果 CPU 试图生成该页号对应的地址，计算机将触发一个 <strong>trap</strong> (陷入) 到操作系统，表示这是一个<strong>无效的页引用 (invalid page reference)</strong>。<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106141719.png" width="auto" height="auto" alt/></li>
+<li>如图所示，在一个具有 14 位地址空间（0 到 16383）的系统中，我们有一个程序应该仅使用地址 0 到 10468。给定页面大小为 2 KB，我们有如图 9.13 所示的情况。页面 0、1、2、3、4 和 5 中的地址通过页表正常映射。但是，尝试生成页面 6 或 7 中的地址会发现位被设置为无效，陷入无效页面引用异常</li>
+<li>注意，因为程序只延伸到地址 10468，任何超过该地址的引用都是非法的。然而，对页面 5 的引用被归类为有效的，所以对地址 12287 以内的访问都是有效的。只有从 12288 到 16383 的地址是无效的。这个问题是 2-KB 页面大小的结果，反映了分页的<span class="text-highlight">内部碎片</span>。</li>
+<li>某些系统提供硬件形式的页表长度寄存器（PTLR），以指示页表的大小。这个值会针对每个逻辑地址进行检查，以验证该地址在进程的有效范围内。未通过此测试将导致对操作系统的错误陷阱。</li>
+</ul>
+<h3 id="shared-pages">Shared Pages<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#shared-pages" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>分页可以允许进程间共享代码，例如同一程序的多个进程可以使用同一份代码，只要这份代码是 <strong>reentrant code</strong> （or <strong>non-self-modifying code</strong> : never changes between execution），如下图所示：<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106141852.png" width="auto" height="auto" alt/>图中所述的是多个进程共享一份库代码的情况；共享还可以用于进程之间的交流。当然，每个进程也可以有其自己的代码和数据。</p>
+<h3 id="分页problems">分页Problems<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#分页problems" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>会导致内部碎片。内存分配是以 frame 为单位执行的，如果进程要求的内存不是 frame 大小的整数倍，那么最后一个 frame 就会用不完，产生内部碎片。最坏的情况下，一个需要 <em>n pages + 1 byte</em> 的进程需要分配 <em>n+1</em> 个 frame，那么就会产生 <em>FrameSize - 1</em> 那么大的 Internal Fragmentation。</li>
+<li>如果进程的大小与页大小无关，每个进程中内部碎片的均值为 <em>½ FrameSize</em>。在实际情况中，平均值比这小很多。当然，我们不能为了减小内部碎片而将 frame 的大小无限减小，因为更小的 frame size 需要更多的页表项。</li>
+</ul>
+<h2 id="structure-of-page-table"><strong>Structure of Page Table</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#structure-of-page-table" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="多级页表">多级页表<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多级页表" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>页表是一个数组， <code>page_table[i]</code> 中存储的是 page number 为 i 的 page 所对应的 frame number。考虑我们的逻辑地址结构：<br/>
+<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106141952.png" width="auto" height="auto" alt/><br/>
+这样的逻辑地址结构需要一个存储 2^p 个元素的 page table，即需要这么大的连续内存，这是非常大的消耗。我们考虑将 p 再分为 p1 和 p2 ：<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142024.png" width="auto" height="auto" alt/><img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142030.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>两级页表， <code>outer_page_table[i]</code> 中存储的是 p1 为 i 的 inner page table，即<code>inner_page_table[i][]</code> 的基地址；</li>
+<li>而 <code>inner_page_table[i][j]</code> 中存储的就是 p1 为 i，p2 为 j 的 page 对应的 frame number，即 page number 为 p1p2 （没有分割时的 p）对应的 frame number。</li>
+<li>称 p1 为 <strong>page directory number</strong> ，p2 为 <strong>page table number</strong>，d 为 <strong>page offset</strong>。 <img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142128.png" width="auto" height="auto" alt/></li>
+<li>逻辑地址 <strong>代替</strong> 物理地址满足了程序的 contiguous 要求。考虑这中分两页的 page table 结构，我们可以发现我们只是将 p 分成了两部分；对于程序来说，p+d 构成的整体（即逻辑地址）仍然是 contiguous 的，而且程序并不会意识到我们将 p 分成了 p1 和 p2 两部分，就像曾经它没有意识到我们将 address 分为了 p 和 d 两部分一样。这些划分只是我们为了更好地分配内存所做的、Operating-System-Level 的事情而已。</li>
+<li>考虑这样做的好处：hierarchical paging 其实就是对页表的分页（page the page table）。因此，它避免了 page table 必须处在连续内存的问题，这一问题在 <em>p</em> 比较大时尤其严重。</li>
+<li>另外，这样做在一般情况下可以节省空间。我们之前提到，页表不一定会全部使用；并且由于逻辑地址是连续的，因此用到的页表项也是连续的，都排在页表的头部。因此如果我们采用了二级页表，那么许多排在后面的 inner page table 将完全为空；此时我们可以直接不给这些 inner page table 分配空间，即我们只分配最大的 p1 那么多个 inner page table。这样我们可以节省很多空间。即使在最差的情况下，所有页表都被使用了，我们的页表所用的总条目数也只有<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142242.png" width="auto" height="auto" alt/><img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142259.png" width="auto" height="auto" alt/><img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142305.png" width="425" height="auto" alt/>类似地，我们可以设计更多级的页表。例如，64 位的逻辑地址空间使用二级页表就是不够的，否则它的页表就会长成这样：<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142317.png" width="auto" height="auto" alt/><img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142326.png" width="auto" height="auto" alt/>这样，我们就建立了一个三级页表。<br/>
+实际上，我们不必使用全部的 64 位，即我们不需要一个 64 位那么巨大的 virtual address space。AMD-64 支持 48-bit 的虚拟地址，ARM64 支持 39-bit 和 48-bit 的虚拟地址空间：</li>
+</ul>
+<h3 id="hashed-page-tables-哈希页表">Hashed Page Tables 哈希页表<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#hashed-page-tables-哈希页表" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>前面介绍的页表是使用一个 table 保存 page# 对应的 frame#，这种解决方案面临的问题是空间需求是<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142544.png" width="auto" height="auto" alt/>且连续的；我们通过多级页表解决这个问题。而哈希页表给 page# 分配 frame# 并不是随意分配，而是通过哈希计算得到。这样的方式将空间需求降低到<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142614.png" width="auto" height="auto" alt/>且每个 page 对应的表项在内存中并不需要连续，从而解决了这个问题。哈希页表的每一个条目除了 page number 和 frame number 以外，还有一个指向有同一哈希值的下一个页表项的指针。这个结构与一般的哈希表是一致的。<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106142713.png" width="auto" height="auto" alt/>这是 32-bit address spaces 页表的一个常用方案。</p>
+<h3 id="inverted-page-tables-倒排页表">Inverted Page Tables 倒排页表<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#inverted-page-tables-倒排页表" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>在之前的分页方法时，每个进程都有一个页表。这种方法会导致这些表可能使用大量的物理内存。<br/>
+Inverted page tables 索引 physical address 而不是 logical address，也就是说，整个系统只有一个页表，并且每个物理内存的 frame 只有一条相应的条目。寻址时，CPU 遍历页表，找到对应的 pid 和 page number，其在页表中所处的位置即为 frame number：==页表的第 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span> 项（帧 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span>）存储了<strong>哪个进程的哪个页</strong>占用了这个帧，即存储了 (<code>pid</code>, <code>p</code>) 对。==<br/>
+<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106143126.png" width="auto" height="auto" alt/></p>
+<p>这种做法的缺点是</p>
+<ul>
+<li>寻址过程需要很长时间。我们也可以用 TLB 或者 hashed table 来加速。</li>
+<li>这种方法不能够共享内存，因为 page table 的每一个条目（与 frame number 一一对应）只能存储一个 page number。<br/>
+传统页表是每个进程有一个独立的页表，把用到的页和对应的frame联系起来。倒排页表整个系统只有一个，第i项表示帧i，存储了哪个进程的哪个页占用了这个帧。</li>
+</ul>
+<h2 id="swapping"><strong>Swapping</strong><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#swapping" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>进程的指令和数据必须在内存中以执行，但是我们可以将进程或进程的一部分暂时从内存 <strong>swap</strong> 到 ==<strong>backing store</strong> （备份存储，通常是一个比较快的磁盘）==中，继续运行时从中重新拿回到内存。</li>
+<li>Swapping 使得所有进程总的物理地址空间总和超过系统中真实的物理地址空间称为可能，提高了系统的 degree of multiprogramming。<br/>
+<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106143524.png" width="auto" height="auto" alt/>当然，在内存比较充足的情况下，swapping 并不必使用。Swapping 可能会导致很长的 context switch 用时，因为下一个进程可能并不在内存中，而由于磁盘的 I/O 很慢，swapping 到内存会花费很长时间。<br/>
+在分页的机制中，我们可以只 swap out 一些 pages，而不必 swap out 一整个进程：<img src="../../课程笔记/操作系统/attachments/Pasted-image-20251106143541.png" width="auto" height="auto" alt/></li>
+</ul></article><hr/><div class="page-footer"><div class="giscus" data-repo="im0x0ing/im0x0ing.github.io" data-repo-id="R_kgDOQevgrA" data-category="Announcements" data-category-id="DIC_kwDOQevgrM4CzLI8" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-input-position="top" data-light-theme="light" data-dark-theme="dark" data-theme-url="https://im0x0ing.github.io/static/giscus" data-lang="zh-CN"></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-8" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div class="toc-depth-control"><span class="depth-label">H3</span><input type="range" class="depth-slider" min="1" max="6" value="2" step="1"/></div><ul id="list-9" class="toc-content overflow"><li class="depth-2"><a href="#address-binding-flashcard" data-for="address-binding-flashcard">Address Binding flashcard</a></li><li class="depth-0"><a href="#连续内存分配" data-for="连续内存分配">连续内存分配</a></li><li class="depth-1"><a href="#内存分区策略partion-flashcard" data-for="内存分区策略partion-flashcard">内存分区策略partion flashcard</a></li><li class="depth-2"><a href="#fixed-partition-固定大小partition" data-for="fixed-partition-固定大小partition">Fixed Partition 固定大小partition</a></li><li class="depth-2"><a href="#variable-partition" data-for="variable-partition">Variable Partition</a></li><li class="depth-1"><a href="#动态存储分配问题-dynamic-storage-allocation-problem-flashcard" data-for="动态存储分配问题-dynamic-storage-allocation-problem-flashcard">动态存储分配问题 Dynamic Storage-Allocation Problem flashcard</a></li><li class="depth-1"><a href="#内存保护机制protection-flashcard" data-for="内存保护机制protection-flashcard">内存保护机制Protection flashcard</a></li><li class="depth-0"><a href="#分段segmentation" data-for="分段segmentation">分段Segmentation</a></li><li class="depth-1"><a href="#basic-method" data-for="basic-method">Basic Method</a></li><li class="depth-1"><a href="#segmentationlogical-address--mmu" data-for="segmentationlogical-address--mmu">Segmentation—Logical Address &amp; MMU</a></li><li class="depth-1"><a href="#problems" data-for="problems">Problems</a></li><li class="depth-0"><a href="#分页paging" data-for="分页paging">分页Paging</a></li><li class="depth-1"><a href="#basic-method-1" data-for="basic-method-1">Basic Method</a></li><li class="depth-1"><a href="#why-not-contiguous" data-for="why-not-contiguous">Why “Not Contiguous”</a></li><li class="depth-1"><a href="#page-table-硬件实现" data-for="page-table-硬件实现">Page table 硬件实现</a></li><li class="depth-2"><a href="#1-simplest-method" data-for="1-simplest-method">1. Simplest method</a></li><li class="depth-2"><a href="#2-page-table-in-memory--ptbr" data-for="2-page-table-in-memory--ptbr">2. Page table in memory &amp; PTBR</a></li><li class="depth-2"><a href="#3-tlb-flashcard" data-for="3-tlb-flashcard">3. TLB flashcard</a></li><li class="depth-3"><a href="#tlb-with-asid" data-for="tlb-with-asid">TLB with ASID</a></li><li class="depth-3"><a href="#effective-memory-access-time-eat" data-for="effective-memory-access-time-eat">Effective memory-access time EAT</a></li><li class="depth-1"><a href="#memory-protection内存保护" data-for="memory-protection内存保护">Memory Protection内存保护</a></li><li class="depth-1"><a href="#shared-pages" data-for="shared-pages">Shared Pages</a></li><li class="depth-1"><a href="#分页problems" data-for="分页problems">分页Problems</a></li><li class="depth-0"><a href="#structure-of-page-table" data-for="structure-of-page-table">Structure of Page Table</a></li><li class="depth-1"><a href="#多级页表" data-for="多级页表">多级页表</a></li><li class="depth-1"><a href="#hashed-page-tables-哈希页表" data-for="hashed-page-tables-哈希页表">Hashed Page Tables 哈希页表</a></li><li class="depth-1"><a href="#inverted-page-tables-倒排页表" data-for="inverted-page-tables-倒排页表">Inverted Page Tables 倒排页表</a></li><li class="depth-0"><a href="#swapping" data-for="swapping">Swapping</a></li><li class="overflow-end"></li></ul></div><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2025</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function f(i,e){if(!i)return;function r(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function t(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}i?.addEventListener("click",r),window.addCleanup(()=>i?.removeEventListener("click",r)),document.addEventListener("keydown",t),window.addCleanup(()=>document.removeEventListener("keydown",t))}function y(i){for(;i.firstChild;)i.removeChild(i.firstChild)}var h=class{constructor(e,r){this.container=e;this.content=r;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),r=this.onMouseMove.bind(this),t=this.onMouseUp.bind(this),o=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",r),document.addEventListener("mouseup",t),window.addEventListener("resize",o),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",r),()=>document.removeEventListener("mouseup",t),()=>window.removeEventListener("resize",o))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let r=this.createButton("+",()=>this.zoom(.1)),t=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(t),e.appendChild(o),e.appendChild(r),this.container.appendChild(e)}createButton(e,r){let t=document.createElement("button");return t.textContent=e,t.className="mermaid-control-button",t.addEventListener("click",r),window.addCleanup(()=>t.removeEventListener("click",r)),t}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}zoom(e){let r=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),t=this.content.getBoundingClientRect(),o=t.width/2,n=t.height/2,c=r-this.scale;this.currentPan.x-=o*c,this.currentPan.y-=n*c,this.scale=r,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){this.scale=1;let e=this.content.querySelector("svg");this.currentPan={x:e.getBoundingClientRect().width/2,y:e.getBoundingClientRect().height/2},this.updateTransform()}},C=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],E;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;E||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let r=E.default,t=new WeakMap;for(let n of e)t.set(n,n.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let a=t.get(s);a&&(s.innerHTML=a)}let n=C.reduce((s,a)=>(s[a]=window.getComputedStyle(document.documentElement).getPropertyValue(a),s),{}),c=document.documentElement.getAttribute("saved-theme")==="dark";r.initialize({startOnLoad:!1,securityLevel:"loose",theme:c?"dark":"base",themeVariables:{fontFamily:n["--codeFont"],primaryColor:n["--light"],primaryTextColor:n["--darkgray"],primaryBorderColor:n["--tertiary"],lineColor:n["--darkgray"],secondaryColor:n["--secondary"],tertiaryColor:n["--tertiary"],clusterBkg:n["--light"],edgeLabelBackground:n["--highlight"]}}),await r.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let n=0;n<e.length;n++){let v=function(){let g=l.querySelector("#mermaid-space"),m=l.querySelector(".mermaid-content");if(!m)return;y(m);let w=c.querySelector("svg").cloneNode(!0);m.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new h(g,m)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},c=e[n],s=c.parentElement,a=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(a),L=a.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),f(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>

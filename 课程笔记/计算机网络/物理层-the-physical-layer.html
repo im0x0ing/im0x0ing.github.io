@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>物理层 the physical layer</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Sans SC:wght@400;700&amp;family=Noto Serif SC:ital,wght@0,400;0,600;1,400;1,600&amp;family=JetBrains Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="ING wiki"/><meta property="og:title" content="物理层 the physical layer"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="物理层 the physical layer"/><meta name="twitter:description" content="物理层的主要任务 网络中硬件设备和传输介质的种类繁多，通信方式也各不相同。物理层应尽可能屏蔽这些差异，让数据链路层感觉不到这些差异。 发送方的数据链路层将需要发送的帧交给物理层 传输后接收方的物理层将这些帧传递给接收方的数据链路层。 具体地说，物理层确定与传输媒体接口有关的一些特性： 机械特性：指明接口所用接线器的形状和尺寸、引线数目和排列、固定和锁定装置等。 电气特性：指明在接口电缆的各条线上出现的电压的范围。 功能特性：规定物理接口上各条信号线的功能分配和确切定义（各条线上出现各种电压表示何种意义）。 规程特性 / 过程特性：定义了各信号线的工作顺序和时序，使得比特流传输得以完成。 2 基..."/><meta property="og:description" content="物理层的主要任务 网络中硬件设备和传输介质的种类繁多，通信方式也各不相同。物理层应尽可能屏蔽这些差异，让数据链路层感觉不到这些差异。 发送方的数据链路层将需要发送的帧交给物理层 传输后接收方的物理层将这些帧传递给接收方的数据链路层。 具体地说，物理层确定与传输媒体接口有关的一些特性： 机械特性：指明接口所用接线器的形状和尺寸、引线数目和排列、固定和锁定装置等。 电气特性：指明在接口电缆的各条线上出现的电压的范围。 功能特性：规定物理接口上各条信号线的功能分配和确切定义（各条线上出现各种电压表示何种意义）。 规程特性 / 过程特性：定义了各信号线的工作顺序和时序，使得比特流传输得以完成。 2 基..."/><meta property="og:image:alt" content="物理层的主要任务 网络中硬件设备和传输介质的种类繁多，通信方式也各不相同。物理层应尽可能屏蔽这些差异，让数据链路层感觉不到这些差异。 发送方的数据链路层将需要发送的帧交给物理层 传输后接收方的物理层将这些帧传递给接收方的数据链路层。 具体地说，物理层确定与传输媒体接口有关的一些特性： 机械特性：指明接口所用接线器的形状和尺寸、引线数目和排列、固定和锁定装置等。 电气特性：指明在接口电缆的各条线上出现的电压的范围。 功能特性：规定物理接口上各条信号线的功能分配和确切定义（各条线上出现各种电压表示何种意义）。 规程特性 / 过程特性：定义了各信号线的工作顺序和时序，使得比特流传输得以完成。 2 基..."/><meta property="twitter:domain" content="im0x0ing.github.io"/><meta property="og:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/物理层-the-physical-layer"/><meta property="twitter:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/物理层-the-physical-layer"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="物理层的主要任务 网络中硬件设备和传输介质的种类繁多，通信方式也各不相同。物理层应尽可能屏蔽这些差异，让数据链路层感觉不到这些差异。 发送方的数据链路层将需要发送的帧交给物理层 传输后接收方的物理层将这些帧传递给接收方的数据链路层。 具体地说，物理层确定与传输媒体接口有关的一些特性： 机械特性：指明接口所用接线器的形状和尺寸、引线数目和排列、固定和锁定装置等。 电气特性：指明在接口电缆的各条线上出现的电压的范围。 功能特性：规定物理接口上各条信号线的功能分配和确切定义（各条线上出现各种电压表示何种意义）。 规程特性 / 过程特性：定义了各信号线的工作顺序和时序，使得比特流传输得以完成。 2 基..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  padding: 2rem;
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL2hvbWUvcnVubmVyL3dvcmsvaW0weDBpbmctYmxvZy1wcml2YXRlL2ltMHgwaW5nLWJsb2ctcHJpdmF0ZS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcGFkZGluZzogMnJlbTtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://im0x0ing.github.io/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/物理层-the-physical-layer-og-image.webp"/><meta property="og:image:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/物理层-the-physical-layer-og-image.webp"/><meta name="twitter:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/物理层-the-physical-layer-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="课程笔记/计算机网络/物理层-the-physical-layer"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">ING wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slug===\&quot;\&quot;||node.slug.startsWith(\&quot;\\u8BFE\\u7A0B\\u7B14\\u8BB0\&quot;)&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-30"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-30" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-3"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><header><nav class="my-navbar "><div class="links"><a href="/课程笔记/">课程笔记</a><a href="/技术积累/">技术积累</a><a href="/工具使用/">工具使用</a><a href="/生活杂谈/">生活杂谈</a></div></nav></header><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/">课程笔记</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/计算机网络/">计算机网络</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>物理层 the physical layer</a></div></nav><h1 class="article-title">物理层 the physical layer</h1><p show-comma="true" class="content-meta"><time datetime="2025-11-30T00:00:00.000Z">Nov 30, 2025</time><span>24 min read</span></p><ul class="tags"><li><a href="../../tags/flashcard" class="internal tag-link">flashcard</a></li></ul></div></div><article class="popover-hint"><h2 id="物理层的主要任务">物理层的主要任务<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#物理层的主要任务" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>网络中硬件设备和传输介质的种类繁多，通信方式也各不相同。物理层应尽可能屏蔽这些差异，让数据链路层感觉不到这些差异。
+<ul>
+<li>发送方的<strong>数据链路层</strong>将需要发送的帧交给<strong>物理层</strong></li>
+<li>传输后接收方的<strong>物理层</strong>将这些帧传递给接收方的<strong>数据链路层</strong>。<br/>
+具体地说，物理层确定与传输媒体接口有关的一些特性：</li>
+</ul>
+</li>
+<li><strong>机械特性</strong>：指明接口所用接线器的形状和尺寸、引线数目和排列、固定和锁定装置等。</li>
+<li><strong>电气特性</strong>：指明在接口电缆的各条线上出现的电压的范围。</li>
+<li><strong>功能特性</strong>：规定物理接口上各条信号线的<span class="text-highlight">功能分配和确切定义</span>（各条线上出现各种电压表示何种意义）。</li>
+<li><strong>规程特性 / 过程特性</strong>：定义了各信号线的<span class="text-highlight">工作顺序和时序</span>，使得比特流传输得以完成。</li>
+</ul>
+<h2 id="2-基本概念">2 基本概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#2-基本概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>数据</strong>是需要传送的信息，<strong>信号</strong>是数据在传输过程中的存在形式。</li>
+</ul>
+<h3 id="21-linkchanneldata-ratebaud-rate">2.1 link/channel/data rate/baud rate<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#21-linkchanneldata-ratebaud-rate" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h5 id="链路和信道-flashcard">链路和信道 <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#链路和信道-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>(物理) 链路 link</strong>；承载信号的 physical path</li>
+<li>一条物理链路可以通通过分时、分频等方式容纳多个 <strong>信道 channel</strong> (也称为<strong>逻辑链路</strong>)，每条信道对应着一个发送方和一个接收方。</li>
+</ul>
+
+<h5 id="比特率-bit-rate-flashcard">比特率 bit rate <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#比特率-bit-rate-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>也可以叫data rate数据率</strong> - 单位时间内传输的信息中 bit 的数目，即 (数据量 / 时间)。
+<ul>
+<li>单位是 b/s Kb/s Mb/s Gb/s</li>
+<li>也可以写成 bps Kbps Mbps Gbps</li>
+<li>注意是 <strong>bit/s</strong> 不是 Byte/s</li>
+<li>就算实际发送的比特比数据多【譬如用1111表示1 】，但是data rate不变.也就是说冗余的比特我们不算在内</li>
+</ul>
+</li>
+</ul>
+
+<h5 id="symbol-rate-flashcard">symbol rate <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#symbol-rate-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>码元 / 符号 symbol</strong> - 用一个数字脉冲表示的一个 k 进制数字。就是一次采样得到的结果，可能包含不同数量的bit。
+<ul>
+<li>比如假设电平有4档分别编码00，01，10，11，那么一次采样就是2bit数据。那么分辨8个电压的话一次采样的结果就有3bit。</li>
+</ul>
+</li>
+<li><strong>symbol rate / baud rate</strong> - 单位时间内传输的 symbol 数目，即单位时间内可能发生的信号变化次数。就是单位时间采样次数。symbol/second就是baud</li>
+</ul>
+<blockquote>
+<p>例如一个四进制码元（0123，四个）可以携带2bit（log24）信息，那么如果数据率是64kb/s，那么symbolrate是32kbaud（因为2bit/symbol）。当然也存在0.5bit/symbol的情况。</p>
+</blockquote>
+
+<h3 id="22-带宽">2.2 带宽<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#22-带宽" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h5 id="带宽相关原理谐波拟合方波-flashcard">带宽相关原理/谐波拟合方波 <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#带宽相关原理谐波拟合方波-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251103163810.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>用一个一倍基频的谐波（傅里叶分量）拟合方波</li>
+<li>用一个一倍基频和一个二倍基频的谐波拟合</li>
+<li>用一个一倍基频和一个二倍基频和一个四倍基频的谐波拟合</li>
+<li>……</li>
+<li>谐波越多，拟合方波越成功。但是物理媒体有限制：截止频率fc，超过这个频率的波会有不同的减弱。所以只能使用0-fc频率【带宽/频带宽度】
+<ul>
+<li>周期：b（需要传输b bit信号）/r（data rate）</li>
+<li>频率：r/b 周期的倒数</li>
+<li>那么N*r/b<span>⇐</span>fc N为可以接受的谐波个数，N倍基频不能大于截止频率。可以得到N<span>⇐</span>b*fc/r。</li>
+<li>因为<span class="text-highlight">N越大，信号质量越好</span>，所以r过大时信号质量就会不好。因此在信号质量有一定要求的情况下，<strong>带宽越大，数据率就越大</strong>。因此数据率的最大值也可以称为带宽</li>
+</ul>
+</li>
+</ul>
+
+<h5 id="带宽的辨析-flashcard">带宽的辨析 <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#带宽的辨析-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>(数字) 带宽 (digital) bandwidth</strong>：最大可能的 data rate，用来表示通信线路<span class="text-highlight">传输数据的能力</span>，频带宽度越大，数据率越大，因此把数据率最大值也叫做带宽。单位与 data rate 一致。</li>
+<li><strong>(模拟) 带宽 (analog) bandwidth</strong>：信道的频带宽度，单位是 Hz。带宽是传输介质的一种物理特性，滤波器可以通过过滤掉某些频率的信号来进一步限制信号的带宽。
+<ul>
+<li>带宽指的是一段频率范围，它并不要求这段频率一定从 0 开始；事实上对于无线信道来说，发送低频率的信号也是不可能的，因为波长会很大，天线长度要跟波长一样长。
+<ul>
+<li>我们称之前所说的频率为 0∼B Hz 的信号为<strong>基带信号 (baseband signal)</strong></li>
+<li>而将其搬移到 S∼S+B Hz 的信号为<strong>通带信号 (passband signal)</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<h3 id="23-采样定理">2.3 采样定理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#23-采样定理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h5 id="nyquists-theorem-奈奎斯特定理-flashcard"><strong>Nyquist’s theorem</strong> 奈奎斯特定理 <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#nyquists-theorem-奈奎斯特定理-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><span class="text-highlight">条件：</span>在理想 (无噪声) 低通 (带宽有限) 信道中
+<ul>
+<li>【有噪声也可以适用】，因为提出的是理论上限，有噪声只会更低</li>
+</ul>
+</li>
+<li><strong>极限码元传输速率</strong>（采样频率）是 <strong>2W Baud</strong>，其中 W 是理想低通信道的 (模拟) 带宽，大于这个极限码元速率也采不出更多了就浪费了。
+<ul>
+<li>若用 V 表示每个码元离散电平的数目 (即其可以取值的离散值的个数；即其<span class="text-highlight">进制数</span>)，则<span class="text-highlight">极限数据速率</span>为 <strong>2W log₂(V) (b/s)</strong>。</li>
+<li>8级电平，用log28个bit可以表示一个symbol，即3bit/symbol<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002095739.png" width="auto" height="auto" alt/></li>
+</ul>
+</li>
+</ul>
+
+<h5 id="shannons-theorem-香农定理-flashcard"><strong>Shannon’s theorem</strong> 香农定理 <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#shannons-theorem-香农定理-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><span class="text-highlight">条件：</span>在受高斯白噪声干扰的信道中</li>
+<li>用 W 表示信道的 (模拟) 带宽，S 表示信号平均功率，N 表示高斯噪声功率，则<span class="text-highlight">极限数据速率</span>是 <strong>W log₂(1 + S/N) (b/s)</strong>。
+<ul>
+<li><strong>信噪比 Signal-to-Noise Ratio, SNR</strong>：公式中的 S/N 就是信噪比，没有单位；但为了方便表示更大的范围，也用 10lg(S/N) 表示信噪比，单位为分贝 dB（比如用50分贝来表示10的五次方的信噪比）。就是说如果看到分贝单位的信噪比需要进行<span class="text-highlight">换算</span>之后还原成普通信噪比代入公式.</li>
+</ul>
+</li>
+</ul>
+
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>求极限数据速率例题 <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a></p></div>
+                  
+                </div>
+<div class="callout-content">
+<ul>
+<li>对于给出了 <strong>V</strong> (信号电平数) 的情况，无论是否说明无噪声都应使用 <strong>Nyquist’s theorem</strong> 确定 data rate 的一个上界。</li>
+<li>对于给出了 <strong>SNR</strong> (信噪比) 的情况，也应根据 <strong>Shannon’s theorem</strong> 确定另一个上界。</li>
+</ul>
+<h5 id="示例一电话系统">示例一：电话系统<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#示例一电话系统" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>电话系统的典型参数是信道带宽为 3000Hz，信噪比为 30dB，则该系统的最大数据传输速率为： 3k×log2​(1+10^(30/10)) b/s≈30kb/s</p>
+<h5 id="示例二结合两种定理">示例二：结合两种定理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#示例二结合两种定理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>二进制信号在信噪比为 127:1 的 4kHz 信道上传输，求最大数据传输速率。【2进制信号可以理解成2元信号】</p>
+<ul>
+<li><strong>根据 Nyquist’s theorem</strong>，最大数据速率为2×4k×log2​(2) b/s=8kb/s</li>
+<li><strong>根据 Shannon’s theorem</strong>，最大数据速率为4k×log2​(1+127) b/s=28kb/s<br/>
+<strong>结论：</strong> 二者均为上界，应取其中较小的一个，因此该信道的最大数据传输速率为 <strong>8kb/s</strong>。</li>
+</ul>
+<h5 id="示例三-无意义信息">示例三 无意义信息<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#示例三-无意义信息" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>一条无噪声的 8kHz 信道，每个信号包含 8 级，每秒采样 24k 次，那么可以获得的最大传输速率是？
+<ul>
+<li><strong>无噪声</strong> - Nyquist, data rate = 2 * 8kHz * log₂(8) bit/symbol = 48kbps</li>
+<li>“题目中给出的每秒采样 24k 次是<strong>无意义</strong>的，因为超过了波特率的上限 2W = 16 kBaud，所以 72kbps 是错误答案”</li>
+</ul>
+</li>
+</ul>
+<h5 id="示例四-不乘2的情况">示例四 不乘2的情况<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#示例四-不乘2的情况" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>一个信道每 1/8s 采样一次，传输信号共有 16 中变化状态，最大数据传输速率是？</strong>【最大采样是带宽的2倍，这里已经告诉我们采样频率了就不乘2了】
+<ul>
+<li>8Baud * log₂(16) bit/symbol = 32bps</li>
+</ul>
+</li>
+</ul>
+</div>
+</blockquote>
+
+<h2 id="3-信息交互方式-flashcard">3 信息交互方式 <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#3-信息交互方式-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li><strong>单工链路 simplex link</strong> - 1条信道，固定单向通信。【 广播】</li>
+<li><strong>半双工链路 half-duplex link</strong> - 2条信道，双向可通信但不能同时。【 对讲机】</li>
+<li><strong>全双工链路 full-duplex link</strong> - 2条信道，两边可以同时收发。【 打电话】
+<ul>
+<li>注意2条 channel 不一定需要2条物理链路，一条通过一些复用方式或者双向传输也可以实现。</li>
+</ul>
+</li>
+</ul>
+
+<h2 id="4-传输介质--传输媒体-flashcard">4 传输介质 / 传输媒体 <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#4-传输介质--传输媒体-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>Transmission media，数据传输系统中发送设备和接收设备之间的物理通路。</p>
+<ul>
+<li><span class="text-highlight">导向传输介质 Guided trans media</span>
+<ul>
+<li><strong>双绞线 twisted pair</strong>：绞合以【减少相邻导线的电磁干扰】。
+<ul>
+<li>在双绞线外加一层金属丝编织的屏蔽层，可以进一步【提高抗电磁干扰的能力 】，称为<strong>屏蔽双绞线 STP, Shielded Twisted Pair</strong></li>
+<li>没有屏蔽层的称为<strong>非屏蔽双绞线 UTP, Unshielded Twisted Pair</strong>。</li>
+</ul>
+</li>
+<li><strong>同轴电缆 coaxial cable</strong></li>
+<li><strong>光纤 fiber optics</strong></li>
+</ul>
+</li>
+<li><span class="text-highlight">非导向传输介质 / 无线传输 Wireless transmission</span>
+<ul>
+<li><strong>无线电波 Radio</strong>：有较强的穿透能力，不需对准某个方向；无线手机通信、WLAN (wireless local area network) 等。</li>
+<li><strong>微波、红外线、激光</strong>：有很强的方向性，直线传播。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2 id="5-数字调制--数字数据到模拟信号">5 数字调制 / 数字数据到模拟信号<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#5-数字调制--数字数据到模拟信号" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>数据与代表它们的信号之间的转换过程称为<strong>数字调制 digital modulation</strong>。</p>
+<h4 id="51-基带传输-baseband-transmission-flashcard">5.1 基带传输 Baseband Transmission <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#51-基带传输-baseband-transmission-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103119.png" width="auto" height="auto" alt/><br/>
+<span class="text-highlight">直接将数据转换为数字信号</span>，数字信号是离散的，<span class="text-highlight">占用传输介质上的全部频率</span>，用于<strong>有线介质</strong> (光纤不是基带传输) 【编码】</p>
+<ul>
+<li>**Non-Return to Zero
+<ul>
+<li>用正电压 / 有光表示 1，负电压 / 没有光表示 0。</li>
+<li>问题是如果 0 和 1 交替，接收端可以在每一次变化时校准；但是如果一直是 0 或者 1 的话过一段时间可能就数错了会失去同步。</li>
+</ul>
+</li>
+<li><strong>Manchester (以太网 Ethernet 的编码方式)</strong>
+<ul>
+<li>用一个高和一个低表示1，一个低一个高表示0 (实际上就是与一个时钟信号做了 XOR，如图)。解决了时钟信号的问题，即每个码元中间一定有电平跳变。</li>
+<li>问题是带宽开销增大了—倍。</li>
+</ul>
+</li>
+<li><strong>NRZI NRZ Invert (USB 2.0 的编码方式)</strong>：
+<ul>
+<li>用信号翻转表示 1，信号不变表示 0。没有带宽开销的增加；</li>
+<li>解决了一长串都是 1 的问题；但是如果一长串都是 0 还是不行。</li>
+</ul>
+</li>
+<li><strong>4B/5B mapping</strong>：
+<ul>
+<li>把4bit的data重新映射到一套新的5bit编码</li>
+<li>经过设计的新编码保证映射结果最多只会出现连续 3 个 0，就能解决NRZI NRZ Invert的问题。虽然增加了 25% 的开销，但是比 Manchester 好一些。</li>
+</ul>
+</li>
+<li><strong>扰频/倒频 scrambling</strong>：
+<ul>
+<li>尝试解决一长串 0 和 1 的问题。发送数据之前，用一个伪随机序列 XOR 数据，接收器用同样的序列 XOR 后得到结果。</li>
+<li>但是其实不太靠谱如果信号和xor数据一模一样的话异或完全是0，而且容易被截获</li>
+</ul>
+</li>
+<li><strong>双极编码 bipolar encoding / AMI, Alternate Mark Inversion</strong>：
+<ul>
+<li>这种编码方式关注信号的平衡性；短时间内正电压和负电压一样多的信号称为<strong>平衡信号 balanced signal</strong>。这样的信号均值为0，即没有直流分量；由于传输介质的物理性质，没有直流分量是一个优点。</li>
+<li>这种编码方式用 +1 或者 -1 表示 1，每次的 1 与前一次的 1 表示法相反，保证最多只差 1 个；用 0 表示 0。</li>
+</ul>
+</li>
+<li><strong>8B/10B 编码模式</strong>：
+<ul>
+<li>同时考虑这些问题，通过映射保证没有超过 5 个连续的 0 或  1，同时保持 0 和 1 数目相对均等；其额外带宽消耗也只有 25%</li>
+</ul>
+</li>
+</ul>
+
+<h4 id="52-通带传输-passband-transmission-flashcard">5.2 通带传输 Passband Transmission <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#52-通带传输-passband-transmission-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><span class="text-highlight">通过调节载波信号的幅值、相位或频率来运载数据</span>，占据载波信号频率为中心的一段频带，用于<strong>无线和光纤信道</strong>。【 调制】<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103151.png" width="auto" height="auto" alt/></p>
+<ul>
+<li><strong>幅移键控 ASK, Amplitude Shift Keying</strong>：
+<ul>
+<li>通过两个不同的振幅分别表示 0 和 1；可以用更多的幅值等级表示更多的信息。</li>
+</ul>
+</li>
+<li><strong>频移键控 FSK, Frequency Shift Keying</strong>：
+<ul>
+<li>类似地，通过不同频率表示不同的码元。</li>
+</ul>
+</li>
+<li><strong>相移键控 PSK, Phase Shift Keying</strong>：
+<ul>
+<li>将载波波形偏移—定的相位。
+<ul>
+<li><strong>二进制相移键控 BPSK, Binary PSK</strong>：将波形偏移 0° 和 180°。</li>
+<li><strong>正交相移键控 QPSK, Quadrature PSK</strong>：将波形偏移 45°, 135°, 225° 和 315°。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h5 id="叠加综合">叠加综合<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#叠加综合" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>星座图 constellation diagram</strong>：为了让每个码元传输更多 bit 的信息，也可以将这些方式综合起来使用。下面的星座图用黑点表示一个合法的振幅和相位的组合，每一个symbol可能是这n个黑点中的一个
+<ul>
+<li>其中每个黑点到原点的<span class="text-highlight">距离</span>表示振幅，</li>
+<li>和 x 轴正方向所成<span class="text-highlight">角度</span>表示相位偏移。</li>
+</ul>
+</li>
+<li><strong>正交调幅 QAM, Quadrature Amplitude Modulation</strong>：上图 (a) 即为前述 QPSK，而后面两个图是 QAM 【正交相移键控x调幅】的两个实例，它们的每个 symbol 分别携带 4 bit 和 6 bit 的信息。<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103227.png" width="auto" height="auto" alt/></li>
+<li><strong>Gray code</strong>：为星座图<span class="text-highlight">分配每个黑点代表的 bit 时</span>，需要考虑少量的突发噪音不会导致很多 bit 出错。可以使用 Gray code 解决这一问题（相邻点的 bit 码仅相差一位）。<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103236.png" width="auto" height="auto" alt/></li>
+</ul>
+<h2 id="6-多路复用">6 多路复用<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#6-多路复用" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h5 id="频分复用-fdm-frequency-division-multiplexing-flashcard">频分复用 FDM, Frequency Division Multiplexing <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#频分复用-fdm-frequency-division-multiplexing-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>经过调制后，要传输的信号所占带宽是有限的；而线路可使用的带宽远大于这一宽度。<br/>
+我们可以对多路信号采用不同频率进行调制，使得调制后各路信号频率不同，不会互相干扰；即将信道带宽<span class="text-highlight">分割为多种不同频带的子信道</span>，实现多路复用。</p>
+<ul>
+<li>每个频带之间保留足够宽的距离，保证相邻的频带不会相互重叠。这一部分保护间隙称为<strong>保护频带 guard band</strong>。 <img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103318.png" width="auto" height="auto" alt/></li>
+<li><strong>正交频分复用 OFDM, Orthogonal FDM</strong>：基本思想是：<span class="text-highlight">每个子载波相互正交</span>；即每个子载波在其子载波的中心频率处能量为0。这样<strong>在每个子载波中心频率处取样</strong>，就不会被其他子载波干扰了。这样的方式不需要 guard band，且频带利用率很高。<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103336.png" width="auto" height="auto" alt/></li>
+</ul>
+<h5 id="时分复用-tdm-time-division-multiplexing-flashcard">时分复用 TDM, Time Division Multiplexing <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#时分复用-tdm-time-division-multiplexing-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>每个用户周期性地轮流工作，每次在一个非常短的时间内获得整个带宽。类似于频分复用，时分复用也可能会需要增加<strong>保护时间 guard time</strong>，保证不重叠</p>
+<ul>
+<li><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103354.png" width="auto" height="auto" alt/></li>
+<li>TDM 的调度方式是机械的，一种<span class="text-highlight">动态按需分配时间片</span>的方式是<strong>统计时分复用 STDM, Statistical TDM</strong>。但是需要额外的信息来标识可能效率反而会变低</li>
+</ul>
+<h5 id="码分复用-cdm-code-division-multiplexing码分多址cdma-code-division-multiple-accessflashcard-flashcard">码分复用 CDM, Code Division Multiplexing/码分多址CDMA, Code Division Multiple Access#flashcard <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#码分复用-cdm-code-division-multiplexing码分多址cdma-code-division-multiple-accessflashcard-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103818.png" width="auto" height="auto" alt/></p>
+<ol>
+<li>若干由 1 或 -1 组成的序列S, Sˉ 表示其反码 (序列中的每个数取其相反数)。</li>
+<li>对于任意两个序列 S 和 T，其<strong>归一化内积 (normalized inner product)</strong> =内积（对应位置相乘的积相加）/m，其中 m 是序列的长度，此处为 8。
+<ul>
+<li>容易理解，有 S⋅S=1，S⋅Sˉ=−1。若 S⋅T=0，我们称这两个序列是<strong>正交 (orthogonal)</strong> 的； 显然此时 Sˉ⋅T=S⋅Tˉ=Sˉ⋅Tˉ=0。根据这一定义，图中 (a) 的 4 个序列ABCD是两两正交的。</li>
+</ul>
+</li>
+<li>现在我们尝试利用这些序列发送信号。<span class="text-highlight">每个发送端（ABCD）被分配了一个序列</span>；
+<ol>
+<li>每一个周期中，发送端可以选择发送 1 (通过发送这个序列)，或者发送 0 (通过发送这个序列的反码)，或者什么都不发送。当多个站同时发送时，它们发送的信号会叠加起来；</li>
+<li><span class="text-highlight">但是由于序列的正交性，我们可以将每个站发送的信息单独解码出来。</span>假设在某一个周期中，A 和 D 发送了 0，B 发送了 1，C 什么都没有发送，那么叠加出的信号就形如 S=Aˉ+B+Dˉ=(1,−1,3,−1,1,3,−1,−1)。我们将这个信号与 B 作归一化内积：<br/>
+S⋅B=8−1+1+3+1+1+3−1+1​=1</li>
+</ol>
+</li>
+<li>即 B 发送的是 1。如果与 C 作归一化内积，则结<strong>果为 0，表示 C 什么都没有发送</strong>。如果与 A 或 D 做归一化内积，则<strong>结果为 -1，表示发送的是反码 (即 0)</strong>。这是因为，归一化内积满足分配律，S⋅D=(Aˉ+B+Dˉ)⋅D=Aˉ⋅D+B⋅D+Dˉ⋅D，而前两项由于正交性为 0，第三项为 -1，因此最终结果为 -1；其他的情况也是类似的。</li>
+<li>下面回顾我们做了什么。我们==在原本需要发送 1个 bit 的时间发送了 <code>m</code> 个 bit 组成的序列==，这样的序列可以有 <code>m</code> 个且两两正交 (考虑正交矩阵)，==从而满足 <code>m</code> 个发送方同时互不干扰地传输的需要==。同时由于我们在单位时间内传输的 bit 数是原来的 <code>m</code> 倍，因此==所需要的带宽也是原来的 <code>m</code> 倍==。如此我们将一个窄带信号扩展到了一个很宽的频带上，这样更能容忍干扰，同时允许多个用户共享同一个频带。</li>
+</ol>
+
+
+<h2 id="7-公共电话交换网络-the-public-switched-telephone-network-pstn-flashcard">7 公共电话交换网络 The Public Switched Telephone Network, PSTN <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#7-公共电话交换网络-the-public-switched-telephone-network-pstn-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103506.png" width="auto" height="auto" alt/></p>
+
+<h3 id="71-本地回路-local-loop-flashcard">7.1 本地回路 Local Loop <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#71-本地回路-local-loop-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>调制解调器 modem</strong>: 调制器 modulator 和 解调器 demodulator 的缩写，数字信息和模拟信号流之间的转换。</li>
+<li><strong>非对称用户线 ADSL Asymmetric Digital Subscriber Line</strong>: 使用 FDM。在过去，整个电话系统中的传输都是模拟的，实际的语音信号以电压的形式从源端传输到接收方。</li>
+</ul>
+
+<h3 id="72-中继线-trunk-flashcard">7.2 中继线 Trunk <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#72-中继线-trunk-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li><strong>编码解码器 codec</strong>: coder-decoder，模拟信号转为数字信号，使用<strong>脉冲编码调制 PCM, Pulse Code Modulation</strong>。</li>
+<li><strong>波分复用 WDM, Wavelength Division Multiplexing</strong>：感觉和频分复用差不多，毕竟频率和波长没啥区别。可能 FDM 用来说电，WDM 用来说光这个样子。</li>
+</ul>
+
+<h3 id="73-交换-switching-flashcard">7.3 交换 Switching <a href="../.././../tags/flashcard" class="tag-link internal alias" data-slug="tags/flashcard">flashcard</a><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#73-交换-switching-flashcard" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103533.png" width="auto" height="auto" alt/><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251002103540.png" width="auto" height="auto" alt/></p>
+<ul>
+<li><strong>电路交换 Circuit Switching</strong>:
+<ul>
+<li><span class="text-highlight">先建立连接，然后直接发，最后释放连接</span>；过程中路径被独占。路径的结点收到就立刻发给下一个结点，不储存。</li>
+</ul>
+</li>
+<li><strong>报文交换 Message Switching</strong>
+<ul>
+<li>不需要建立连接。报文携带目的地址和源地址，途中每个结点在收到整个 message 以后再找下一条路进行传输。</li>
+<li>这样可以动态选择合适空闲的线路，增加线路的可靠性和利用率。但是会引起转发时延，并需要缓存空间。</li>
+</ul>
+</li>
+<li><strong>分组交换 / 包交换 Packet Switching</strong>
+<ul>
+<li>将报文合理分块，增加携带分组编号等信息。</li>
+<li>在报文交换的基础上，缩短了时延，减少了期望的出错重发数据量，同时由于 packet 的长度有所限制，存储管理也方便了很多；动态寻找线路时<span class="text-highlight">各个 packet 也可以选择不同路径 (因此，packet 的数据不一定按序到达)</span>。问题是<span class="text-highlight">额外信息量</span>进一步增加，且发送前和接收后的工作量也会增加。</li>
+</ul>
+</li>
+</ul></article><hr/><div class="page-footer"><div class="giscus" data-repo="im0x0ing/im0x0ing.github.io" data-repo-id="R_kgDOQevgrA" data-category="Announcements" data-category-id="DIC_kwDOQevgrM4CzLI8" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-input-position="top" data-light-theme="light" data-dark-theme="dark" data-theme-url="https://im0x0ing.github.io/static/giscus" data-lang="zh-CN"></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-11" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div class="toc-depth-control"><span class="depth-label">H3</span><input type="range" class="depth-slider" min="1" max="6" value="2" step="1"/></div><ul id="list-9" class="toc-content overflow"><li class="depth-0"><a href="#物理层的主要任务" data-for="物理层的主要任务">物理层的主要任务</a></li><li class="depth-0"><a href="#2-基本概念" data-for="2-基本概念">2 基本概念</a></li><li class="depth-1"><a href="#21-linkchanneldata-ratebaud-rate" data-for="21-linkchanneldata-ratebaud-rate">2.1 link/channel/data rate/baud rate</a></li><li class="depth-3"><a href="#链路和信道-flashcard" data-for="链路和信道-flashcard">链路和信道 flashcard</a></li><li class="depth-3"><a href="#比特率-bit-rate-flashcard" data-for="比特率-bit-rate-flashcard">比特率 bit rate flashcard</a></li><li class="depth-3"><a href="#symbol-rate-flashcard" data-for="symbol-rate-flashcard">symbol rate flashcard</a></li><li class="depth-1"><a href="#22-带宽" data-for="22-带宽">2.2 带宽</a></li><li class="depth-3"><a href="#带宽相关原理谐波拟合方波-flashcard" data-for="带宽相关原理谐波拟合方波-flashcard">带宽相关原理/谐波拟合方波 flashcard</a></li><li class="depth-3"><a href="#带宽的辨析-flashcard" data-for="带宽的辨析-flashcard">带宽的辨析 flashcard</a></li><li class="depth-1"><a href="#23-采样定理" data-for="23-采样定理">2.3 采样定理</a></li><li class="depth-3"><a href="#nyquists-theorem-奈奎斯特定理-flashcard" data-for="nyquists-theorem-奈奎斯特定理-flashcard">Nyquist’s theorem 奈奎斯特定理 flashcard</a></li><li class="depth-3"><a href="#shannons-theorem-香农定理-flashcard" data-for="shannons-theorem-香农定理-flashcard">Shannon’s theorem 香农定理 flashcard</a></li><li class="depth-3"><a href="#示例一电话系统" data-for="示例一电话系统">示例一：电话系统</a></li><li class="depth-3"><a href="#示例二结合两种定理" data-for="示例二结合两种定理">示例二：结合两种定理</a></li><li class="depth-3"><a href="#示例三-无意义信息" data-for="示例三-无意义信息">示例三 无意义信息</a></li><li class="depth-3"><a href="#示例四-不乘2的情况" data-for="示例四-不乘2的情况">示例四 不乘2的情况</a></li><li class="depth-0"><a href="#3-信息交互方式-flashcard" data-for="3-信息交互方式-flashcard">3 信息交互方式 flashcard</a></li><li class="depth-0"><a href="#4-传输介质--传输媒体-flashcard" data-for="4-传输介质--传输媒体-flashcard">4 传输介质 / 传输媒体 flashcard</a></li><li class="depth-0"><a href="#5-数字调制--数字数据到模拟信号" data-for="5-数字调制--数字数据到模拟信号">5 数字调制 / 数字数据到模拟信号</a></li><li class="depth-2"><a href="#51-基带传输-baseband-transmission-flashcard" data-for="51-基带传输-baseband-transmission-flashcard">5.1 基带传输 Baseband Transmission flashcard</a></li><li class="depth-2"><a href="#52-通带传输-passband-transmission-flashcard" data-for="52-通带传输-passband-transmission-flashcard">5.2 通带传输 Passband Transmission flashcard</a></li><li class="depth-3"><a href="#叠加综合" data-for="叠加综合">叠加综合</a></li><li class="depth-0"><a href="#6-多路复用" data-for="6-多路复用">6 多路复用</a></li><li class="depth-3"><a href="#频分复用-fdm-frequency-division-multiplexing-flashcard" data-for="频分复用-fdm-frequency-division-multiplexing-flashcard">频分复用 FDM, Frequency Division Multiplexing flashcard</a></li><li class="depth-3"><a href="#时分复用-tdm-time-division-multiplexing-flashcard" data-for="时分复用-tdm-time-division-multiplexing-flashcard">时分复用 TDM, Time Division Multiplexing flashcard</a></li><li class="depth-3"><a href="#码分复用-cdm-code-division-multiplexing码分多址cdma-code-division-multiple-accessflashcard-flashcard" data-for="码分复用-cdm-code-division-multiplexing码分多址cdma-code-division-multiple-accessflashcard-flashcard">码分复用 CDM, Code Division Multiplexing/码分多址CDMA, Code Division Multiple Access#flashcard flashcard</a></li><li class="depth-0"><a href="#7-公共电话交换网络-the-public-switched-telephone-network-pstn-flashcard" data-for="7-公共电话交换网络-the-public-switched-telephone-network-pstn-flashcard">7 公共电话交换网络 The Public Switched Telephone Network, PSTN flashcard</a></li><li class="depth-1"><a href="#71-本地回路-local-loop-flashcard" data-for="71-本地回路-local-loop-flashcard">7.1 本地回路 Local Loop flashcard</a></li><li class="depth-1"><a href="#72-中继线-trunk-flashcard" data-for="72-中继线-trunk-flashcard">7.2 中继线 Trunk flashcard</a></li><li class="depth-1"><a href="#73-交换-switching-flashcard" data-for="73-交换-switching-flashcard">7.3 交换 Switching flashcard</a></li><li class="overflow-end"></li></ul></div><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2025</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function f(i,e){if(!i)return;function r(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function t(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}i?.addEventListener("click",r),window.addCleanup(()=>i?.removeEventListener("click",r)),document.addEventListener("keydown",t),window.addCleanup(()=>document.removeEventListener("keydown",t))}function y(i){for(;i.firstChild;)i.removeChild(i.firstChild)}var h=class{constructor(e,r){this.container=e;this.content=r;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),r=this.onMouseMove.bind(this),t=this.onMouseUp.bind(this),o=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",r),document.addEventListener("mouseup",t),window.addEventListener("resize",o),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",r),()=>document.removeEventListener("mouseup",t),()=>window.removeEventListener("resize",o))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let r=this.createButton("+",()=>this.zoom(.1)),t=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(t),e.appendChild(o),e.appendChild(r),this.container.appendChild(e)}createButton(e,r){let t=document.createElement("button");return t.textContent=e,t.className="mermaid-control-button",t.addEventListener("click",r),window.addCleanup(()=>t.removeEventListener("click",r)),t}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}zoom(e){let r=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),t=this.content.getBoundingClientRect(),o=t.width/2,n=t.height/2,c=r-this.scale;this.currentPan.x-=o*c,this.currentPan.y-=n*c,this.scale=r,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){this.scale=1;let e=this.content.querySelector("svg");this.currentPan={x:e.getBoundingClientRect().width/2,y:e.getBoundingClientRect().height/2},this.updateTransform()}},C=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],E;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;E||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let r=E.default,t=new WeakMap;for(let n of e)t.set(n,n.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let a=t.get(s);a&&(s.innerHTML=a)}let n=C.reduce((s,a)=>(s[a]=window.getComputedStyle(document.documentElement).getPropertyValue(a),s),{}),c=document.documentElement.getAttribute("saved-theme")==="dark";r.initialize({startOnLoad:!1,securityLevel:"loose",theme:c?"dark":"base",themeVariables:{fontFamily:n["--codeFont"],primaryColor:n["--light"],primaryTextColor:n["--darkgray"],primaryBorderColor:n["--tertiary"],lineColor:n["--darkgray"],secondaryColor:n["--secondary"],tertiaryColor:n["--tertiary"],clusterBkg:n["--light"],edgeLabelBackground:n["--highlight"]}}),await r.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let n=0;n<e.length;n++){let v=function(){let g=l.querySelector("#mermaid-space"),m=l.querySelector(".mermaid-content");if(!m)return;y(m);let w=c.querySelector("svg").cloneNode(!0);m.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new h(g,m)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},c=e[n],s=c.parentElement,a=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(a),L=a.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),f(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>
