@@ -6,65 +6,65 @@
       <description>Last 10 notes on ING wiki</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>strings</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/strings</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/strings</guid>
-    <description><![CDATA[ strings.Builder 常用于在循环中对字符串进行增加的操作.builder就相当于一个缓冲区,在最后才生成最终的字符串. ]]></description>
-    <pubDate>Mon, 08 Dec 2025 14:37:00 GMT</pubDate>
+    <title>🏠 首页</title>
+    <link>https://im0x0ing.github.io/</link>
+    <guid>https://im0x0ing.github.io/</guid>
+    <description><![CDATA[ 欢迎来到 ING wiki！ 本质自用, 持续建设中… 📂 导航 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 . ]]></description>
+    <pubDate>Wed, 10 Dec 2025 05:32:12 GMT</pubDate>
   </item><item>
-    <title>fmt</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/fmt</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/fmt</guid>
-    <description><![CDATA[ fmt.Print(&quot;Hello&quot;)//不换行原样输出 fmt.Println(&quot;a&quot;,&quot;b&quot;)//自动换行且参数之间自动加空格 fmt.Printf(&quot;我是%s,%d岁&quot;, name, age )//格式化输出,不换行 fmt.Scanln(&amp;n)//读取到的数据放入到这个地址中. ]]></description>
-    <pubDate>Mon, 08 Dec 2025 14:36:00 GMT</pubDate>
-  </item><item>
-    <title>移动匹配</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E7%A7%BB%E5%8A%A8%E5%8C%B9%E9%85%8D</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E7%A7%BB%E5%8A%A8%E5%8C%B9%E9%85%8D</guid>
+    <title>索引</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/mySQL/%E5%85%B6%E4%BB%96/%E7%B4%A2%E5%BC%95</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/mySQL/%E5%85%B6%E4%BB%96/%E7%B4%A2%E5%BC%95</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Mon, 08 Dec 2025 14:36:00 GMT</pubDate>
+    <pubDate>Wed, 10 Dec 2025 05:32:12 GMT</pubDate>
   </item><item>
-    <title>3. 无重复字符的最长子串</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/3.-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/3.-%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2</guid>
-    <description><![CDATA[ 给定一个字符串 s ，请你找出其中不含有重复字符的 最长 子串 的长度 小记 滑动窗口思想 重复字符:记录频率 Transclude of 字符串处理#range与下标 代码 func lengthOfLongestSubstring(s string) int { //不含有重复字符:一个数组来记录字符出现的频率,.如果新进来的这个数=2了,就缩小左边直到这个数前面那个重复的数出去,2-1=1.确保整个数组内没有重复元素的时候可以记录最大值ans. ]]></description>
-    <pubDate>Mon, 08 Dec 2025 14:31:00 GMT</pubDate>
+    <title>01 系统启动与进程创建</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/01-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/01-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA</guid>
+    <description><![CDATA[ 系统启动流程 上电与引导 计算机上电后的启动过程： CPU执行ROM中的引导加载器（bootstrap loader） 这是开机后执行的第一个软件 位置固定且已知 引导加载器完成的任务 硬件自检（POST） 定位磁盘上的操作系统内核镜像 将内核加载到主内存（RAM） 切换CPU为内核态，开始执行内核代码 内核初始化 内核加载到内存后的初始化步骤： 初始化中断系统 设置中断向量表（interrupt vector table） 建立中断号到中断处理程序的映射 配置中断请求线（interrupt-request line） 初始化计时器（timer） 用于时间片管理 初始化内存管理 建立物理内存的... ]]></description>
+    <pubDate>Wed, 10 Dec 2025 05:32:12 GMT</pubDate>
   </item><item>
-    <title>02 Instructions</title>
-    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/02-Instructions</link>
-    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/02-Instructions</guid>
-    <description><![CDATA[ DECK: CS::CO summary 寄存器 registers flashcard RISC-V architecture 提供 32 个数据寄存器，分别命名为 x0 ~ x31 ，每个寄存器的大小是 64 位。 x0 的值恒为 0 Preserved on call 意为是否保证调用前后这些寄存器的值不变。 也提供一系列浮点数寄存器 f0 ~ f31。 之所以寄存器的个数不多，是因为过多的寄存器会增加电子信号的传播距离，从而导致时钟周期的延长。 将不常用的（或之后用到的）变量存入内存的过程被称为溢出寄存器 (Spilling Register) 寄存器存储空间小，内存存储空间大 因此小... ]]></description>
-    <pubDate>Mon, 08 Dec 2025 14:19:00 GMT</pubDate>
+    <title>02 内存管理</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/02-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/02-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86</guid>
+    <description><![CDATA[  虚拟内存概述 基本概念 虚拟内存的作用 每个进程拥有独立的虚拟地址空间 CPU使用虚拟地址，由MMU（内存管理单元）自动转换为物理地址 实现进程间的隔离与保护 虚拟地址空间的结构 用户空间（User Portion）：0 ~ 3GB（32位系统） 内核空间（Kernel Portion）：3GB ~ 4GB（32位系统） 所有进程的内核空间映射到同一块物理内存（参见Kernel Addresses &amp; Userspace Addresses） 虚拟内存的优势 隔离性：每个进程拥有独立的虚拟地址空间，互不干扰 灵活性：进程可以使用比物理内存更大的虚拟地址空间 效率：通过按需分页和页面置... ]]></description>
+    <pubDate>Wed, 10 Dec 2025 05:32:12 GMT</pubDate>
   </item><item>
-    <title>5. 最长回文子串</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/5.-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/5.-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2</guid>
-    <description><![CDATA[ 给你一个字符串 s，找到 s 中最长的 回文 子串。 小记 关键是枚举回文子串的中心。 然后从该中心触发,分奇数和偶数两种情况讨论即可 在左右相等时,持续扩散,直到数组边界 代码 func longestPalindrome(s string) string { n:=len(s) ans:=0 resl:=-1 resr:=n for i,_:=range s{ l,r:=i,i for l&gt;=0&amp;&amp;r&lt;n&amp;&amp;s[l]==s[r]{ ans=max(ans,r-l+1) if ans==r-l+1{ resl=l resr=r } l-- r++ ... ]]></description>
-    <pubDate>Mon, 08 Dec 2025 11:45:00 GMT</pubDate>
+    <title>03 进程调度</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/03-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/03-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6</guid>
+    <description><![CDATA[ 进程状态 五种基本状态 进程在运行过程中会经历以下进程状态： New（新建） 进程正在创建过程中 包括申请PCB、分配初始资源等 Ready（就绪） 进程已准备好，等待CPU资源 一旦获得CPU就可以立即执行 Running（运行） 进程正在使用CPU执行 单核系统中同时只有一个进程处于Running状态 多核系统中Running进程数不超过核心数 Waiting（等待） 进程等待某个事件（如I/O完成、信号等） 即使有空余的CPU资源，该进程也无法继续 从Running到Waiting通常是主动的 Terminated（终止） 进程已结束 需要释放资源 状态转换 Ready → Runnin... ]]></description>
+    <pubDate>Wed, 10 Dec 2025 05:32:12 GMT</pubDate>
   </item><item>
-    <title>栈与队列</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97</guid>
-    <description><![CDATA[  go 中没有名为Stack的容器, 一般直接用切片作为栈 stack是如何实现的？ 实现：[]int (或其他类型的切片)。 Push (入栈)：使用 append 函数。 Pop (出栈)：使用切片的截取操作 Top (取栈顶)：直接索引 len(s)-1。 // 这是一个 Go 语言实现栈的标准写法 stack := make([]int, 0) // Push stack = append(stack, 1) stack = append(stack, 2) // Top (获取栈顶元素) top := stack[len(stack)-1] // Pop (移除栈顶元素) stack... ]]></description>
-    <pubDate>Mon, 08 Dec 2025 11:36:00 GMT</pubDate>
+    <title>04 完整流程示例</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/04-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/04-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B</guid>
+    <description><![CDATA[ 系统启动到第一个进程运行 参考：系统启动流程 完整流程 1. 上电与引导 CPU执行ROM中的引导加载器 硬件自检（POST） 定位并加载操作系统内核到RAM 切换到内核态 2. ]]></description>
+    <pubDate>Wed, 10 Dec 2025 05:32:12 GMT</pubDate>
   </item><item>
-    <title>对称匹配</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%AF%B9%E7%A7%B0%E5%8C%B9%E9%85%8D</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%A0%88%E4%B8%8E%E9%98%9F%E5%88%97/%E5%AF%B9%E7%A7%B0%E5%8C%B9%E9%85%8D</guid>
-    <description><![CDATA[ 由于栈结构的特殊性,非常适合做对称匹配类的题目 不匹配的三种情况 已经遍历完了字符串，但是栈不为空，说明有相应的左括号没有右括号来匹配，所以return false 遍历字符串匹配的过程中，发现栈里没有要匹配的字符。所以return false 遍历字符串匹配的过程中，栈已经为空了，没有匹配的字符了，说明右括号没有找到对应的左括号return false 技巧: 计算字符串长度如果是奇数那么一定不true 在遇到左括号的时候把右括号入栈，那么下次遇到右括号就只需要比较当前元素和栈顶是否相等就可以了 func isValid(s string) bool { if len(s)%2 != 0 {... ]]></description>
-    <pubDate>Mon, 08 Dec 2025 11:09:00 GMT</pubDate>
+    <title>进程与内存流程总览</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%86%85%E5%AD%98%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%86%85%E5%AD%98%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88</guid>
+    <description><![CDATA[ 进程与内存流程总览 本文档从系统上电开始，完整梳理操作系统如何启动、创建第一个用户进程、管理内存，以及如何进行进程切换的整个流程。 一、系统启动：从硬件到内核 1.1 上电与引导 计算机上电后，CPU首先执行存储在**ROM（只读存储器）**中的引导加载器（bootstrap loader）。这个程序是开机后执行的第一个软件，位置固定且已知。 引导加载器的任务： 进行硬件自检（POST） 定位磁盘上的操作系统内核镜像 将内核加载到**主内存（RAM）**中 切换CPU模式为内核态，开始执行内核代码 1.2 内核初始化 内核被加载到内存后，开始初始化工作： 初始化中断系统 设置中断向量表（int... ]]></description>
+    <pubDate>Wed, 10 Dec 2025 05:32:12 GMT</pubDate>
   </item><item>
-    <title>字符串处理</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%A4%84%E7%90%86</guid>
-    <description><![CDATA[ rune与byte与string &#039;a&#039; (单引号)：字符（Go 里叫 rune，本质是整数 `int32 int32，有 32 位，最大能表示几十亿,会根据字符串里的元素自动匹配要表示什么.比如”an按”会解析出3个rune:a\n\按 &quot;a&quot; (双引号：字符串`string byte 只有 8 位，最大只能表示到 255。英文字符（ASCII）比如 &#039;a&#039; 是 97，能装下。但汉字 &#039;按&#039; 的编号是 25353，一般是3个byte。 Title ‘a’虽然被认为是rune,但是实际上属于无类型常量 (Untyp... ]]></description>
-    <pubDate>Mon, 08 Dec 2025 10:55:00 GMT</pubDate>
+    <title>lab8</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/lab%E7%9B%B8%E5%85%B3/lab8</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/lab%E7%9B%B8%E5%85%B3/lab8</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Wed, 10 Dec 2025 05:32:12 GMT</pubDate>
   </item><item>
-    <title>KMP算法</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/KMP%E7%AE%97%E6%B3%95</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/KMP%E7%AE%97%E6%B3%95</guid>
-    <description><![CDATA[ 取了三位学者名字的首字母。所以叫做KMP 主要思想 当出现字符串不匹配时,可以知道一部分之前已经匹配的内容,可以利用这些信息,避免从头匹配. 原理 next数组 本质上即为前缀表prefixtable 用来回退.记录了模式串与主串不匹配的时候,模式串应该从哪里开始重新匹配. ]]></description>
-    <pubDate>Mon, 08 Dec 2025 10:24:00 GMT</pubDate>
+    <title>排序算法</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95</guid>
+    <description><![CDATA[ 快速选择quick select 核心目的: 解决 Top K 问题，并且要做到 O(N) 的时间复杂度 快速选择思路 Transclude of 排序算法#快速排序思路 而针对Top K问题,可以做如下优化. ]]></description>
+    <pubDate>Tue, 09 Dec 2025 17:21:00 GMT</pubDate>
+  </item><item>
+    <title>215. 数组中的第K个最大元素</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/215.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/215.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0</guid>
+    <description><![CDATA[ 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。 快速选择算法 (Quick Select) 小记 代码. ]]></description>
+    <pubDate>Tue, 09 Dec 2025 17:12:00 GMT</pubDate>
   </item>
     </channel>
   </rss>
