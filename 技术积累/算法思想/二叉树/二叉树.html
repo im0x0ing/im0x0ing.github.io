@@ -156,7 +156,12 @@ pre:hover > .expand-button {
 <span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">    Right </span><span style="--shiki-light:#D73A49;--shiki-dark:#F97583;">*</span><span style="--shiki-light:#6F42C1;--shiki-dark:#B392F0;">TreeNode</span></span>
 <span data-line><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">}</span></span></code></pre></figure>
 <h4 id="递归遍历">递归遍历<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#递归遍历" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
-<p></p><blockquote class="transclude" data-url="递归" data-block="#递归算法三要素" data-embed-alias="递归算法三要素"><a href="../../../技术积累/算法思想/栈与队列/递归#递归算法三要素" class="transclude-inner internal alias" data-slug="技术积累/算法思想/栈与队列/递归">Transclude of 递归#递归算法三要素</a></blockquote><p></p>
+<p></p><blockquote class="transclude" data-url="递归" data-block="#递归算法三要素" data-embed-alias="递归算法三要素"><h3 id="递归算法三要素">递归算法三要素<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#递归算法三要素" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ol>
+<li>确定递归函数的参数和返回值</li>
+<li>确定终止条件.<span class="orange-comment">[如果递归没有终止会导致栈溢出]</span></li>
+<li>确定单层递归的原理</li>
+</ol><a href="../../../技术积累/算法思想/栈与队列/递归#递归算法三要素" class="internal transclude-src">Link to original</a></blockquote><p></p>
 <ol>
 <li>参数应该是子树的根节点.首先这个递归函数是得作用在一整棵树上的.然后再递归去对各个子树做操作.而结果数组不需要经过传递.</li>
 <li>最终到子树的叶子节点,node==nil的时候就返回,也不需要加入res数组</li>
