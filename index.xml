@@ -6,6 +6,24 @@
       <description>Last 10 notes on ING wiki</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
+    <title>215. 数组中的第K个最大元素</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/215.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/215.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0</guid>
+    <description><![CDATA[ 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。 小记 Transclude of 排序算法#快速选择思路 代码 Transclude of 排序算法#代码. ]]></description>
+    <pubDate>Sat, 13 Dec 2025 15:12:00 GMT</pubDate>
+  </item><item>
+    <title>排序算法</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95</guid>
+    <description><![CDATA[ 快速选择quick select 核心目的: 解决 Top K 问题，并且要做到 O(N) 的时间复杂度 快速选择思路 Transclude of 排序算法#快速排序思路 而针对Top K问题,可以做如下优化. ]]></description>
+    <pubDate>Sat, 13 Dec 2025 15:12:00 GMT</pubDate>
+  </item><item>
+    <title>n数之和</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/n%E6%95%B0%E4%B9%8B%E5%92%8C</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/n%E6%95%B0%E4%B9%8B%E5%92%8C</guid>
+    <description><![CDATA[ 一个数组中不重复 0 &lt;= a, b, c, d &lt; n a、b、c 和 d 互不相同 nums[a] + nums[b] + nums[c] + nums[d] == target 保证数组有序.不有序就排一下序. ]]></description>
+    <pubDate>Sat, 13 Dec 2025 15:09:00 GMT</pubDate>
+  </item><item>
     <title>语法细节</title>
     <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E8%AF%AD%E6%B3%95%E7%BB%86%E8%8A%82</link>
     <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E8%AF%AD%E6%B3%95%E7%BB%86%E8%8A%82</guid>
@@ -46,25 +64,7 @@
     <link>https://im0x0ing.github.io/</link>
     <guid>https://im0x0ing.github.io/</guid>
     <description><![CDATA[ 欢迎来到 ING wiki！ 本质自用, 持续建设中… 📂 导航 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 . ]]></description>
-    <pubDate>Sat, 13 Dec 2025 07:08:59 GMT</pubDate>
-  </item><item>
-    <title>索引</title>
-    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/mySQL/%E5%85%B6%E4%BB%96/%E7%B4%A2%E5%BC%95</link>
-    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/mySQL/%E5%85%B6%E4%BB%96/%E7%B4%A2%E5%BC%95</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Sat, 13 Dec 2025 07:08:59 GMT</pubDate>
-  </item><item>
-    <title>01 系统启动与进程创建</title>
-    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/01-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA</link>
-    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/01-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA</guid>
-    <description><![CDATA[ 系统启动流程 上电与引导 计算机上电后的启动过程： CPU执行ROM中的引导加载器（bootstrap loader） 这是开机后执行的第一个软件 位置固定且已知 引导加载器完成的任务 硬件自检（POST） 定位磁盘上的操作系统内核镜像 将内核加载到主内存（RAM） 切换CPU为内核态，开始执行内核代码 内核初始化 内核加载到内存后的初始化步骤： 初始化中断系统 设置中断向量表（interrupt vector table） 建立中断号到中断处理程序的映射 配置中断请求线（interrupt-request line） 初始化计时器（timer） 用于时间片管理 初始化内存管理 建立物理内存的... ]]></description>
-    <pubDate>Sat, 13 Dec 2025 07:08:59 GMT</pubDate>
-  </item><item>
-    <title>02 内存管理</title>
-    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/02-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86</link>
-    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/02-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86</guid>
-    <description><![CDATA[  虚拟内存概述 基本概念 虚拟内存的作用 每个进程拥有独立的虚拟地址空间 CPU使用虚拟地址，由MMU（内存管理单元）自动转换为物理地址 实现进程间的隔离与保护 虚拟地址空间的结构 用户空间（User Portion）：0 ~ 3GB（32位系统） 内核空间（Kernel Portion）：3GB ~ 4GB（32位系统） 所有进程的内核空间映射到同一块物理内存（参见Kernel Addresses &amp; Userspace Addresses） 虚拟内存的优势 隔离性：每个进程拥有独立的虚拟地址空间，互不干扰 灵活性：进程可以使用比物理内存更大的虚拟地址空间 效率：通过按需分页和页面置... ]]></description>
-    <pubDate>Sat, 13 Dec 2025 07:08:59 GMT</pubDate>
+    <pubDate>Sat, 13 Dec 2025 07:12:39 GMT</pubDate>
   </item>
     </channel>
   </rss>
