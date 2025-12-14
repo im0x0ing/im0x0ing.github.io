@@ -6,65 +6,65 @@
       <description>Last 10 notes on ING wiki</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>215. 数组中的第K个最大元素</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/215.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/215.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0</guid>
-    <description><![CDATA[ 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。 请注意，你需要找的是数组排序后的第 k 个最大的元素，而不是第 k 个不同的元素。 你必须设计并实现时间复杂度为 O(n) 的算法解决此问题。 小记 Transclude of 排序算法#快速选择思路 代码 Transclude of 排序算法#代码. ]]></description>
-    <pubDate>Sat, 13 Dec 2025 15:12:00 GMT</pubDate>
+    <title>03 GMP 原理</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/03-GMP-%E5%8E%9F%E7%90%86</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/03-GMP-%E5%8E%9F%E7%90%86</guid>
+    <description><![CDATA[ 概念梳理 线程 通常语义中的线程，指的是内核级线程，核心点如下： （1）是操作系统最小调度单元； （2）创建、销毁、调度交由内核完成，cpu 需完成用户态与内核态间的切换； （3）可充分利用多核，实现并行. ]]></description>
+    <pubDate>Sun, 14 Dec 2025 18:40:00 GMT</pubDate>
   </item><item>
-    <title>排序算法</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95</guid>
-    <description><![CDATA[ 快速选择quick select 核心目的: 解决 Top K 问题，并且要做到 O(N) 的时间复杂度 快速选择思路 Transclude of 排序算法#快速排序思路 而针对Top K问题,可以做如下优化. ]]></description>
-    <pubDate>Sat, 13 Dec 2025 15:12:00 GMT</pubDate>
+    <title>04 内存模型与分配机制</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/04-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/04-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6</guid>
+    <description><![CDATA[ 内存模型 回顾操作系统 操作系统中经典的多级存储模型设计. ]]></description>
+    <pubDate>Sun, 14 Dec 2025 14:59:00 GMT</pubDate>
   </item><item>
-    <title>n数之和</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/n%E6%95%B0%E4%B9%8B%E5%92%8C</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/n%E6%95%B0%E4%B9%8B%E5%92%8C</guid>
-    <description><![CDATA[ 一个数组中不重复 0 &lt;= a, b, c, d &lt; n a、b、c 和 d 互不相同 nums[a] + nums[b] + nums[c] + nums[d] == target 保证数组有序.不有序就排一下序. ]]></description>
-    <pubDate>Sat, 13 Dec 2025 15:09:00 GMT</pubDate>
+    <title>05 GC垃圾回收原理</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/05-GC%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/05-GC%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Sun, 14 Dec 2025 14:37:00 GMT</pubDate>
+  </item><item>
+    <title>06 Channel 实现原理</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/06-Channel-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/06-Channel-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Sun, 14 Dec 2025 14:37:00 GMT</pubDate>
+  </item><item>
+    <title>04 slice切片动态数组类型</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/01-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/01-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</guid>
+    <description><![CDATA[ tips var s []byte 得到的是nil切片,但是可以照常append go自己会处理.适用于不知道长度的情况下 s:=make([]int,0,k) 知道长度的情况下,这种做法更优. ]]></description>
+    <pubDate>Sun, 14 Dec 2025 14:22:00 GMT</pubDate>
+  </item><item>
+    <title>GC</title>
+    <link>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/%E9%9D%A2%E7%BB%8F/GC</link>
+    <guid>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/%E9%9D%A2%E7%BB%8F/GC</guid>
+    <description><![CDATA[ Garbage Collection 工作原则是：只要这块内存还有人在用（有指针指向它）我就不能扔；没人指向它了，我就回收。 Slice 导致内存泄露的经典场景： 想象一下，你从服务器下载了一个 100MB 的超大文件（比如一本小说），读到了内存里，变成了一个巨大的数组。 // 1. ]]></description>
+    <pubDate>Sun, 14 Dec 2025 14:22:00 GMT</pubDate>
+  </item><item>
+    <title>summary</title>
+    <link>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/%E9%9D%A2%E7%BB%8F/summary</link>
+    <guid>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/%E9%9D%A2%E7%BB%8F/summary</guid>
+    <description><![CDATA[ 一、 Go 语言基础（重灾区，必问） 面试官非常喜欢问底层实现，特别是 Slice 和 GMP，几乎每场必面。 Slice (切片) —— 出现频率：⭐⭐⭐⭐⭐ 底层原理： 数组指针 + 长度 (len) + 容量 (cap)。 扩容机制： 什么时候翻倍？什么时候 1.25 倍？。 引用 vs 复制： 传递 Slice 是值传递还是引用传递？（答案是值传递，但因为持有底层数组指针，所以修改元素会影响原数组，但 append 可能会导致扩容换数组）。 GMP 模型 —— 出现频率：⭐⭐⭐⭐⭐ G、M、P 分别是什么？调度流程是怎样的？。 Map (字典) —— 出现频率：⭐⭐⭐⭐ 底层结构？是有... ]]></description>
+    <pubDate>Sun, 14 Dec 2025 14:05:00 GMT</pubDate>
   </item><item>
     <title>语法细节</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E8%AF%AD%E6%B3%95%E7%BB%86%E8%8A%82</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/%E8%AF%AD%E6%B3%95%E7%BB%86%E8%8A%82</guid>
-    <description><![CDATA[  go中的交换可以这样写: s[left], s[right] = s[right], s[left] 关于小括号和花括号 () 小括号：显式类型转换 (Type Conversion)可以写t:=[]byte(s)直接把字符串显式转换成数组.string(cnt)再这样转换回去就行了 {} 花括号：初始化/构造 (Composite Literal) import后面用的是小括号 循环中断 continue 跳出当次循环 break 结束当前循环 如果想要结束所有循环,可以使用go语言的配合标签的break(Label) package main import &quot;fmt&quot;... ]]></description>
-    <pubDate>Sat, 13 Dec 2025 15:08:00 GMT</pubDate>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E8%AF%AD%E6%B3%95%E7%BB%86%E8%8A%82</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E8%AF%AD%E6%B3%95%E7%BB%86%E8%8A%82</guid>
+    <description><![CDATA[ 变量声明与运算逻辑 左大括号不能单独一行。 不允许有未使用的变量和import，必须用——别名来忽略 在if或者代码块内使用:=可能会意外覆盖同名变量，导致外部变量没有被修改 :=只能在函数内部使用,且不能用于设置结构体字段 不要用nil初始化未指定类型的变量 自增自减只有后置,没有前置 其他 接口的底层是(Type,Value),只有(nil,nil)才是nil. ]]></description>
+    <pubDate>Sun, 14 Dec 2025 13:55:00 GMT</pubDate>
   </item><item>
-    <title>图</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/%E5%9B%BE%E8%AE%BA/%E5%9B%BE</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/%E5%9B%BE%E8%AE%BA/%E5%9B%BE</guid>
-    <description><![CDATA[ 图的基本概念 二维坐标中，两点可以连成线，多个点连成的线就构成了图。 当然图也可以就一个节点，甚至没有节点（空图 图的种类 整体上一般分为 有向图 和 无向图。 有向图: 边是有方向的 无向图: 边没有方向 加权有向图: 就是边是有权值的 加权无向图同理 度 无向图: 有几条边连接该节点，该节点就有几度。 有向图: 每个节点有出度和入度。 出度：从该节点出发的边的个数。 入度：指向该节点边的个数。 连通性 连通图: 在无向图中,任何两个节点都是可以到达的,我们称之为连通图 非连通图: 有节点不能到达其他节点 强连通图: 在有向图中，任何两个节点是可以相互到达的 连通分量: 无向图中的极大连通子... ]]></description>
-    <pubDate>Sat, 13 Dec 2025 15:07:00 GMT</pubDate>
-  </item><item>
-    <title>ACM模式输出</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/%E5%9B%BE%E8%AE%BA/ACM%E6%A8%A1%E5%BC%8F%E8%BE%93%E5%87%BA</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/%E5%9B%BE%E8%AE%BA/ACM%E6%A8%A1%E5%BC%8F%E8%BE%93%E5%87%BA</guid>
+    <title>Golang标准库</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/Golang%E6%A0%87%E5%87%86%E5%BA%93</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/Golang%E6%A0%87%E5%87%86%E5%BA%93</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Sat, 13 Dec 2025 15:02:00 GMT</pubDate>
+    <pubDate>Sun, 14 Dec 2025 13:42:00 GMT</pubDate>
   </item><item>
-    <title>200. 岛屿数量</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/200.-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/200.-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F</guid>
-    <description><![CDATA[ 小记 代码 . ]]></description>
-    <pubDate>Sat, 13 Dec 2025 14:52:00 GMT</pubDate>
-  </item><item>
-    <title>56. 合并区间</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/56.-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/56.-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4</guid>
-    <description><![CDATA[ 以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回 \一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。 小记 先对每个区间的左端点进行排序,这样可以保证,如果下一个区间不能和当前区间合并,说明当前区间确实合并完毕了,可以以下一个数组为开头元素往下合并. ]]></description>
-    <pubDate>Sat, 13 Dec 2025 14:48:00 GMT</pubDate>
-  </item><item>
-    <title>slices</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/slices</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/slices</guid>
-    <description><![CDATA[ slices.Sort(x):针对有序类型,默认升序排序,使用默认比较.可以对整数\浮点数和字符串进行排序 nums := []int{3, 1, 2} slices.Sort(nums) // nums 变为 [1, 2, 3] slices.SortFunc(x, cmp):针对任何类型,适用于结构体\二维数组\自定义类型 排序使用自定义排序,必须提供func(a,b,E)int // 比较函数：如果 p &lt; q 返回负数，如果 p &gt; q 返回正数，相等返回 0。 cmp := func(p, q []int) int { return p[0] - q[0] } slice... ]]></description>
-    <pubDate>Sat, 13 Dec 2025 14:40:00 GMT</pubDate>
-  </item><item>
-    <title>🏠 首页</title>
-    <link>https://im0x0ing.github.io/</link>
-    <guid>https://im0x0ing.github.io/</guid>
-    <description><![CDATA[ 欢迎来到 ING wiki！ 本质自用, 持续建设中… 📂 导航 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 . ]]></description>
-    <pubDate>Sat, 13 Dec 2025 07:12:39 GMT</pubDate>
+    <title>未命名</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E6%9C%AA%E5%91%BD%E5%90%8D</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E6%9C%AA%E5%91%BD%E5%90%8D</guid>
+    <description><![CDATA[  ]]></description>
+    <pubDate>Sun, 14 Dec 2025 13:42:00 GMT</pubDate>
   </item>
     </channel>
   </rss>
