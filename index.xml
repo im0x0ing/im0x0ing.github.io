@@ -6,65 +6,65 @@
       <description>Last 10 notes on ING wiki</description>
       <generator>Quartz -- quartz.jzhao.xyz</generator>
       <item>
-    <title>03 GMP 原理</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/03-GMP-%E5%8E%9F%E7%90%86</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/03-GMP-%E5%8E%9F%E7%90%86</guid>
-    <description><![CDATA[ 概念梳理 线程 通常语义中的线程，指的是内核级线程，核心点如下： （1）是操作系统最小调度单元； （2）创建、销毁、调度交由内核完成，cpu 需完成用户态与内核态间的切换； （3）可充分利用多核，实现并行. ]]></description>
-    <pubDate>Sun, 14 Dec 2025 18:40:00 GMT</pubDate>
+    <title>🏠 首页</title>
+    <link>https://im0x0ing.github.io/</link>
+    <guid>https://im0x0ing.github.io/</guid>
+    <description><![CDATA[ 欢迎来到 ING wiki！ 本质自用, 持续建设中… 📂 导航 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 . ]]></description>
+    <pubDate>Mon, 15 Dec 2025 02:24:18 GMT</pubDate>
   </item><item>
-    <title>04 内存模型与分配机制</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/04-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/04-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6</guid>
-    <description><![CDATA[ 内存模型 回顾操作系统 操作系统中经典的多级存储模型设计. ]]></description>
-    <pubDate>Sun, 14 Dec 2025 14:59:00 GMT</pubDate>
-  </item><item>
-    <title>05 GC垃圾回收原理</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/05-GC%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/05-GC%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%8E%9F%E7%90%86</guid>
+    <title>索引</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/mySQL/%E5%85%B6%E4%BB%96/%E7%B4%A2%E5%BC%95</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/mySQL/%E5%85%B6%E4%BB%96/%E7%B4%A2%E5%BC%95</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Sun, 14 Dec 2025 14:37:00 GMT</pubDate>
+    <pubDate>Mon, 15 Dec 2025 02:24:18 GMT</pubDate>
   </item><item>
-    <title>06 Channel 实现原理</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/06-Channel-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/06-Channel-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86</guid>
+    <title>01 系统启动与进程创建</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/01-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/01-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA</guid>
+    <description><![CDATA[ 系统启动流程 上电与引导 计算机上电后的启动过程： CPU执行ROM中的引导加载器（bootstrap loader） 这是开机后执行的第一个软件 位置固定且已知 引导加载器完成的任务 硬件自检（POST） 定位磁盘上的操作系统内核镜像 将内核加载到主内存（RAM） 切换CPU为内核态，开始执行内核代码 内核初始化 内核加载到内存后的初始化步骤： 初始化中断系统 设置中断向量表（interrupt vector table） 建立中断号到中断处理程序的映射 配置中断请求线（interrupt-request line） 初始化计时器（timer） 用于时间片管理 初始化内存管理 建立物理内存的... ]]></description>
+    <pubDate>Mon, 15 Dec 2025 02:24:18 GMT</pubDate>
+  </item><item>
+    <title>02 内存管理</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/02-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/02-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86</guid>
+    <description><![CDATA[  虚拟内存概述 基本概念 虚拟内存的作用 每个进程拥有独立的虚拟地址空间 CPU使用虚拟地址，由MMU（内存管理单元）自动转换为物理地址 实现进程间的隔离与保护 虚拟地址空间的结构 用户空间（User Portion）：0 ~ 3GB（32位系统） 内核空间（Kernel Portion）：3GB ~ 4GB（32位系统） 所有进程的内核空间映射到同一块物理内存（参见Kernel Addresses &amp; Userspace Addresses） 虚拟内存的优势 隔离性：每个进程拥有独立的虚拟地址空间，互不干扰 灵活性：进程可以使用比物理内存更大的虚拟地址空间 效率：通过按需分页和页面置... ]]></description>
+    <pubDate>Mon, 15 Dec 2025 02:24:18 GMT</pubDate>
+  </item><item>
+    <title>03 进程调度</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/03-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/03-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6</guid>
+    <description><![CDATA[ 进程状态 五种基本状态 进程在运行过程中会经历以下进程状态： New（新建） 进程正在创建过程中 包括申请PCB、分配初始资源等 Ready（就绪） 进程已准备好，等待CPU资源 一旦获得CPU就可以立即执行 Running（运行） 进程正在使用CPU执行 单核系统中同时只有一个进程处于Running状态 多核系统中Running进程数不超过核心数 Waiting（等待） 进程等待某个事件（如I/O完成、信号等） 即使有空余的CPU资源，该进程也无法继续 从Running到Waiting通常是主动的 Terminated（终止） 进程已结束 需要释放资源 状态转换 Ready → Runnin... ]]></description>
+    <pubDate>Mon, 15 Dec 2025 02:24:18 GMT</pubDate>
+  </item><item>
+    <title>04 完整流程示例</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/04-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/04-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B</guid>
+    <description><![CDATA[ 系统启动到第一个进程运行 参考：系统启动流程 完整流程 1. 上电与引导 CPU执行ROM中的引导加载器 硬件自检（POST） 定位并加载操作系统内核到RAM 切换到内核态 2. ]]></description>
+    <pubDate>Mon, 15 Dec 2025 02:24:18 GMT</pubDate>
+  </item><item>
+    <title>进程与内存流程总览</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%86%85%E5%AD%98%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E5%86%85%E5%AD%98%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88</guid>
+    <description><![CDATA[ 进程与内存流程总览 本文档从系统上电开始，完整梳理操作系统如何启动、创建第一个用户进程、管理内存，以及如何进行进程切换的整个流程。 一、系统启动：从硬件到内核 1.1 上电与引导 计算机上电后，CPU首先执行存储在**ROM（只读存储器）**中的引导加载器（bootstrap loader）。这个程序是开机后执行的第一个软件，位置固定且已知。 引导加载器的任务： 进行硬件自检（POST） 定位磁盘上的操作系统内核镜像 将内核加载到**主内存（RAM）**中 切换CPU模式为内核态，开始执行内核代码 1.2 内核初始化 内核被加载到内存后，开始初始化工作： 初始化中断系统 设置中断向量表（int... ]]></description>
+    <pubDate>Mon, 15 Dec 2025 02:24:18 GMT</pubDate>
+  </item><item>
+    <title>72. 编辑距离</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/72.-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/72.-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB</guid>
+    <description><![CDATA[ 给你两个单词 word1 和 word2， 请返回将 word1 转换成 word2 所使用的最少操作数_ 你可以对一个单词进行如下三种操作： 插入一个字符 删除一个字符 替换一个字符 小记 代码 func minDistance(s, t string) int { n, m := len(s), len(t) f := make([][]int, n+1) for i := range f { f[i] = make([]int, m+1) } for j := range m { f[0][j+1] = j + 1 } for i, x := range s { f[i+1][0] = ... ]]></description>
+    <pubDate>Sun, 14 Dec 2025 21:50:00 GMT</pubDate>
+  </item><item>
+    <title>22. 括号生成</title>
+    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/22.-%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90</link>
+    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E6%80%9D%E6%83%B3/hot100%E9%A2%98%E8%A7%A3/22.-%E6%8B%AC%E5%8F%B7%E7%94%9F%E6%88%90</guid>
+    <description><![CDATA[ 小记 比如n=3 那么就是6个位置,你可以选择放左括号还是右括号,只需要遵循两个原则 左括号和右括号个数相等 当前已放置的右括号的个数必须小于等于左括号的个数 决策树根节点是空字符串,向左的分支是左括号,向右的分支是右括号,树的叶子节点是最终生成的字符串 dfs: 一条路走到黑 回溯: 1. ]]></description>
+    <pubDate>Sun, 14 Dec 2025 20:01:00 GMT</pubDate>
+  </item><item>
+    <title>lab8</title>
+    <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/lab%E7%9B%B8%E5%85%B3/lab8</link>
+    <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/lab%E7%9B%B8%E5%85%B3/lab8</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Sun, 14 Dec 2025 14:37:00 GMT</pubDate>
-  </item><item>
-    <title>04 slice切片动态数组类型</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/01-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E6%A0%B8%E5%BF%83%E7%9F%A5%E8%AF%86/01-slice%E5%88%87%E7%89%87%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84%E7%B1%BB%E5%9E%8B</guid>
-    <description><![CDATA[ tips var s []byte 得到的是nil切片,但是可以照常append go自己会处理.适用于不知道长度的情况下 s:=make([]int,0,k) 知道长度的情况下,这种做法更优. ]]></description>
-    <pubDate>Sun, 14 Dec 2025 14:22:00 GMT</pubDate>
-  </item><item>
-    <title>GC</title>
-    <link>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/%E9%9D%A2%E7%BB%8F/GC</link>
-    <guid>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/%E9%9D%A2%E7%BB%8F/GC</guid>
-    <description><![CDATA[ Garbage Collection 工作原则是：只要这块内存还有人在用（有指针指向它）我就不能扔；没人指向它了，我就回收。 Slice 导致内存泄露的经典场景： 想象一下，你从服务器下载了一个 100MB 的超大文件（比如一本小说），读到了内存里，变成了一个巨大的数组。 // 1. ]]></description>
-    <pubDate>Sun, 14 Dec 2025 14:22:00 GMT</pubDate>
-  </item><item>
-    <title>summary</title>
-    <link>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/%E9%9D%A2%E7%BB%8F/summary</link>
-    <guid>https://im0x0ing.github.io/%E7%94%9F%E6%B4%BB%E6%9D%82%E8%B0%88/%E9%9D%A2%E7%BB%8F/summary</guid>
-    <description><![CDATA[ 一、 Go 语言基础（重灾区，必问） 面试官非常喜欢问底层实现，特别是 Slice 和 GMP，几乎每场必面。 Slice (切片) —— 出现频率：⭐⭐⭐⭐⭐ 底层原理： 数组指针 + 长度 (len) + 容量 (cap)。 扩容机制： 什么时候翻倍？什么时候 1.25 倍？。 引用 vs 复制： 传递 Slice 是值传递还是引用传递？（答案是值传递，但因为持有底层数组指针，所以修改元素会影响原数组，但 append 可能会导致扩容换数组）。 GMP 模型 —— 出现频率：⭐⭐⭐⭐⭐ G、M、P 分别是什么？调度流程是怎样的？。 Map (字典) —— 出现频率：⭐⭐⭐⭐ 底层结构？是有... ]]></description>
-    <pubDate>Sun, 14 Dec 2025 14:05:00 GMT</pubDate>
-  </item><item>
-    <title>语法细节</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E8%AF%AD%E6%B3%95%E7%BB%86%E8%8A%82</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E8%AF%AD%E6%B3%95%E7%BB%86%E8%8A%82</guid>
-    <description><![CDATA[ 变量声明与运算逻辑 左大括号不能单独一行。 不允许有未使用的变量和import，必须用——别名来忽略 在if或者代码块内使用:=可能会意外覆盖同名变量，导致外部变量没有被修改 :=只能在函数内部使用,且不能用于设置结构体字段 不要用nil初始化未指定类型的变量 自增自减只有后置,没有前置 其他 接口的底层是(Type,Value),只有(nil,nil)才是nil. ]]></description>
-    <pubDate>Sun, 14 Dec 2025 13:55:00 GMT</pubDate>
-  </item><item>
-    <title>Golang标准库</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/Golang%E6%A0%87%E5%87%86%E5%BA%93</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E5%BA%93/Golang%E6%A0%87%E5%87%86%E5%BA%93</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Sun, 14 Dec 2025 13:42:00 GMT</pubDate>
-  </item><item>
-    <title>未命名</title>
-    <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E6%9C%AA%E5%91%BD%E5%90%8D</link>
-    <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/Golang/%E8%AF%AD%E6%B3%95%E7%89%B9%E6%80%A7/%E6%9C%AA%E5%91%BD%E5%90%8D</guid>
-    <description><![CDATA[  ]]></description>
-    <pubDate>Sun, 14 Dec 2025 13:42:00 GMT</pubDate>
+    <pubDate>Sun, 14 Dec 2025 20:01:00 GMT</pubDate>
   </item>
     </channel>
   </rss>
