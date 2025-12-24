@@ -10,37 +10,37 @@
     <link>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E9%A2%98/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/51.-N-%E7%9A%87%E5%90%8E</link>
     <guid>https://im0x0ing.github.io/%E6%8A%80%E6%9C%AF%E7%A7%AF%E7%B4%AF/%E7%AE%97%E6%B3%95%E9%A2%98/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/51.-N-%E7%9A%87%E5%90%8E</guid>
     <description><![CDATA[ 按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。 n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。 给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。 每一种解法包含一个不同的 n 皇后问题 的棋子放置方案，该方案中 &#039;Q&#039; 和 &#039;.&#039; 分别代表了皇后和空位。 小记 返回所有方案:回溯 先写一个小函数.在当前的摆放情况下,摆放在当前位置是否有效. ]]></description>
-    <pubDate>Wed, 24 Dec 2025 11:12:00 GMT</pubDate>
+    <pubDate>Wed, 24 Dec 2025 11:19:00 GMT</pubDate>
   </item><item>
     <title>🏠 首页</title>
     <link>https://im0x0ing.github.io/</link>
     <guid>https://im0x0ing.github.io/</guid>
     <description><![CDATA[ 欢迎来到 ING wiki！ 本质自用, 持续建设中… 📂 导航 关于我 📝 最近更新 这里可以写一些最近的想法或者置顶的内容。 . ]]></description>
-    <pubDate>Wed, 24 Dec 2025 03:15:24 GMT</pubDate>
+    <pubDate>Wed, 24 Dec 2025 03:27:07 GMT</pubDate>
   </item><item>
     <title>索引</title>
     <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/mySQL/%E5%85%B6%E4%BB%96/%E7%B4%A2%E5%BC%95</link>
     <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/mySQL/%E5%85%B6%E4%BB%96/%E7%B4%A2%E5%BC%95</guid>
     <description><![CDATA[  ]]></description>
-    <pubDate>Wed, 24 Dec 2025 03:15:24 GMT</pubDate>
+    <pubDate>Wed, 24 Dec 2025 03:27:07 GMT</pubDate>
   </item><item>
     <title>01 系统启动与进程创建</title>
     <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/01-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA</link>
     <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/01-%E7%B3%BB%E7%BB%9F%E5%90%AF%E5%8A%A8%E4%B8%8E%E8%BF%9B%E7%A8%8B%E5%88%9B%E5%BB%BA</guid>
     <description><![CDATA[ 系统启动流程 上电与引导 计算机上电后的启动过程： CPU执行ROM中的引导加载器（bootstrap loader） 这是开机后执行的第一个软件 位置固定且已知 引导加载器完成的任务 硬件自检（POST） 定位磁盘上的操作系统内核镜像 将内核加载到主内存（RAM） 切换CPU为内核态，开始执行内核代码 内核初始化 内核加载到内存后的初始化步骤： 初始化中断系统 设置中断向量表（interrupt vector table） 建立中断号到中断处理程序的映射 配置中断请求线（interrupt-request line） 初始化计时器（timer） 用于时间片管理 初始化内存管理 建立物理内存的... ]]></description>
-    <pubDate>Wed, 24 Dec 2025 03:15:24 GMT</pubDate>
+    <pubDate>Wed, 24 Dec 2025 03:27:07 GMT</pubDate>
   </item><item>
     <title>03 进程调度</title>
     <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/03-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6</link>
     <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/03-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6</guid>
     <description><![CDATA[ 进程状态 五种基本状态 进程在运行过程中会经历以下进程状态： New（新建） 进程正在创建过程中 包括申请PCB、分配初始资源等 Ready（就绪） 进程已准备好，等待CPU资源 一旦获得CPU就可以立即执行 Running（运行） 进程正在使用CPU执行 单核系统中同时只有一个进程处于Running状态 多核系统中Running进程数不超过核心数 Waiting（等待） 进程等待某个事件（如I/O完成、信号等） 即使有空余的CPU资源，该进程也无法继续 从Running到Waiting通常是主动的 Terminated（终止） 进程已结束 需要释放资源 状态转换 Ready → Runnin... ]]></description>
-    <pubDate>Wed, 24 Dec 2025 03:15:24 GMT</pubDate>
+    <pubDate>Wed, 24 Dec 2025 03:27:07 GMT</pubDate>
   </item><item>
     <title>04 完整流程示例</title>
     <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/04-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B</link>
     <guid>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/%E6%B5%81%E7%A8%8B%E6%80%BB%E8%A7%88/04-%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B</guid>
     <description><![CDATA[ 系统启动到第一个进程运行 参考：系统启动流程 完整流程 1. 上电与引导 CPU执行ROM中的引导加载器 硬件自检（POST） 定位并加载操作系统内核到RAM 切换到内核态 2. ]]></description>
-    <pubDate>Wed, 24 Dec 2025 03:15:24 GMT</pubDate>
+    <pubDate>Wed, 24 Dec 2025 03:27:07 GMT</pubDate>
   </item><item>
     <title>物理层 the physical layer</title>
     <link>https://im0x0ing.github.io/%E8%AF%BE%E7%A8%8B%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%89%A9%E7%90%86%E5%B1%82-the-physical-layer</link>
