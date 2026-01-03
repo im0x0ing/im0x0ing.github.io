@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>01 Introduction</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Sans SC:wght@400;700&amp;family=Noto Serif SC:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&amp;family=JetBrains Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="ING wiki"/><meta property="og:title" content="01 Introduction"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="01 Introduction"/><meta name="twitter:description" content="TCP/IP 网络模型 **发送方（不停地穿衣/套娃） Chrome (应用层) 产生数据（比如 “GET /index.html”）。它只管内容，不知道怎么发。把数据直接丢给下一层 。 此时手里拿的是：Data (数据) 操作系统 (TCP层) 收到 Data。它不管数据是网页还是邮件，它只负责**“端口到端口”。给数据加一个 TCP 头（贴上源端口、目的端口） 此时手里拿的是：Segment (段) 。 操作系统 (IP层) 收到 Segment。它不管里面是 TCP 还是 UDP，它只负责“主机到主机”。给 Segment 加一个 IP 头**（贴上源IP、目的IP）。 此时手里拿的是：..."/><meta property="og:description" content="TCP/IP 网络模型 **发送方（不停地穿衣/套娃） Chrome (应用层) 产生数据（比如 “GET /index.html”）。它只管内容，不知道怎么发。把数据直接丢给下一层 。 此时手里拿的是：Data (数据) 操作系统 (TCP层) 收到 Data。它不管数据是网页还是邮件，它只负责**“端口到端口”。给数据加一个 TCP 头（贴上源端口、目的端口） 此时手里拿的是：Segment (段) 。 操作系统 (IP层) 收到 Segment。它不管里面是 TCP 还是 UDP，它只负责“主机到主机”。给 Segment 加一个 IP 头**（贴上源IP、目的IP）。 此时手里拿的是：..."/><meta property="og:image:alt" content="TCP/IP 网络模型 **发送方（不停地穿衣/套娃） Chrome (应用层) 产生数据（比如 “GET /index.html”）。它只管内容，不知道怎么发。把数据直接丢给下一层 。 此时手里拿的是：Data (数据) 操作系统 (TCP层) 收到 Data。它不管数据是网页还是邮件，它只负责**“端口到端口”。给数据加一个 TCP 头（贴上源端口、目的端口） 此时手里拿的是：Segment (段) 。 操作系统 (IP层) 收到 Segment。它不管里面是 TCP 还是 UDP，它只负责“主机到主机”。给 Segment 加一个 IP 头**（贴上源IP、目的IP）。 此时手里拿的是：..."/><meta property="twitter:domain" content="im0x0ing.github.io"/><meta property="og:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/01-Introduction"/><meta property="twitter:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/01-Introduction"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="TCP/IP 网络模型 **发送方（不停地穿衣/套娃） Chrome (应用层) 产生数据（比如 “GET /index.html”）。它只管内容，不知道怎么发。把数据直接丢给下一层 。 此时手里拿的是：Data (数据) 操作系统 (TCP层) 收到 Data。它不管数据是网页还是邮件，它只负责**“端口到端口”。给数据加一个 TCP 头（贴上源端口、目的端口） 此时手里拿的是：Segment (段) 。 操作系统 (IP层) 收到 Segment。它不管里面是 TCP 还是 UDP，它只负责“主机到主机”。给 Segment 加一个 IP 头**（贴上源IP、目的IP）。 此时手里拿的是：..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  padding: 2rem;
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL2hvbWUvcnVubmVyL3dvcmsvaW0weDBpbmctYmxvZy1wcml2YXRlL2ltMHgwaW5nLWJsb2ctcHJpdmF0ZS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcGFkZGluZzogMnJlbTtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://im0x0ing.github.io/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/01-Introduction-og-image.webp"/><meta property="og:image:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/01-Introduction-og-image.webp"/><meta name="twitter:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/01-Introduction-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="课程笔记/计算机网络/01-Introduction"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">ING wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slug===\&quot;\&quot;||node.slug.startsWith(\&quot;\\u8BFE\\u7A0B\\u7B14\\u8BB0\&quot;)&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-154"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-154" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-3"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><header><nav class="my-navbar "><div class="links"><a href="/课程笔记/">课程笔记</a><a href="/技术积累/">技术积累</a><a href="/工具使用/">工具使用</a><a href="/生活杂谈/">生活杂谈</a></div></nav></header><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/">课程笔记</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/计算机网络/">计算机网络</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>01 Introduction</a></div></nav><h1 class="article-title">01 Introduction</h1><p show-comma="true" class="content-meta"><time datetime="2026-01-03T20:03:00.000Z">Jan 03, 2026</time><span>30 min read</span></p></div></div><article class="popover-hint"><h2 id="tcpip-网络模型">TCP/IP 网络模型<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tcpip-网络模型" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<p>**发送方（不停地穿衣/套娃）</p>
+<ol>
+<li><strong>Chrome (应用层)</strong> 产生数据（比如 “GET /index.html”）。它<strong>只管内容</strong>，不知道怎么发。把数据直接丢给下一层 。
+<ul>
+<li><em>此时手里拿的是：Data (数据)</em></li>
+</ul>
+</li>
+<li><strong>操作系统 (TCP层)</strong> 收到 Data。它不管数据是网页还是邮件，它只负责**“端口到端口”。给数据加一个 TCP 头（贴上源端口、目的端口）
+<ul>
+<li><em>此时手里拿的是：Segment (段)</em> 。</li>
+</ul>
+</li>
+<li><strong>操作系统 (IP层)</strong> 收到 Segment。它不管里面是 TCP 还是 UDP，它只负责“主机到主机”。给 Segment 加一个 IP 头**（贴上源IP、目的IP）。
+<ul>
+<li><em>此时手里拿的是：Packet (包)</em> 。</li>
+</ul>
+</li>
+<li><strong>网卡 (链路层)</strong> 收到 Packet。它不管你要发到美国还是北京，它只负责**“发给网线那头的下一站”。给 Packet 加一个 MAC 头（源MAC、目的MAC）再加一个 FCS 尾（用于以后检查数据坏没坏）
+<ul>
+<li><em>此时手里拿的是：Frame (帧)</em></li>
+</ul>
+</li>
+</ol>
+<p><strong>接收方（不停地剥皮）：</strong></p>
+<ol>
+<li><strong>网卡</strong>收到 Frame，检查帧尾 FCS。没问题？<strong>把头和尾扔掉</strong>，取出中间的 Packet 给 IP 层。</li>
+<li><strong>操作系统(IP层)</strong> 收到 Packet，检查 IP 地址。是给我的？<strong>把 IP 头扔掉</strong>，取出中间的 Segment 给 TCP 层。</li>
+<li><strong>操作系统(TCP层)</strong> 收到 Segment，检查端口。是给 Chrome 的？<strong>把 TCP 头扔掉</strong>，把纯数据给 Chrome。</li>
+</ol>
+<p><strong>重点：</strong> 每一层只看自己的头，<strong>根本不看（也不懂）</strong> 里面包着什么。链路层看到 IP 头时，它只觉得那是“数据”的一部分。</p>
+<blockquote>
+<p>核心概念: <strong>封装与解封装</strong>.</p>
+<ul>
+<li>
+<p>应用层数据被 TCP 装进箱子（Segment)</p>
+</li>
+<li>
+<p>TCP 箱子被 IP 装进集装箱（Packet）</p>
+</li>
+<li>
+<p>IP 集装箱被网卡装进货车（Frame）</p>
+</li>
+<li>
+<p>每一层只读自己那一层的“快递单”（ Header）根本不看里面的内容</p>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>
+<p>应用层</p>
+<ul>
+<li>message报文. 核心任务是具体的业务逻辑.</li>
+<li>专注于为用户提供应用功能，比如 HTTP、FTP、Telnet、DNS、SMTP等</li>
+<li>当两个不同设备的应用需要通信的时候，应用就把应用数据传给下一层</li>
+<li>应用层是工作在操作系统中的<strong>用户态</strong>，传输层及以下则工作在内核态</li>
+</ul>
+</li>
+<li>
+<p>传输层</p>
+<ul>
+<li>关心segment 段.进程到进程(端口),比如chrome到对方服务器的nginx</li>
+<li>只有这一层在真正负责数据不丢不乱.ip只管发,丢了不管,如果ip把包弄丢了 tcp负责重传.</li>
+</ul>
+</li>
+<li>
+<p>网络层</p>
+<ul>
+<li>关心packet,包/分组.端到端(实际的设备间传输的功能)</li>
+<li>核心任务是<strong>路由和寻址</strong>(ip地址).ip协议负责把数据包从一个网段跳到另一个网段</li>
+<li>ip地址计算\路由算法\ip协议</li>
+<li>ip地址: 网络号标识子网.主机号负责标识同一个子网下的不同主机</li>
+<li>ip地址和子网掩码进行按位与就可以得到网络号.</li>
+</ul>
+</li>
+<li>
+<p>数据链路层(交换机通过自学习知道哪个mac地址在哪个口)</p>
+<ul>
+<li>关心frame 帧。相邻节点之间（交换机拿到frame,会根据mac头进行转发.)(网卡只认识mac地址)(路由器收到frame,就拆开给网络层看ip确认,然后重新组装一个frame加上新的mac地址,给二层去发送)</li>
+<li>核心任务是在直接相连的两个设备之间，保证数据可以送过去，别撞车。</li>
+<li>这里的纠错就是负责这段路上不出错（CRC校验、海明码之类的）</li>
+<li>防撞车： CSMA\CD检测</li>
+<li>
+<blockquote>
+<p>数据链路层的<strong>交换机</strong>搞不定（因为它只认识局域网内的 MAC）它只能把包交给网络层的<strong>路由器</strong>(处理不同子网)</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>注意路由器里面也是会经历：<code>物理层 -> 链路层 -> 网络层 (处理/决策) -> 链路层 -> 物理层</code>这么一个过程. 交换机是处理到链路层,不到达网络层</p>
+</blockquote>
+<ul>
+<li>物理层
+<ul>
+<li>只关心bit。</li>
+<li>核心任务是怎么把01变成电信号发送出去。眼里没有包，只有电流</li>
+</ul>
+</li>
+</ul>
+<h2 id="键入网址到网页显示期间发生了什么">键入网址到网页显示，期间发生了什么<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#键入网址到网页显示期间发生了什么" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h4 id="应用层-http">应用层 HTTP<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#应用层-http" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103172137.png" width="auto" height="auto" alt/><br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103181623.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>URL解析<br/>
+所以图中的长长的 URL 实际上是请求服务器里的文件资源。<br/>
+当没有路径名的时候,就访问根目录下事先设置的默认文件.<br/>
+对 <code>URL</code> 进行解析之后，浏览器确定了 Web 服务器和文件名，接下来就是根据这些信息来生成 HTTP 请求消息了。</li>
+<li>生成HTTP请求信息<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103181809.png" width="auto" height="auto" alt/></li>
+</ul>
+<h4 id="真实地址查询dns">真实地址查询—DNS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#真实地址查询dns" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>
+<p>通过浏览器解析URL并生成HTTP消息后,需要委托操作系统将消息发送给Web服务器.在这之前,需要查询服务器域名对应的IP地址.</p>
+</li>
+<li>
+<p>DNS服务器就专门保存了Web服务器域名与IP的对应关系</p>
+</li>
+<li>
+<p>DNS 中的域名都是用<strong>句点</strong>来分隔的，比如 <code>www.server.com</code>，这里的句点代表了不同层次之间的<strong>界限</strong>。</p>
+</li>
+<li>
+<p>在域名中，<strong>越靠右</strong>的位置表示其层级<strong>越高</strong>。</p>
+</li>
+<li>
+<p>实际上域名最后还有一个点，比如 <code>www.server.com.</code>，这个最后的一个点代表根域名。</p>
+</li>
+<li>
+<p>也就是，<code>.</code> 根域是在最顶层，它的下一层就是 <code>.com</code> 顶级域，再下面是 <code>server.com</code>。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103182313.png" width="auto" height="auto" alt/></p>
+</li>
+</ul>
+<p><span class="text-highlight">根域的 DNS 服务器信息保存在互联网中所有的 DNS 服务器中</span>。这样一来，任何 DNS 服务器就都可以找到并访问根域 DNS 服务器了。因此，客户端只要能够找到任意一台 DNS 服务器，就可以通过它找到根域 DNS 服务器，然后再一路顺藤摸瓜找到位于下层的某台目标 DNS 服务器。</p>
+<h5 id="域名解析的工作流程">域名解析的工作流程<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#域名解析的工作流程" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ol>
+<li>客户端首先会发出一个 DNS 请求，问 <a href="http://www.server.com" class="external">www.server.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> 的 IP 是啥，并发给本地 DNS 服务器（也就是客户端的 TCP/IP 设置中填写的 DNS 服务器地址）</li>
+<li>本地域名服务器收到客户端的请求后，如果缓存里的表格能找到 <a href="http://www.server.com%EF%BC%8C%E5%88%99%E5%AE%83%E7%9B%B4%E6%8E%A5%E8%BF%94%E5%9B%9E" class="external">www.server.com，则它直接返回<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> IP 地址。如果没有，本地 DNS 会去问它的根域名服务器：“老大， 能告诉我 <a href="http://www.server.com" class="external">www.server.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> 的 IP 地址吗？” 根域名服务器是最高层次的，它不直接用于域名解析，但能指明一条道路。</li>
+<li>根 DNS 收到来自本地 DNS 的请求后，发现后置是 .com，说：“<a href="http://www.server.com" class="external">www.server.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> 这个域名归 .com 区域管理”，我给你 .com 顶级域名服务器地址给你，你去问问它吧。”</li>
+<li>本地 DNS 收到顶级域名服务器的地址后，发起请求问“老二， 你能告诉我 <a href="http://www.server.com" class="external">www.server.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> 的 IP 地址吗？”</li>
+<li>顶级域名服务器说：“我给你负责 <a href="http://www.server.com" class="external">www.server.com<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> 区域的权威 DNS 服务器的地址，你去问它应该能问到”。</li>
+<li>本地 DNS 于是转向问权威 DNS 服务器：“老三，<a href="http://www.server.com%E5%AF%B9%E5%BA%94%E7%9A%84IP%E6%98%AF%E5%95%A5%E5%91%80%EF%BC%9F%E2%80%9D" class="external">www.server.com对应的IP是啥呀？”<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a> server.com 的权威 DNS 服务器，它是域名解析结果的原出处。为啥叫权威呢？就是我的域名我做主。</li>
+<li>权威 DNS 服务器查询后将对应的 IP 地址 X.X.X.X 告诉本地 DNS。</li>
+<li>本地 DNS 再将 IP 地址返回客户端，客户端和目标建立连接。</li>
+</ol>
+<blockquote>
+<p>浏览器会先看自身有没有对这个域名的缓存，如果有，就直接返回，如果没有，就去问操作系统，操作系统也会去看自己的缓存，如果有，就直接返回，如果没有，再去 hosts 文件看，也没有，才会去问「本地 DNS 服务器」</p>
+</blockquote>
+<h4 id="协议栈">协议栈<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#协议栈" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>获取到IP之后, 将HTTP的传输工作交给操作系统中的协议栈<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103183142.png" width="auto" height="auto" alt/><br/>
+应用程序（浏览器）通过调用 Socket 库，来委托协议栈工作。</p>
+<ul>
+<li>协议栈的上半部分有两块，分别是负责收发数据的 TCP 和 UDP 协议，这两个传输协议会接受应用层的委托执行收发数据的操作。</li>
+<li>协议栈的下面一半是用 IP 协议控制网络包收发操作，在互联网上传数据时，数据会被切分成一块块的网络包，而将网络包发送给对方的操作就是由 IP 负责的。
+<ul>
+<li><code>ARP</code> 用于根据 IP 地址查询相应的以太网 MAC 地址。要么是<span class="orange-comment">[ 以太网头 | IP 头 | TCP 头/udp/icmp| 数据 ]</span> 要么是<span class="orange-comment">[ 以太网头 (Type=0806) | ARP 头 | 数据 ]</span> 就是说arp和ip是平级的</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>因为arp就是因为只知道ip不知道mac 所以需要问.所以绕过ip层作为以太网负载发出去,问某个ip对应的mac</p>
+</blockquote>
+<ul>
+<li>IP 下面的网卡驱动程序负责控制网卡硬件，而最下面的网卡则负责完成实际的收发操作，也就是对网线中的信号执行发送和接收操作。就是主要负责数据链路层和物理层</li>
+</ul>
+<h5 id="可靠传输tcp">可靠传输TCP<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#可靠传输tcp" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103183839.png" width="auto" height="auto" alt/><br/>
+TCP建立连接:三次握手<br/>
+所谓的「连接」，只是双方计算机里维护一个状态机，在连接建立的过程中，双方的状态变化时序图就像这样。</p>
+<ul>
+<li>一开始，客户端和服务端都处于 <code>CLOSED</code> 状态。先是服务端主动监听某个端口，处于 <code>LISTEN</code> 状态。</li>
+<li>然后客户端主动发起连接 <code>SYN</code>，之后处于 <code>SYN-SENT</code> 状态。</li>
+<li>服务端收到发起的连接，返回 <code>SYN</code>，并且 <code>ACK</code> 客户端的 <code>SYN</code>，之后处于 <code>SYN-RCVD</code> 状态。</li>
+<li>客户端收到服务端发送的 <code>SYN</code> 和 <code>ACK</code> 之后，发送对 <code>SYN</code> 确认的 <code>ACK</code>，之后处于 <code>ESTABLISHED</code> 状态，因为它一发一收成功了。</li>
+<li>服务端收到 <code>ACK</code> 的 <code>ACK</code> 之后，处于 <code>ESTABLISHED</code> 状态，因为它也一发一收了。</li>
+<li>所以三次握手目的是<strong>保证双方都有发送和接收的能力</strong>。</li>
+</ul>
+<p>查看TCP的连接状态，在linux可以用netstat -napt命令查看<br/>
+如果 HTTP 请求消息比较长，超过了 <code>MSS</code> 的长度，这时 TCP 就需要把 HTTP 的数据拆解成一块块的数据发送，而不是一次性发送所有数据。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103184835.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>
+<p><code>MTU</code>：一个网络包的最大长度，以太网中一般为 <code>1500</code> 字节。</p>
+</li>
+<li>
+<p><code>MSS</code>：除去 IP 和 TCP 头部之后，一个网络包所能容纳的 TCP 数据的最大长度。</p>
+</li>
+<li>
+<p>TCP 协议里面会有两个端口，一个是浏览器监听的端口（通常是随机生成的），一个是 Web 服务器监听的端口（HTTP 默认端口号是 <code>80</code>， HTTPS 默认端口号是 <code>443</code>）。</p>
+</li>
+</ul>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103185348.png" width="auto" height="auto" alt/><br/>
+经过网络层和传输层之后就是这个样子了</p>
+<h5 id="ip将数据封装成网络包网络层">ip将数据封装成网络包：网络层<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#ip将数据封装成网络包网络层" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103185446.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>源地址IP，即是客户端输出的 IP 地址；</li>
+<li>目标地址，即通过 DNS 域名解析得到的 Web 服务器 IP。</li>
+<li>因为 HTTP 是经过 TCP 传输的，所以在 IP 包头的<strong>协议号</strong>，要填写为 <code>06</code>（十六进制），表示协议为 TCP。这样才知道拆开之后的文件属于tcp
+<ul>
+<li><strong>TCP:</strong> <code>[ IP 头 | TCP 头 | 数据 ]</code></li>
+<li><strong>UDP:</strong> <code>[ IP 头 | UDP 头 | 数据 ]</code></li>
+<li><strong>ICMP:</strong> <code>[ IP 头 | ICMP 头 | 数据 ]</code>  但是实际上 icmp属于网络层,tcp/udp属于传输层 icmp就是报错,是由中间的路由器发回给源主机的,不需要什么端口什么的,但是因为是路由器发的,所以被封装进一个ip包.而且发icmp一般都是tcp连接断掉了,那如果还用tcp发那肯定不行的.</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>当存在多个网卡的时候,就需要判断应该写哪个作为源ip地址,就是决定应该用哪个网卡来发送包.这时候就需要根据路由表规则来判断.<br/>
+在 Linux 操作系统，我们可以使用 <code>route -n</code> 命令查看当前系统的路由表。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103185622.png" width="auto" height="auto" alt/><br/>
+第三条目比较特殊，它目标地址和子网掩码都是 <code>0.0.0.0</code>，这表示<strong>默认网关</strong>，如果其他所有条目都无法匹配，就会自动匹配这一行。并且后续就把包发给路由器，<code>Gateway</code> 即是路由器的 IP 地址。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103185739.png" width="auto" height="auto" alt/></p>
+</blockquote>
+<h5 id="mac">mac<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mac" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>实际上是由操作系统CPU来填写的<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103185912.png" width="auto" height="auto" alt/><br/>
+一般在 TCP/IP 通信里，MAC 包头的<strong>协议类型</strong>只使用：</p>
+<ul>
+<li><code>0800</code> ： IP 协议</li>
+<li><code>0806</code> ： ARP 协议<br/>
+//这就是网络层协议</li>
+</ul>
+<p><strong>发送方</strong>的 MAC 地址获取比较简单，MAC 地址是在网卡生产时写入到 ROM 里的，只要将这个值读取出来写入到 MAC 头部就可以了。<br/>
+<strong>接收方</strong>的 MAC 地址就有点复杂了，<br/>
+得先搞清楚应该把包发给谁，需要查一下<strong>路由表</strong>。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103191511.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>如果在一个局域网,那么直接发到ip就可以了</li>
+<li>如果不在就会匹配到最后一个条目 发送到默认网关做转发.</li>
+</ul>
+<p>知道发送给谁之后,要如何获取对方的mac地址呢?此时就需要 <code>ARP</code> 协议帮我们找到路由器的 MAC 地址。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103191623.png" width="auto" height="auto" alt/><br/>
+ARP 协议会在以太网中以<strong>广播</strong>的形式，对以太网所有的设备喊出：“这个 IP 地址是谁的？请把你的 MAC 地址告诉我”。<br/>
+然后就会有人回答：“这个 IP 地址是我的，我的 MAC 地址是 XXXX”。<br/>
+如果对方和自己处于同一个子网中，那么通过上面的操作就可以得到对方的 MAC 地址。然后，我们将这个 MAC 地址写入 MAC 头部，MAC 头部就完成了。<br/>
+在后续操作系统会把本次查询结果放到一块叫做 <strong>ARP 缓存</strong>的内存空间留着以后用，不过缓存的时间就几分钟。<br/>
+也就是说，在发包时：</p>
+<ul>
+<li>先查询 ARP 缓存，如果其中已经保存了对方的 MAC 地址，就不需要发送 ARP 查询，直接使用 ARP 缓存中的地址。</li>
+<li>而当 ARP 缓存中不存在对方 MAC 地址时，则发送 ARP 广播查询。</li>
+<li>在 Linux 系统中，我们可以使用 <code>arp -a</code> 命令来查看 ARP 缓存的内容。<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103191706.png" width="auto" height="auto" alt/></li>
+</ul>
+<p>最终生成的报文长这个样子<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103191722.png" width="auto" height="auto" alt/></p>
+<h4 id="网卡">网卡<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#网卡" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>网络包只是存放在内存中的一串二进制数字信息，没有办法直接发送给对方。因此，我们需要将<strong>数字信息转换为电信号</strong>，才能在网线上传输，也就是说，这才是真正的数据发送过程。<br/>
+负责执行这一操作的是<strong>网卡</strong>，要控制网卡还需要靠<strong>网卡驱动程序</strong>。<br/>
+网卡驱动获取网络包之后，会将其<strong>复制</strong>到网卡内的缓存区中，接着会在其<strong>开头加上报头和起始帧分界符，在末尾加上用于检测错误的帧校验序列</strong>。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103194518.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>起始帧分界符是一个用来表示包起始位置的标记</li>
+<li>末尾的 <code>FCS</code>（帧校验序列）用来检查包传输过程是否有损坏</li>
+</ul>
+<p>最后网卡会将包转为电信号，通过网线发送出去。</p>
+<h4 id="交换机">交换机<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#交换机" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>交换机的设计是将网络包<strong>原样</strong>转发到目的地。交换机工作在 MAC 层，也称为<strong>二层网络设备</strong>。<br/>
+mac层:（介质访问控制层）是数据链路层的一个“子层”。</p>
+<h5 id="包接收">包接收<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#包接收" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>首先，电信号到达网线接口，交换机里的模块进行接收，接下来交换机里的模块将电信号转换为数字信号。</p>
+<p>然后通过包末尾的 <code>FCS</code> 校验错误，如果没问题则放到缓冲区。这部分操作基本和计算机的网卡相同，但交换机的工作方式和网卡不同。</p>
+<p>计算机的网卡本身具有 MAC 地址，并通过核对收到的包的接收方 MAC 地址判断是不是发给自己的，如果不是发给自己的则丢弃；相对地，交换机的端口不核对接收方 MAC 地址，而是直接接收所有的包并存放到缓冲区中。因此，和网卡不同，<strong>交换机的端口不具有 MAC 地址</strong>。</p>
+<p>将包存入缓冲区后，接下来需要查询一下这个包的接收方 MAC 地址是否已经在 <strong>MAC 地址表</strong>中有记录了。<br/>
+交换机的 MAC 地址表主要包含两个信息：</p>
+<ul>
+<li>一个是设备的 MAC 地址，</li>
+<li>另一个是该设备连接在交换机的哪个端口上。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103194832.png" width="auto" height="auto" alt/><br/>
+举个例子，如果收到的包的接收方 MAC 地址为 <code>00-02-B3-1C-9C-F9</code>，则与图中表中的第 3 行匹配，根据端口列的信息，可知这个地址位于 <code>3</code> 号端口上，然后就可以通过交换电路将包发送到相应的端口了。<br/>
+所以，<strong>交换机根据 MAC 地址表查找 MAC 地址，然后将信号发送到相应的端口</strong>。</li>
+</ul>
+<h5 id="如果mac地址表查找不到指定的mac地址">如果MAC地址表查找不到指定的MAC地址<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#如果mac地址表查找不到指定的mac地址" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>只能将包转发到除了源端口之外的所有端口上，无论该设备连接在哪个端口上都能收到这个包。<br/>
+这样做不会产生什么问题，因为以太网的设计本来就是将包发送到整个网络的，然后<strong>只有相应的接收者才接收包，而其他设备则会忽略这个包</strong>。<br/>
+发送了包之后目标设备会作出响应，只要返回了响应包，交换机就可以将它的地址写入 MAC 地址表，下次也就不需要把包发到所有端口了。</p>
+<p>此外，如果接收方 MAC 地址是一个<strong>广播地址</strong>，那么交换机会将包发送到除源端口之外的所有端口。<br/>
+以下两个属于广播地址：</p>
+<ul>
+<li>MAC 地址中的 <code>FF:FF:FF:FF:FF:FF</code></li>
+<li>IP 地址中的 <code>255.255.255.255</code></li>
+</ul>
+<h4 id="路由器">路由器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#路由器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p>网络包经过交换机之后，现在到达了<strong>路由器</strong>，并在此被转发到下一个路由器或目标设备。</p>
+<p>这一步转发的工作原理和交换机类似，也是通过查表判断包转发的目标。<br/>
+不过在具体的操作过程上，路由器和交换机是有区别的。</p>
+<ul>
+<li>因为<strong>路由器</strong>是基于 IP 设计的，俗称<strong>三层</strong>网络设备，路由器的各个端口都具有 MAC 地址和 IP 地址；</li>
+<li>而<strong>交换机</strong>是基于以太网设计的，俗称<strong>二层</strong>网络设备，交换机的端口不具有 MAC 地址。</li>
+</ul>
+<h5 id="基本原理">基本原理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本原理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>路由器的端口具有 MAC 地址，因此它就能够成为以太网的发送方和接收方；同时还具有 IP 地址，从这个意义上来说，它和计算机的网卡是一样的。</li>
+<li>当转发包时，首先路由器端口会接收发给自己的以太网包，然后<strong>路由表</strong>查询转发目标，再由相应的端口作为发送方将以太网包发送出去。</li>
+</ul>
+<h5 id="包接收-1">包接收<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#包接收-1" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>首先，电信号到达网线接口部分，路由器中的模块会将电信号转成数字信号，然后通过包末尾的 <code>FCS</code> 进行错误校验。</li>
+<li>如果没问题则检查 MAC 头部中的<strong>接收方 MAC 地址</strong>，看看是不是发给自己的包，如果是就放到接收缓冲区中，否则就丢弃这个包。</li>
+<li>总的来说，路由器的端口都具有 MAC 地址，只接收与自身地址匹配的包，遇到不匹配的包则直接丢弃</li>
+</ul>
+<h5 id="查路由表">查路由表<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#查路由表" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>完成包接收操作之后，路由器就会<strong>去掉</strong>包开头的 MAC 头部。</li>
+<li><strong>MAC 头部的作用就是将包送达路由器</strong>，其中的接收方 MAC 地址就是路由器端口的 MAC 地址。因此，当包到达路由器之后，MAC 头部的任务就完成了，于是 MAC 头部就会<strong>被丢弃</strong>。</li>
+<li>接下来，路由器会根据 MAC 头部后方的 <code>IP</code> 头部中的内容进行包的转发操作。</li>
+<li>转发操作分为几个阶段</li>
+</ul>
+<ol>
+<li>首先是查询<strong>路由表</strong>判断转发目标。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103195609.png" width="auto" height="auto" alt/></li>
+<li>进入包的发送工作<br/>
+首先需要根据<strong>路由表的网关列</strong>判断对方的地址<br/>
+根据<strong>路由表的网关列</strong>判断对方的地址</li>
+</ol>
+<ul>
+<li>如果网关是一个 IP 地址，则这个IP 地址就是我们要转发到的目标地址，<strong>还未抵达终点</strong>，还需继续需要路由器转发。</li>
+<li>如果网关为空，则 IP 头部中的接收方 IP 地址就是要转发到的目标地址，也是就终于找到 IP 包头里的目标地址了，说明<strong>已抵达终点</strong>。</li>
+</ul>
+<p>知道IP地址之后,就需要通过ARP协议根据IP地址来查询MAC地址,并将查询的结果作为接收方的MAC地址.<br/>
+路由器也有ARP缓存,所以会先在ARP缓存中查询,如果找不到则发送ARP查询请求</p>
+<ul>
+<li>发送方MAC地址就填写<span class="text-highlight">输出端口</span>的MAC地址.还有一个以太类型字段填写IP协议</li>
+<li>网络包完成之后就转换成电信号通过端口发送出去,然后通过交换机到达下一个路由器,经过层层路由转发,就可以到达最终的目的地.这之间,源ip地址和目标ip地址是不会发生变化的,一直变化的是MAC地址</li>
+</ul>
+<h3 id="服务器">服务器<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#服务器" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260103195935.png" width="auto" height="auto" alt/></p>
+<ol>
+<li>数据包抵达服务器后，服务器会先扒开数据包的 MAC 头部，查看是否和服务器自己的 MAC 地址符合，符合就将包收起来。</li>
+<li>接着继续扒开数据包的 IP 头，发现 IP 地址符合，根据 IP 头中协议项，知道自己上层是 TCP 协议。</li>
+<li>于是，扒开 TCP 的头，里面有序列号，需要看一看这个序列包是不是我想要的，如果是就放入缓存中然后返回一个 ACK，如果不是就丢弃。TCP头部里面还有端口号， HTTP 的服务器正在监听这个端口号。</li>
+<li>于是，服务器自然就知道是 HTTP 进程想要这个包，于是就将包发给 HTTP 进程。</li>
+<li>服务器的 HTTP 进程看到，原来这个请求是要访问一个页面，于是就把这个网页封装在 HTTP 响应报文里。</li>
+<li>HTTP 响应报文也需要穿上 TCP、IP、MAC 头部，不过这次是源地址是服务器 IP 地址，目的地址是客户端 IP 地址。</li>
+<li>穿好头部衣服后，从网卡出去，交由交换机转发到出城的路由器，路由器就把响应数据包发到了下一个路由器，就这样跳啊跳。</li>
+<li>最后跳到了客户端的城门把守的路由器，路由器扒开 IP 头部发现是要找城内的人，于是又把包发给了城内的交换机，再由交换机转发到客户端。</li>
+<li>客户端收到了服务器的响应数据包后，同样也非常的高兴，客户能拆快递了！</li>
+<li>于是，客户端开始扒皮，把收到的数据包的皮扒剩 HTTP 响应报文后，交给浏览器去渲染页面，一份特别的数据包快递，就这样显示出来了！</li>
+<li>最后，客户端要离开了，向服务器发起了 TCP 四次挥手，至此双方的连接就断开了。</li>
+</ol></article><hr/><div class="page-footer"><div class="giscus" data-repo="im0x0ing/im0x0ing.github.io" data-repo-id="R_kgDOQevgrA" data-category="Announcements" data-category-id="DIC_kwDOQevgrM4CzLI8" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-input-position="top" data-light-theme="light" data-dark-theme="dark" data-theme-url="https://im0x0ing.github.io/static/giscus" data-lang="zh-CN"></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-86" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div class="toc-depth-control"><span class="depth-label">H3</span><input type="range" class="depth-slider" min="1" max="6" value="2" step="1"/></div><ul id="list-9" class="toc-content overflow"><li class="depth-0"><a href="#tcpip-网络模型" data-for="tcpip-网络模型">TCP/IP 网络模型</a></li><li class="depth-0"><a href="#键入网址到网页显示期间发生了什么" data-for="键入网址到网页显示期间发生了什么">键入网址到网页显示，期间发生了什么</a></li><li class="depth-2"><a href="#应用层-http" data-for="应用层-http">应用层 HTTP</a></li><li class="depth-2"><a href="#真实地址查询dns" data-for="真实地址查询dns">真实地址查询—DNS</a></li><li class="depth-3"><a href="#域名解析的工作流程" data-for="域名解析的工作流程">域名解析的工作流程</a></li><li class="depth-2"><a href="#协议栈" data-for="协议栈">协议栈</a></li><li class="depth-3"><a href="#可靠传输tcp" data-for="可靠传输tcp">可靠传输TCP</a></li><li class="depth-3"><a href="#ip将数据封装成网络包网络层" data-for="ip将数据封装成网络包网络层">ip将数据封装成网络包：网络层</a></li><li class="depth-3"><a href="#mac" data-for="mac">mac</a></li><li class="depth-2"><a href="#网卡" data-for="网卡">网卡</a></li><li class="depth-2"><a href="#交换机" data-for="交换机">交换机</a></li><li class="depth-3"><a href="#包接收" data-for="包接收">包接收</a></li><li class="depth-3"><a href="#如果mac地址表查找不到指定的mac地址" data-for="如果mac地址表查找不到指定的mac地址">如果MAC地址表查找不到指定的MAC地址</a></li><li class="depth-2"><a href="#路由器" data-for="路由器">路由器</a></li><li class="depth-3"><a href="#基本原理" data-for="基本原理">基本原理</a></li><li class="depth-3"><a href="#包接收-1" data-for="包接收-1">包接收</a></li><li class="depth-3"><a href="#查路由表" data-for="查路由表">查路由表</a></li><li class="depth-1"><a href="#服务器" data-for="服务器">服务器</a></li><li class="overflow-end"></li></ul></div><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function f(i,e){if(!i)return;function r(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function t(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}i?.addEventListener("click",r),window.addCleanup(()=>i?.removeEventListener("click",r)),document.addEventListener("keydown",t),window.addCleanup(()=>document.removeEventListener("keydown",t))}function y(i){for(;i.firstChild;)i.removeChild(i.firstChild)}var h=class{constructor(e,r){this.container=e;this.content=r;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),r=this.onMouseMove.bind(this),t=this.onMouseUp.bind(this),o=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",r),document.addEventListener("mouseup",t),window.addEventListener("resize",o),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",r),()=>document.removeEventListener("mouseup",t),()=>window.removeEventListener("resize",o))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let r=this.createButton("+",()=>this.zoom(.1)),t=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(t),e.appendChild(o),e.appendChild(r),this.container.appendChild(e)}createButton(e,r){let t=document.createElement("button");return t.textContent=e,t.className="mermaid-control-button",t.addEventListener("click",r),window.addCleanup(()=>t.removeEventListener("click",r)),t}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}zoom(e){let r=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),t=this.content.getBoundingClientRect(),o=t.width/2,n=t.height/2,c=r-this.scale;this.currentPan.x-=o*c,this.currentPan.y-=n*c,this.scale=r,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){this.scale=1;let e=this.content.querySelector("svg");this.currentPan={x:e.getBoundingClientRect().width/2,y:e.getBoundingClientRect().height/2},this.updateTransform()}},C=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],E;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;E||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let r=E.default,t=new WeakMap;for(let n of e)t.set(n,n.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let a=t.get(s);a&&(s.innerHTML=a)}let n=C.reduce((s,a)=>(s[a]=window.getComputedStyle(document.documentElement).getPropertyValue(a),s),{}),c=document.documentElement.getAttribute("saved-theme")==="dark";r.initialize({startOnLoad:!1,securityLevel:"loose",theme:c?"dark":"base",themeVariables:{fontFamily:n["--codeFont"],primaryColor:n["--light"],primaryTextColor:n["--darkgray"],primaryBorderColor:n["--tertiary"],lineColor:n["--darkgray"],secondaryColor:n["--secondary"],tertiaryColor:n["--tertiary"],clusterBkg:n["--light"],edgeLabelBackground:n["--highlight"]}}),await r.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let n=0;n<e.length;n++){let v=function(){let g=l.querySelector("#mermaid-space"),m=l.querySelector(".mermaid-content");if(!m)return;y(m);let w=c.querySelector("svg").cloneNode(!0);m.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new h(g,m)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},c=e[n],s=c.parentElement,a=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(a),L=a.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),f(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>
