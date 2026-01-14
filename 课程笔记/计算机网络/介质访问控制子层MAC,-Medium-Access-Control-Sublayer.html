@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>介质访问控制子层MAC, Medium Access Control Sublayer</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Sans SC:wght@400;700&amp;family=Noto Serif SC:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&amp;family=JetBrains Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="ING wiki"/><meta property="og:title" content="介质访问控制子层MAC, Medium Access Control Sublayer"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="介质访问控制子层MAC, Medium Access Control Sublayer"/><meta name="twitter:description" content="广播信道传输协议 MAC 子层 我们讨论过的协议都是针对 点对点连接 point-to-point connections 的；但是在 LAN 等场景下，我们需要使用 广播信道 broadcast channels。 也称为 多路访问信道 multiaccess channel 或 随机访问信道 random access channel。 对于广播信道，关键的问题是保证在多方争用信道时确定谁可以使用信道，从而让他们都成功发送信息。用来确定多路访问信道的下一个使用者的协议属于 Link Layer 的一个子层 介质访问控制子层 MAC, Medium Access Control Sublay..."/><meta property="og:description" content="广播信道传输协议 MAC 子层 我们讨论过的协议都是针对 点对点连接 point-to-point connections 的；但是在 LAN 等场景下，我们需要使用 广播信道 broadcast channels。 也称为 多路访问信道 multiaccess channel 或 随机访问信道 random access channel。 对于广播信道，关键的问题是保证在多方争用信道时确定谁可以使用信道，从而让他们都成功发送信息。用来确定多路访问信道的下一个使用者的协议属于 Link Layer 的一个子层 介质访问控制子层 MAC, Medium Access Control Sublay..."/><meta property="og:image:alt" content="广播信道传输协议 MAC 子层 我们讨论过的协议都是针对 点对点连接 point-to-point connections 的；但是在 LAN 等场景下，我们需要使用 广播信道 broadcast channels。 也称为 多路访问信道 multiaccess channel 或 随机访问信道 random access channel。 对于广播信道，关键的问题是保证在多方争用信道时确定谁可以使用信道，从而让他们都成功发送信息。用来确定多路访问信道的下一个使用者的协议属于 Link Layer 的一个子层 介质访问控制子层 MAC, Medium Access Control Sublay..."/><meta property="twitter:domain" content="im0x0ing.github.io"/><meta property="og:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/介质访问控制子层MAC,-Medium-Access-Control-Sublayer"/><meta property="twitter:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/介质访问控制子层MAC,-Medium-Access-Control-Sublayer"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="广播信道传输协议 MAC 子层 我们讨论过的协议都是针对 点对点连接 point-to-point connections 的；但是在 LAN 等场景下，我们需要使用 广播信道 broadcast channels。 也称为 多路访问信道 multiaccess channel 或 随机访问信道 random access channel。 对于广播信道，关键的问题是保证在多方争用信道时确定谁可以使用信道，从而让他们都成功发送信息。用来确定多路访问信道的下一个使用者的协议属于 Link Layer 的一个子层 介质访问控制子层 MAC, Medium Access Control Sublay..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  padding: 2rem;
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL2hvbWUvcnVubmVyL3dvcmsvaW0weDBpbmctYmxvZy1wcml2YXRlL2ltMHgwaW5nLWJsb2ctcHJpdmF0ZS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcGFkZGluZzogMnJlbTtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://im0x0ing.github.io/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/介质访问控制子层MAC,-Medium-Access-Control-Sublayer-og-image.webp"/><meta property="og:image:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/介质访问控制子层MAC,-Medium-Access-Control-Sublayer-og-image.webp"/><meta name="twitter:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/介质访问控制子层MAC,-Medium-Access-Control-Sublayer-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="课程笔记/计算机网络/介质访问控制子层MAC,-Medium-Access-Control-Sublayer"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">ING wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slug===\&quot;\&quot;||node.slug.startsWith(\&quot;\\u8BFE\\u7A0B\\u7B14\\u8BB0\&quot;)&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-167"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-167" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-3"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><header><nav class="my-navbar "><div class="links"><a href="/课程笔记/">课程笔记</a><a href="/技术积累/">技术积累</a><a href="/工具使用/">工具使用</a><a href="/生活杂谈/">生活杂谈</a></div></nav></header><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/">课程笔记</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/计算机网络/">计算机网络</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>介质访问控制子层MAC, Medium Access Control Sublayer</a></div></nav><h1 class="article-title">介质访问控制子层MAC, Medium Access Control Sublayer</h1><p show-comma="true" class="content-meta"><time datetime="2026-01-14T16:37:00.000Z">Jan 14, 2026</time><span>45 min read</span></p></div></div><article class="popover-hint"><h2 id="广播信道传输协议">广播信道传输协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#广播信道传输协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="mac-子层">MAC 子层<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mac-子层" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>我们讨论过的协议都是针对 点对点连接 point-to-point connections 的；但是在 LAN 等场景下，我们需要使用 <strong>广播信道 broadcast channels。</strong>
+<ul>
+<li>也称为 <strong>多路访问信道 multiaccess channel</strong> 或 <strong>随机访问信道 random access channel。</strong></li>
+<li>对于广播信道，关键的问题是保证在多方争用信道时确定谁可以使用信道，从而让他们都成功发送信息。用来<span class="text-highlight">确定多路访问信道的下一个使用者的协议</span>属于 Link Layer 的一个子层 介质访问控制子层 MAC, Medium Access Control Sublayer。我们关注低负载情况下的延迟以及高负载情况下的链路利用率。</li>
+</ul>
+</li>
+<li>OSI 七层模型将 Data Link Layer 分为了 LLC (Logical Link Control) 和 MAC 两个子层：<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636459336684-81695a8b-e5b2-4cc0-b422-440768d79bc5.png" alt/></li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636459430904-eebb632f-5c6c-4d39-9b14-06ce069b04dd.png" alt/></li>
+<li>将信道分配问题形式化，我们提出下面 5 个<span class="text-highlight">关键假设</span>：
+<ol>
+<li>Independent Traffic，每个站中帧的到达率相互独立；每个帧发送出去前该站阻塞。</li>
+<li>Single Channel，所有的通信都发生在同一个信道上；所有的站都能在这个信道上发送和接受数据。</li>
+<li>Observable Collision，所有的站都能检测到冲突事件的发生。</li>
+<li>Continuous or Slotted Time，可以约定任何时候都可以开始传输帧，或者将时间分槽，规定只能在时间槽开始时开始传输帧。</li>
+<li>Carrier Sense or No Carrier Sense，可以让站在发送前侦听载波，如果信道忙就暂缓传输防止冲突。</li>
+</ol>
+</li>
+</ul>
+<h4 id="static-fdm--tdm">Static FDM / TDM<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#static-fdm--tdm" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>N 变化时很麻烦；不变化也很浪费</li>
+</ul>
+<h4 id="aloha-additive-links-on-line-hawaii-area">ALOHA, Additive Links On-line Hawaii Area<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#aloha-additive-links-on-line-hawaii-area" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="pure-aloha">Pure ALOHA<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#pure-aloha" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>基本思想很简单：每个用户有数据需要发送时就传输。问题在于，当两个用户发送的信号发生重叠（称为 <strong>冲突 collision</strong>）时，冲突的帧就会损坏。ALOHA 要求发送方可以知道所发送的信号是否发生了冲突。这种采用了可能引起冲突的共享信道方法的系统称为 <strong>竞争系统 contention system</strong>。</li>
+<li>在 ALOHA 最初的应用场景中，中央计算机会将受到的帧广播发回，发送方侦听发回的帧就可以知道有没有发生冲突。在其他系统中，发送方可以直接侦听发送的帧是否发生过冲突；或者等待接收方发回 ACK 或 NAK。</li>
+<li>当发送方侦测到冲突、收到一个 NAK 或者一段时间没有收到回复时，它在等待一段 随机 时间后再次发送该帧。如果等待时间不是随机的，那么发生冲突的帧会一次又一次发生冲突。</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633943839501-840c8bdd-2b1f-4d1a-b1ac-32659c293eae.png" alt/></li>
+<li>最好情况下，Pure ALOHA 的信道利用率期望约为 1/2e ≈ 18%，这是很低的。</li>
+</ul>
+<h5 id="slotted-aloha">Slotted ALOHA<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#slotted-aloha" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>在这种优化了的协议中，时间被分成了<strong>离散的 slot</strong>，用户只能在每个 slot 的开始时刻才能发送帧。每次传输帧的用时必须小于或等于一个 slot 的长度。</li>
+<li>阴影表示冲突 (src)<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633944515746-6319d3fd-fc03-4922-8ca5-75fd21084a83.png" alt/></li>
+<li>这种方式可以达到的最佳利用率是 1/e ≈ 36%。</li>
+<li>载波侦听多路访问 CSMA, Carrier Sense Multiple Access</li>
+</ul>
+<h4 id="1-persistent-csma">1-persistent CSMA<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#1-persistent-csma" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>每个站点需要发送数据时，首先侦听信道：如果信道空闲则立即发送数据；如果信道忙，则不断侦听直至信道空闲时发送数据。如果冲突（比如一段时间内没收到 ACK 或者收到了 NAK），则随机等待一段时间后重复上述策略。</li>
+<li>问题：
+<ul>
+<li>首先，如果信道忙时两个站点同时侦听，信道空闲的时候两个信道就会同时试图发送，从而出现冲突。</li>
+<li>另外，我们还需要考虑信道上的传播延时 propagation delay：如果 A 已经开始发送数据，但是数据暂时没有传播到 B，此时 B 侦听到的信道是空闲并开始发送数据，也会引起冲突。</li>
+</ul>
+</li>
+<li>（即便如此，这种方案的信道利用率也比 ALOHA 好）</li>
+</ul>
+<h4 id="nonpersistent-csma">nonpersistent CSMA<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#nonpersistent-csma" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>这种方式的关键区别是：如果侦听到信道忙，则放弃侦听，等待一段随机时长后再进行侦听，直到侦听到信道空闲并成功发送。</li>
+</ul>
+<h4 id="p-persistent-csma">p-persistent CSMA<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#p-persistent-csma" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>这种方式用于 slotted channels。当站点需要发送数据时侦听信道：如果信道忙，到下一个 slot 再侦听；如果信道空闲，则以 p 的概率发送数据，以 1-p 的概率到下一个 slot 再侦听。<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1634027730471-71fbf56f-9541-4e0b-8e04-04c274a935b5.png" alt/></li>
+</ul>
+<h4 id="csmacd-csma-with-collision-detection">CSMA/CD, CSMA with Collision Detection<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#csmacd-csma-with-collision-detection" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>
+<p>前述几种 CSMA 对冲突的发现都是通过确认帧进行的，对于链路过长的情况，等待的时间可能较长。我们考虑对信道不断侦听实现冲突的检测，这要求返回的信号不能比发出的信号弱太多（如无线传输就不行），而且冲突必须在发送过程中就可以被检查到。如果一个站检测到冲突，它会立即停止传输，并等待一个随机时间后再尝试发送。</p>
+</li>
+<li>
+<p>考察冲突检查花费的最长可能时间：在 CDMA 中，冲突的可能性是某个站开始发送前进行侦听时，另一个站虽然已经开始发送，但是信号尚未传播到这个站。因此如果最远的两个站之间传播用时是 t，那么一个站发送后 0~t 秒内冲突才有可能会发生；而这个冲突会花费同样多的时间传播回去。也就是说，如果一个站发送信息后 2t 时间仍然没有侦测到冲突，那么它发送的这一帧就不再可能出现冲突了。</p>
+</li>
+<li>
+<p>无冲突协议 collision-free protocols</p>
+</li>
+<li>
+<p>基本位图协议 Basic Bit-map Protocol</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1634043840173-f6348928-8d25-4090-9488-c3f4ec3f5dff.png" alt/></p>
+</li>
+<li>
+<p>这种在发送数据之前先广播发送意愿的协议称为 预留协议 reservation protocol。</p>
+</li>
+<li>
+<p>令牌环协议 Token Ring Protocol</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1634043886472-d938c5dc-7b90-476d-9938-7bd1cd6e3ab3.png" alt/></p>
+</li>
+<li>
+<p>二进制倒计数协议 Binary Countdown Protocol</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1634044250554-a564c99d-5c44-43ba-abfc-90901aa1b7b8.png" alt/></p>
+</li>
+<li>
+<p>有限竞争协议 limited-contention protocols</p>
+</li>
+<li>
+<p>自适应树遍历协议The Adaptive Tree Walk Protocol<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1634627074427-e0ea6301-5c56-4eb5-94ff-10daf714632c.png" alt/></p>
+</li>
+</ul>
+<h2 id="以太网">以太网<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#以太网" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h5 id="经典以太网-classic-ethernet">经典以太网 Classic Ethernet<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#经典以太网-classic-ethernet" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>一个 10Mbps 的以太网标准在 1978 年被制定出来，称为 DIX standard。1983 年它被修订并成为了 IEEE 802.3 标准。</li>
+<li>物理层 <img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635143512789-dfd83463-31aa-40dc-9a84-47e942b8053d.png" alt/></li>
+<li>上图显示了经典以太网的 物理层。以太网的每个版本都有电缆长度的限制；超过这个限制的网络可以用 中继器 repeater 将多条线缆连接起来。但是收发器 transceiver 之间仍然有最大距离 2.5 km 和最大经过中继器数目 4 个的限制。在这些电缆上，信息的发送采用 Manchester 编码。</li>
+</ul>
+<h5 id="集线器-hub">集线器 Hub<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#集线器-hub" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635837380970-e03aaf6b-5b88-4120-9cb3-dd87129ff926.png" alt/></p>
+<ul>
+<li>传统的接线模式不太方便设备的增减；出现断裂等情况也很难定位。因此人们开发出了一种设备 Hub，这种设备有很多接口，每个接口之间简单地连接起来，这样任何一个接口发送来的帧会被传播到其他所有端口。端口的设置也方便了设备增减和定位问题。</li>
+<li>之所以说 Hub 是一个物理层设备，就是因为它不会试图理解和使用任何数据链路层以及更高层添加的信息；比如它并不知道这个帧是从谁发给谁的。它做的事情就只是完成转发（实际上，只是信号的传播）而已。 也正因为 Hub 实际发挥的作用只是信号的传播，因此 Hub 并没有缓存；各个端口上的线路也必须以同样的速度运行。</li>
+</ul>
+<h5 id="传输协议">传输协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#传输协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>以太网是无连接的，也并不提供确认，使用 1-persistent CSMA/CD 算法进行传输；它通过侦听有没有冲突来判断是否发送成功。如果站侦听到了冲突，则发一个短的冲突加强信号 (short jam signal) 确保另一个发送站也听到了冲突；如果没有侦听到冲突则假设这个帧发送成功。传输过程中发生的错误只会通过校验和检出并由高层负责恢复。</li>
+<li>考虑这种冲突侦听的可靠性。假设两个最远的站 A, B 之间需要的传播时间为 τ，A 站开始发送一个帧后的 τ-ε 时间，即即将到达 B 站时，B 发送了一个帧并产生了冲突；这个冲突在 2τ-2ε 时间被 A 侦听到。那么，我们必须保证 2τ-2ε 时间时 A 还没有发送完这个帧；否则如果它就有可能已经发送完前一个帧并开始发送下一个帧，并且会不知道这个冲突信号代表哪一帧发生了冲突。即，我们需要让帧时间不低于 2τ。根据物理层中我们规范的 2.5km、4 个中继器的最大限制，往返时间 2τ 大约是 50μs；在 10Mbps 的速率下可以发送 500bit。考虑一个安全余量，我们规定最小帧时间为 51.2μs，最小帧长为 512bit，即 64 字节。（这个推导过程换个参数可以考计算题）</li>
+<li>以太网通过 二进制指数后退 binary exponential backoff 算法确定每次冲突后的等待时间。我们将时间按照 51.2μs 分块；在第 i = 1 ~ 15 次冲突发生后，站等待 0 ~ min((2^i-1), 1023) 个时间槽后再次尝试发送；在发生 16 次冲突后，它放弃发送并给上层返回一个失败报告；高层协议负责进一步的恢复工作。这种算法的考量是，如果等待时间的上限较低，那么多个站发生冲突的时候很可能再次发生冲突；而如果上限较高，则很有可能发生很多无意义的延迟。这种算法可以保证：如果只有少量站发生冲突，则可以保证较低的延迟；当许多站发生冲突时，它也可以保证在一个相对合理的时间内解决冲突。</li>
+</ul>
+<h5 id="帧结构-">帧结构 <img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635144183278-84d43ace-131b-48e0-bdcb-52b0ed49120e.png" alt/><a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#帧结构-" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>
+<p>在 MAC 子层，标准规定了以太网的帧结构，如上图所示。可以看到，DIX 和 IEEE 802.3 是略有区别的。</p>
+</li>
+<li>
+<p>前 8 个字节是前导码 Preamble，其中前 7 个字节是 10101010 用来同步，第 8 个字节是 10101011 (SOF, Start of Frame) 提示帧的开始。</p>
+</li>
+<li>
+<p>Dest addr 发送出去的第一个 bit 是 0 表示 单播 unicasting，1 表示 组播 multicasting；全 1 表示 广播 boardcasting。</p>
+</li>
+<li>
+<p>Src addr 是全球唯一的；由 IEEE 统一分配。前 3 个字节称为 OUI, Organizationally Unique Identifier，分配给网络设备制造商；网络设备制造商再分配到网络设备，并写入 网络接口卡 NIC, Network Interface Card，即网卡。</p>
+</li>
+<li>
+<p>接下来的 2 个字节，在 DIX 中表示类型，因为接收方的操作系统需要知道用哪个网络层协议来处理数据包；而在 IEEE 802.3 中这两个字节存储 Data 的长度（在 DIX 中，这个长度只能保存在 Data 中；但这违反了分层的思想），具体的类型则存储在 Data 中的 逻辑链路控制 LLC, Logical Link Control 协议头 中。但是实际上在 IEEE 802.3 提出时，DIX 设备已经在使用了；因此最终选择了兼容：值不大于 0x600 的字段解释为 Length，而大于 0x600 则解释为 Type。</p>
+</li>
+<li>
+<p>接下来是 Data 段。在指定 DIX 标准时，考虑到内存很贵，所以设置了 1500 字节的上限（因此最大帧长是 1518 字节）。下面是 Padding，即填充。填充是为了保证帧长度（不算 preamble）不少于 64 个字节；这一规定的原因在前面已经讨论过了。</p>
+</li>
+<li>
+<p>最后一个字段是校验和，它使用的就是 32 位的 CRC。</p>
+</li>
+<li>
+<p>10Base2, 10Base5 用的是同轴电缆；Base 指基带传输，前面的数字表示是多少 Mbps（除了 10GBaseT 这样的表示 10Gbps）；<em>BaseT</em> 或者 <em>BaseC</em>（比如 100BaseT4, 1000BaseCX）差不多都是双绞线；其他的差不多都是光纤</p>
+</li>
+</ul>
+<h5 id="网桥-bridge">网桥 bridge<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#网桥-bridge" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<h6 id="引出">引出<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#引出" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h6>
+<ul>
+<li>
+<p>假如现在有若干个 LAN，例如一个大学的多个学院，分别发挥其效用。但是此时，这几个 LAN 希望相互之间有一些信息交流。最简单的解决办法就是再用一根电缆连接这些 LAN；但是这种做法有若干问题：</p>
+</li>
+<li>
+<p>首先，每个原来的 LAN 中可能包含大量交流于自己学院内的信息，只有很少的一部分需要与其他 LAN 交流。如果简单地将这些 LAN 连接在一起，那么每个信息都会被广播到所有 LAN，这会极大程度上增加网络的负载，同时也带来了安全性问题。</p>
+</li>
+<li>
+<p>其次，IEEE 802.3 的限制决定了最长的线路长度是 2.5km；而如果这些 LAN 的物理地址相距较远，我们就不能将其直接连接起来。</p>
+</li>
+<li>
+<p>而且，原先的各个 LAN 也有可能使用着不同运行速度的线路，甚至是不同的网络类型。这种情况下，直接将其连接是无法正常工作的。</p>
+</li>
+<li>
+<p>解决这些问题的一个不错的思路是，仍然保持这些 LAN 相互隔离的状态，但是给它们提供途径向其他 LAN 发送消息。这个途径应当足够简单；LAN 内部的信息交流不应感知到有没有这个途径之间的区别。为此，人们开发出了 网桥 bridge。</p>
+</li>
+</ul>
+<h6 id="工作原理">工作原理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#工作原理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h6>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635853485197-7302779d-a546-4c10-83b7-978b4fcc10b2.png" alt/></p>
+<ul>
+<li>网桥工作在 混杂模式 promiscuous mode 下；也就是说，它捕获所有发给它的数据。如果发送方和接收方连接在网桥的同一个端口上，那么网桥立刻丢弃该包（如 A 发给 C）；如果不在一个端口，那么网桥将这个帧从接收方对应的端口转发出去。</li>
+<li>这种转发的前提是，网桥应当知道每一个站点连接在哪个端口。因此，网桥中配备了一个哈希表，包含了每一个可能的目的站点以及它对应的端口。当网桥的某个端口接收到一个帧，它查看这个帧的发送站点，这样它就得知通过这个端口能够联系到这个站点（这种自学习方法称为 后向学习法 backward learning）。同时，它检查这个帧的目的站点是否在表中；如果在，则如前述那样转发或丢弃；如果不在，则网桥使用 flooding algorithm，将这一帧发送给除了发送端口以外的所有端口。</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636902811259-48ab7810-ffc3-4942-ad17-bae09063427a.png" alt/></li>
+<li>当机器或网桥被打开、关闭或移动时，网络的拓扑结构会发生变化。为了处理这种动态的拓扑结构，表中还保存了这一项产生或更新的时间（亦即这一帧到达的时间）。网桥中还有一个进程定期扫描这个表，并将那些时间值在几分钟以前的表项清除。</li>
+<li>查找和更新表项的工作在每个帧到来时都需要进行一次；因此网桥使用了专用的大规模集成电路芯片完成这一工作，每次只需要几微秒就能完成。网桥一看到目的 MAC 地址就知道如何转发帧；因此一旦其看到目的地址字段就可以开始转发，此时帧的其余部分可能还在输入。这种方式降低了帧通过网桥的延迟，也降低了网桥需要缓冲的帧数。这种转发方式称为 直通式交换 cut-through switching 或 虫孔路由 wormhole routing。</li>
+<li>不同类型的线缆都可以连接到一个网桥上；各个端口上的线路可以以不同的速度运行，甚至可以是不同的网络类型。网桥内部有缓存，如果需要发送的信道忙，或者其速度慢于发送方的速度，网桥就会缓存这些帧，等到合适的时机再发送。当然，网桥也有可能因为缓冲空间耗尽而不得不丢弃帧。</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635853260593-b91c2e51-6462-4b4e-aa00-3240d8a9de22.png" alt/></li>
+<li>为了提高效率，我们也可以让网桥的每个接口独立地连接一个站点；上图展示了除了仍有一个 Hub 以外其他的站点都直接连接在了网桥上。对于每个端口，如果它连接的是全双工的点到点链路，那么它就不再需要 CSMA/CD 等冲突处理算法，因为它不会发生冲突。</li>
+</ul>
+<h5 id="冗余链路-redundant-links--parallel-links">冗余链路 redundant links / parallel links<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#冗余链路-redundant-links--parallel-links" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635856607498-1f6716b2-c415-4a4f-a608-71d557545240.png" alt/></p>
+</li>
+<li>
+<p>为了提高可靠性，网桥之间可以使用冗余链路，防止在一条链路出现故障时两边不会无法联系。</p>
+</li>
+<li>
+<p>但是，这样的冗余引入了拓扑环路。考虑这样的情形：如上图，刚开始，B1 和 B2 的哈希表都是空的。此时 A 给 B1 发送了一帧 F0，B1 将帧从它的所有端口发送了出去，但是由于它到 B2 有两条链路，因此它在这两条链路上分别发送了帧 F1 和 F2。此时 B2 收到了这两个帧，并不知道这两个帧是同一个帧的副本，因此它分别对这两个帧进行 flooding；这样就会导致 F1 的副本从 F2 的链路被发回 B1，F2 的副本从 F1 的链路发回 B1，从此造成这个循环无线进行下去。</p>
+</li>
+<li>
+<p>解决这种问题的方法是生成树算法 Spanning Tree Algorithm；我们通过不使用一些链路让图简化成一个无环的连通结构，即生成树。</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635857123500-dbe0bf70-246c-4aea-8cbe-b41595f1fa8b.png" alt/></p>
+</li>
+<li>
+<p>这种算法的流程是这样的：每个网桥周期性地从它的所有端口广播一个配置信息 configuration message，同时处理来自其他网桥的信息。这些信息不会被转发。首先，全体网桥必须选择一个网桥作为生成树的根。这一选择是通过在自己的配置消息中包含一个基于 MAC 地址的标识符；网桥选择具有最低标识符的网桥作为生成树的根；通过足够的消息交换，所有网桥都将同意这个根。下面，我们选择所有与根直接连接的网桥，它们到根的最短路径都是一跳。此后，我们每次选择上一次选出的网桥通过一跳可以到达的未被选中的所有网桥，直到全部网桥都被选中。如果过程中两个或多个网桥都试图扩展到一个新的网桥，那么其中标识符最低的那个网桥获得这个新的网桥的扩展权。在过程中，网桥在它们的配置信息中还会包括与根的距离。每个网桥记住它找到的到根的最短路径，然后关闭不属于这条路径的端口。</p>
+</li>
+<li>
+<p>在网络正常操作期间，该算法仍需要继续运行，以便自动检查拓扑结构的变化，并更新生成树。生成树算法随后被标准化为 IEEE 802.1D。</p>
+</li>
+<li>
+<p>讨论</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635853485197-7302779d-a546-4c10-83b7-978b4fcc10b2.png" alt/></p>
+</li>
+<li>
+<p>考察上图这种情况发生冲突的可能。容易发现，此时 ABC 三个站以及网桥的端口 1 之间是有可能互相冲突的；DEFG 和网桥的端口 2 之间也可能冲突。但是，由于网桥的转发作用，这些站被隔离为左右两边，它们之间不会发生冲突。我们称可能会相互冲突的节点的集合称为 冲突域 collision domain。可以看到，网桥也有隔离冲突域的作用；连接在网桥同一端口上的所有站属于一个冲突域。</p>
+</li>
+<li>
+<p>网桥工作在数据链路层。这么说的原因是，网桥会查看 MAC 子层的源和目的地址信息，但不会查看更高层的信息。之所以我们说不同的设备工作在不同的层上，就是因为这些设备根据不同的信息决定如何交换。下图显示了网桥上的协议栈处理。</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635851087731-df3de724-4939-44ac-af00-ae82bc44eb7a.png" alt/></p>
+</li>
+<li>
+<p>网桥最初被用来连接不同种类的局域网，例如将一个以太网和一个令牌环网连接在一起。但是，由于不同局域网之间的差异，这些工作并不都能完美地完成。不同的帧格式需要重新处理，会引入额外的用时和新的错误可能。有些帧也可能过大无法转发因而不得不丢弃。有的局域网如 WLAN 提供了一些安全机制和服务质量，但以太网等局域网并没有这些概念；因此这些期待也不能得到保证。因此，线代网桥一般都工作在一种网络类型上，连接不同类型网络的责任交给路由器来完成。</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635857217419-85d64230-32ca-4a73-a437-f48dc152d3f0.png" alt/></p>
+</li>
+<li>
+<p>交换机性能上的优越性，除了在隔离冲突域甚至在点对点、全双工的情况下消除冲突的可能之外，也在于其较高的并发性。端口 1 向端口 2 发送的帧和端口 3 向端口 4 发送的帧可以被互不影响地并行发送出去；这是集线器所不能做到的。</p>
+</li>
+</ul>
+<h5 id="交换式以太网-switched-ethernet">交换式以太网 Switched Ethernet<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#交换式以太网-switched-ethernet" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>交换机 switch 是现代网桥的另一个称呼；它是交换式以太网的核心。现在的以太网交换机都是全双工、点对点的，因此冲突不可能发生，也不再需要 CSMA/CD 算法了。如下图所示，以太网交换机仍然可以连接集线器，集线器的各个端口希望发送的消息通过竞争后送达以太网交换机；但以太网对此并不需要知情。不过由于交换机的价格在不断下降，传统的集线器也渐渐成为历史。</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1635854060407-c3329686-1b14-4e63-90a1-1997c4db2cff.png" alt/></li>
+</ul>
+<h2 id="vlan-virtual-local-area-network">VLAN, Virtual Local Area Network<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#vlan-virtual-local-area-network" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<ul>
+<li>在关于网桥的讨论中，我们讨论了同一组织的多个 LAN 互相连接的必要性。另外我们也应注意到，同一组织的多个 LAN 也可能发挥不同的作用因而有不同的需求。例如，从 安全性 出发，有的 LAN 部署着 Web 服务器供其他计算机访问，但有的 LAN 存储着不应流传到组织外的信息；又如不同的 LAN 可能有不同的 负载，但诸如用于实时通讯的 LAN 可能不愿意分享它的带宽等。因此，我们在一个组织中也想要维护若干不同的 LAN。但是，我们希望将物理拓扑与逻辑拓扑分离开，这样就能避免由于人事变动或者某个员工更换办公室等情况下导致需要频繁更改线路的物理结构等情况，提高网络的灵活性。因此我们希望能够有一种技术，通过逻辑而不是物理的层面划分 LAN。因此我们提出 VLAN。</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636011770824-db868f91-c7d3-4b0d-84b0-c5e13783c708.png" alt/></li>
+<li>VLAN 基于 VLAN-aware switches，我们用不同的颜色标识不同的 VLAN，例如在上面这个图中有白色 W 和灰色 G 两个 VLAN。当一个来自灰色端口的帧发送给交换机时，它将这一帧转发给所有标记为 G 的端口。需要注意的是，一个端口可能被标记为多个颜色。这样简单的思路可能带来一些问题。例如，来自图中 Hub 的帧连接在 B2 一个标为 GW 的端口，那么交换机应当如何转发这一帧？类似地，如果 B1 收到了来自 B2 的一个帧，又应该如何转发？我们可以认识到，为了解决这些问题，我们必须传递一些附加的信息。</li>
+<li>我们希望 VLAN 使用在以太网上，但是以太网的帧结构没有什么空闲的字段可供我们附加一个帧的 VLAN 信息。因此一个新的帧结构被提出了，发表于 IEEE 802.1Q 标准中；同时为了适应这个帧结构，帧长的上限被调整到了 1522 字节：</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636013949029-721ba95b-8ae5-48f5-aef6-57056dde9a69.png" alt/></li>
+<li>在讨论这个帧结构的细节之前，我们首先需要明确的是，在这种标准下 VLAN-aware 的和传统的交换机和计算机可以比较好地并存。这一特性的实现方式是，在任一路径上的首个 VLAN-aware 设备负责添加上 VLAN 的额外字段，路径上最后一个这样的设备负责将额外字段删除。因此，只有 VLAN-aware 的设备会看到这些额外的字段：</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636505340732-d1713c04-32d1-459b-b667-e34a35011560.png" alt/></li>
+<li>
+<ol>
+<li>VLAN protocol ID (2 Bytes), always has the value 0x81002. VLAN Identifier (12 bits), the color(Pri 5 bits, CFI 1 bit 与 VLAN 无关)</li>
+</ol>
+</li>
+<li>颜色按端口为单位划分。With 802.1Q, frames are colored depending on the port on which they are received. For this method to work, all machines on a port must belong to the same VLAN, which reduces flexibility.</li>
+<li>用高层协议决定颜色。Additionally, the bridge can use the higher-layer protocol to select the color. In this way, frames arriving on a port might be placed in different VLANs depending on whether they carry IP packets or PPP frames.</li>
+<li>其他例子：用 MAC 地址决定颜色。Other methods are possible, but they are not supported by 802.1Q. As one example, the MAC address can be used to select the VLAN color. This might be useful for frames coming in from a nearby 802.11 LAN in which laptops send frames via different ports as they move. One MAC address would then be mapped to a fixed VLAN regardless of which port it entered the LAN on.</li>
+<li>Q: 计网教材第四章中讲解的VLAN是不是就是实现了一种组播的效果？那为什么不用组播MAC地址实现呢？又，MAC地址的组播是怎么实现的？A: (by @陈宇) VLAN 和组播 MAC 地址是出于完全不同的目的而设计的。VLAN：由交换机控制，将属于不同 VLAN 的主机进行 网络隔离，所有数据包只在 VLAN 内部互通，不同的 VLAN 之间的数据包是不互通的。组播 MAC 地址：虽然名义上划分了不同的组，但带有组播 MAC 地址的包实际上会被转发给同一内网下 所有主机，无论它们是否属于这个组。所有的主机需要 自己决定收不收这些包。这就无法防止有人故意窃听不属于自己的包，也无法防止有人向其它组恶意发送数据包，其安全性不如 VLAN。因此，VLAN 不是组播，VLAN 的目的是隔离和安全性，而不是为了更方便地在组内传输数据。组播也不能代替 VLAN。</li>
+</ul>
+<h4 id="wlan">WLAN<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#wlan" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>
+<p>一些问题</p>
+</li>
+<li>
+<p>无线通信系统通常不能检测出正在发生的冲突，因为它收到的信号比发出的信号微弱得多。无线通信系统的传输范围也有限，因此一个站发出的信号可能不能到达其他所有站；这也会引起下面两种问题：</p>
+</li>
+<li>
+<p>隐藏终端问题 hidden terminal problem如下图 (a)，如 C 想要给 B 发送数据，实际上此时 A 正在给 B 发送数据；但由于 C 在 A 的无线传播距离之外，并没有监听到 A 发送的信号，因此它发送出数据并在 B 处与 A 的数据冲突，双方发送失败。The problem of a station not being able to detect a potential competitor for the medium because the competitor is too far away.</p>
+</li>
+<li>
+<p>暴露终端问题 exposed terminal problem如下图 (b)，B 正在给 A 发送消息；此时 C 试图给 D 发送消息，但是它侦听到了来自 B 的信号，认为此时应该等待。而事实上，此时 C 给 D 发送信号并不会受到干扰；因此这种等待引发了无意义的时延。</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1634635649444-6f3e87b4-ed8c-431b-a09c-78d2c47c76fc.png" alt/></p>
+</li>
+<li>
+<p>这两个问题的根本原因在于，发送端只能知道发送处是否有其他无线电信号；但是实际上影响信号接受结果的是接收端附近有无其他无线电信号干扰。在有线通信中，由于不存在传播范围这个限制，这两个概念是等同的；但是在无线通信中只要接收方互不干扰，多个传输可以同时发生。我们也应当利用这种并发性。</p>
+</li>
+</ul>
+<h5 id="冲突避免多路访问-maca-multiple-access-with-collision-avoidance">冲突避免多路访问 MACA, Multiple Access with Collision Avoidance<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#冲突避免多路访问-maca-multiple-access-with-collision-avoidance" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>A 想要给 B 发送数据前，先发送一个 RTS, Request to Send，并在其中包含目标 B 和想要发送的数据帧的长度；B 在收到这个 RTS 后，回复一个 CTS, Clear to Send，其中也包含从 RTS 中得知的这个长度；A 在收到 CTS 后开始传输。需要注意的是，A 的传播范围内的所有站都会听到这个 RTS；听到 RTS 的站就会得知：它们离 A 足够近，因此为了避免与 A 收到的 CTS 发生冲突，它必须保持沉默，直到 A 开始发送信息。同样的，听到 CTS 的所有站都将会知道：在未来的一段时间（可以从 CTS 中的长度推测）内，它们必须保持沉默，否则就会与 B 收到的信息发生冲突。</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1634795745495-28db9076-8efb-47ae-aef4-a7b7da126783.png" alt/></li>
+</ul>
+<h5 id="ieee-80211">IEEE 802.11<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#ieee-80211" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>
+<p>Architecture, Protocol Stack &amp; Phy Layer</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636511201741-bd984419-50be-467b-be09-363d9052cebd.png" alt/></p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636511340240-c5d7904b-3f72-4a39-af71-bbfd2c742551.png" alt/></p>
+</li>
+<li>
+<p>U-NII：无需许可的国家信息基础建设<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636511724178-23c2d076-3ec1-497f-8537-31554b36a23f.png" alt/></p>
+</li>
+<li>
+<p>使用的频带。All of the 802.11 techniques use short-range radios to transmit signals in either the 2.4-GHz or the 5-GHz ISM (Industrial, Scientific, Medical) frequency bands, which are unlicensed and hence freely available to any transmitter willing to meet some restrictions, such as radiated power of at most 1 W (though 50 mW is more typical for wireless LAN radios).The 2.4-GHz band tends to be more crowded than the 5-GHz band, so 5 GHz can be better for some applications even though it has shorter range due to the higher frequency.</p>
+</li>
+<li>
+<p>速率自适应。All of the transmission methods also define multiple rates. The idea is that different rates can be used depending on the current conditions. If the wireless signal is weak, a low rate can be used. If the signal is clear, the highest rate can be used. This adjustment is called rate adaptation. Since the rates vary by a factor of 10 or more, good rate adaptation is important for good performance. Of course, since it is not needed for interoperability, the standards do not say how rate adaptation should be done. 速率越低就可以用越好的调制方法。</p>
+</li>
+</ul>
+<h5 id="mac-sublayer-protocol">MAC Sublayer Protocol<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#mac-sublayer-protocol" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<h5 id="csmaca">CSMA/CA<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#csmaca" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>无线电几乎总是半双工的，所以做不到错误检测。因此，802.11 尝试使用协议 CSMA/CA (CSMA with Collision Avoidance) 来避免冲突。This protocol is conceptually similar to Ethernet’s CSMA/CD, with channel sensing before sending and exponential back off after collisions. However, a station that has a frame to send starts with a random backoff (except in the case that it has not used the channel recently and the channel is idle)</li>
+<li>发送前侦听。The station waits until the channel is idle, by sensing that there is no signal for a short period of time (called the DIFS), and counts down idle slots, pausing when frames are sent.</li>
+<li>确认。If the frame gets through, the destination immediately sends a short acknowledgement. Lack of an acknowledgement is inferred to indicate an error, whether a collision or otherwise.</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636570063799-89f3c6c2-8ae6-44e5-a6db-ca52c2cf17f6.png" alt/></li>
+<li>和以太网的区别。1. 以后退开始。 Starting backoffs early helps to avoid collisions. This avoidance is worthwhile because collisions are expensive, as the entire frame is transmitted even if one occurs.2. Acknowledgements are used to infer collisions because collisions cannot be detected.</li>
+<li>This mode of operation is called DCF (Distributed Coordination Function) 分布式协调 because each station acts independently, without any kind of central control. The standard also includes an optional mode of operation called PCF (Point Coordination Function) in which the access point controls all activity in its cell. However, PCF is not used in practice because there is normally no way to prevent stations in another nearby network from transmitting competing traffic.</li>
+</ul>
+<h5 id="virtual-channel-sensing">Virtual channel sensing<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#virtual-channel-sensing" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>802.11 defines channel sensing to consist of both physical sensing and virtual sensing. Physical sensing simply checks the medium to see if there is a valid signal. With virtual sensing, each station keeps a logical record of when the channel is in use by tracking the NAV (Network Allocation Vector). Each frame carries a NAV field that says how long the sequence of which this frame is part will take to complete. Stations that overhear this frame know that the channel will be busy for the period indicated by the NAV, regardless of whether they can sense a physical signal.</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636719327812-252f5c54-8e2d-4028-8292-03c26739e0eb.png" alt/></li>
+<li>However, while RTS/CTS sounds good in theory, it is one of those designs that has proved to be of little value in practice.1. It does not help for short frames or for the AP.2. It does not help with exposed terminals as MACA did, only with hidden terminals. 因为要等到 ACK 结束。Most often there are few hidden terminals, and CSMA/CA already helps them by slowing down stations that transmit unsuccessfully</li>
+</ul>
+<h5 id="一些其他机制">一些其他机制<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#一些其他机制" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>
+<p>Reliability无线网络环境嘈杂，需要增加传输成功的概率</p>
+</li>
+<li>
+<p>lower the transmission rateSlower rates use more robust modulations that are more likely to be received correctly for a given signal-to-noise ratio. If too many frames are lost, a station can lower the rate. If frames are delivered with little loss, a station can occasionally test a higher rate to see if it should be used. (Rate adaption)</p>
+</li>
+<li>
+<p>send shorter frames如果每个 bit 出错概率一致，帧越短则无错发送的概率越大1. reducing the maximum size of the message that is accepted from the network layer2. 802.11 allows frames to be split into smaller pieces, called fragments, each with its own checksum. The fragment size is not fixed by the standard, but is a parameter that can be adjusted by the AP. The fragments are individually numbered and acknowledged using a stop-and-wait protocol. Once the channel has been acquired, multiple fragments are sent as a burst. They go one after the other with an acknowledgement (and possibly retransmissions) in between, until either the whole frame has been successfully sent or the transmission time reaches the maximum allowed.</p>
+</li>
+<li>
+<p>Saving Power移动无线设备需要考虑电池的寿命</p>
+</li>
+<li>
+<p>Beacon Frames. Beacons are periodic broadcasts by the AP (e.g., every 100 msec). The frames advertise the presence of the AP to clients and carry system parameters, such as the identifier of the AP, the time, how long until the next beacon, and security settings. Clients can set a power-management bit in frames that they send to the AP to tell it that they are entering power-save mode. In this mode, the client can doze and the AP will buffer traffic intended for it. To check for incoming traffic, the client wakes up for every beacon, and checks a traffic map that is sent as part of the beacon. This map tells the client if there is buffered traffic. If so, the client sends a poll message to the AP, which then sends the buffered traffic. The client can then go back to sleep until the next beacon is sent.</p>
+</li>
+<li>
+<p>APSD (Automatic Power Save Delivery). The AP buffers frames and sends them to a client just after the client sends frames to the AP. The client can then go to sleep until it has more traffic to send (and receive). This mechanism works well for applications such as VoIP that have frequent traffic in both directions. For example, a VoIP (Voice over Internet Protocol) wireless phone might use it to send and receive frames every 20 msec, much more frequently than the beacon interval of 100 msec, while dozing in between.</p>
+</li>
+<li>
+<p>Quality of Service</p>
+</li>
+<li>
+<p>When the VoIP traffic competes with peer-to-peer traffic, the VoIP traffic will suffer. It will be delayed due to contention with the high-bandwidth peer-to-peer traffic, even though the VoIP bandwidth is low. These delays are likely to degrade the voice calls. To prevent this degradation, we would like to let the VoIP traffic go ahead of the peer-to-peer traffic, as it is of higher priority.扩展了 802.11，作为 802.11e 被引入。</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636959479016-95c59b11-f3a3-4f3e-a4c1-6b85112e2ea6.png" alt/></p>
+</li>
+<li>
+<p>SIFS, Short InterFrame Spacing - ACK/RTS/CTS/Burst of fragmentsAIFS, Arbitration IFS - 特别设定的较高或者较低优先级（一般有四个）DIFS, DCF (Distributed Coordination Function) IFS - RegularEIFS, Extended IFS - Bad frame recovery</p>
+</li>
+<li>
+<p>TXOP, Transmission Opportunity</p>
+</li>
+<li>
+<p>The original CSMA/CA mechanism let stations send one frame at a time. This design was fine until the range of rates increased. With 802.11a/g, one station might be sending at 6 Mbps and another station be sending at 54 Mbps. They each get to send one frame, but the 6-Mbps station takes nine times as long (ignoring fixed overheads) as the 54-Mbps station to send its frame. This disparity has the unfortunate side effect of slowing down a fast sender who is competing with a slow sender to roughly the rate of the slow sender. For example, again ignoring fixed overheads, when sending alone the 6-Mbps and 54-Mbps senders will get their own rates, but when sending together they will both get 5.4 Mbps on average. It is a stiff penalty for the fast sender. This issue is known as the rate anomaly.</p>
+</li>
+<li>
+<p>With transmission opportunities, each station gets an equal amount of airtime, not an equal number of frames. Stations that send at a higher rate for their airtime will get higher throughput.</p>
+</li>
+<li>
+<p>Frame Structure</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636571760759-a1b74ab4-3e2e-4a2e-9de5-42c51b72fbce.png" alt/></p>
+</li>
+<li>
+<p>Frame Control- Protocol Version, temp. 00- Type, Data (Fig., 10) / Control / Management- Subtype, e.g. RTS / CTS- To / From DS (Distributed System)- More frag., More fragments- Retry, retransmission- Power management: sender is going into power-saving mode- More data, More frames- Protected, frame body has been encrypted- Order, higher layer expects the sequence of frames to arrive strictly in order</p>
+</li>
+<li>
+<p>Duration - NAV (μs), used in all types of frames.Address - 1. Receiver Addr, 2. Transmitter Addr, 3. Destination Addr.Sequence - 4 for fragments and 12 for frames.Data - the payload, up to 2312 bytes. The first bytes of this payload are in a format known as LLC (Logical Link Control). This layer is the glue that identifies the higher-layer protocol (e.g., IP) to which the payloads should be passed.Check sequence - 32 bit CRC</p>
+</li>
+<li>
+<p>(src)<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1636980808024-bf4f70be-3dc5-499a-b037-9b0af5e05e04.png" alt/></p>
+</li>
+<li>
+<p>Management Frame 的格式与此相同；Control Frame 只有 Frame Ctrl, Duration, Address1, CRC 字段。</p>
+</li>
+<li>
+<p>Services</p>
+</li>
+<li>
+<p>暂时懒得学……</p>
+</li>
+</ul></article><hr/><div class="page-footer"><div class="giscus" data-repo="im0x0ing/im0x0ing.github.io" data-repo-id="R_kgDOQevgrA" data-category="Announcements" data-category-id="DIC_kwDOQevgrM4CzLI8" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-input-position="top" data-light-theme="light" data-dark-theme="dark" data-theme-url="https://im0x0ing.github.io/static/giscus" data-lang="zh-CN"></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-96" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div class="toc-depth-control"><span class="depth-label">H3</span><input type="range" class="depth-slider" min="1" max="6" value="2" step="1"/></div><ul id="list-9" class="toc-content overflow"><li class="depth-0"><a href="#广播信道传输协议" data-for="广播信道传输协议">广播信道传输协议</a></li><li class="depth-1"><a href="#mac-子层" data-for="mac-子层">MAC 子层</a></li><li class="depth-2"><a href="#static-fdm--tdm" data-for="static-fdm--tdm">Static FDM / TDM</a></li><li class="depth-2"><a href="#aloha-additive-links-on-line-hawaii-area" data-for="aloha-additive-links-on-line-hawaii-area">ALOHA, Additive Links On-line Hawaii Area</a></li><li class="depth-3"><a href="#pure-aloha" data-for="pure-aloha">Pure ALOHA</a></li><li class="depth-3"><a href="#slotted-aloha" data-for="slotted-aloha">Slotted ALOHA</a></li><li class="depth-2"><a href="#1-persistent-csma" data-for="1-persistent-csma">1-persistent CSMA</a></li><li class="depth-2"><a href="#nonpersistent-csma" data-for="nonpersistent-csma">nonpersistent CSMA</a></li><li class="depth-2"><a href="#p-persistent-csma" data-for="p-persistent-csma">p-persistent CSMA</a></li><li class="depth-2"><a href="#csmacd-csma-with-collision-detection" data-for="csmacd-csma-with-collision-detection">CSMA/CD, CSMA with Collision Detection</a></li><li class="depth-0"><a href="#以太网" data-for="以太网">以太网</a></li><li class="depth-3"><a href="#经典以太网-classic-ethernet" data-for="经典以太网-classic-ethernet">经典以太网 Classic Ethernet</a></li><li class="depth-3"><a href="#集线器-hub" data-for="集线器-hub">集线器 Hub</a></li><li class="depth-3"><a href="#传输协议" data-for="传输协议">传输协议</a></li><li class="depth-3"><a href="#帧结构-" data-for="帧结构-">帧结构 </a></li><li class="depth-3"><a href="#网桥-bridge" data-for="网桥-bridge">网桥 bridge</a></li><li class="depth-4"><a href="#引出" data-for="引出">引出</a></li><li class="depth-4"><a href="#工作原理" data-for="工作原理">工作原理</a></li><li class="depth-3"><a href="#冗余链路-redundant-links--parallel-links" data-for="冗余链路-redundant-links--parallel-links">冗余链路 redundant links / parallel links</a></li><li class="depth-3"><a href="#交换式以太网-switched-ethernet" data-for="交换式以太网-switched-ethernet">交换式以太网 Switched Ethernet</a></li><li class="depth-0"><a href="#vlan-virtual-local-area-network" data-for="vlan-virtual-local-area-network">VLAN, Virtual Local Area Network</a></li><li class="depth-2"><a href="#wlan" data-for="wlan">WLAN</a></li><li class="depth-3"><a href="#冲突避免多路访问-maca-multiple-access-with-collision-avoidance" data-for="冲突避免多路访问-maca-multiple-access-with-collision-avoidance">冲突避免多路访问 MACA, Multiple Access with Collision Avoidance</a></li><li class="depth-3"><a href="#ieee-80211" data-for="ieee-80211">IEEE 802.11</a></li><li class="depth-3"><a href="#mac-sublayer-protocol" data-for="mac-sublayer-protocol">MAC Sublayer Protocol</a></li><li class="depth-3"><a href="#csmaca" data-for="csmaca">CSMA/CA</a></li><li class="depth-3"><a href="#virtual-channel-sensing" data-for="virtual-channel-sensing">Virtual channel sensing</a></li><li class="depth-3"><a href="#一些其他机制" data-for="一些其他机制">一些其他机制</a></li><li class="overflow-end"></li></ul></div><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function f(i,e){if(!i)return;function r(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function t(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}i?.addEventListener("click",r),window.addCleanup(()=>i?.removeEventListener("click",r)),document.addEventListener("keydown",t),window.addCleanup(()=>document.removeEventListener("keydown",t))}function y(i){for(;i.firstChild;)i.removeChild(i.firstChild)}var h=class{constructor(e,r){this.container=e;this.content=r;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),r=this.onMouseMove.bind(this),t=this.onMouseUp.bind(this),o=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",r),document.addEventListener("mouseup",t),window.addEventListener("resize",o),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",r),()=>document.removeEventListener("mouseup",t),()=>window.removeEventListener("resize",o))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let r=this.createButton("+",()=>this.zoom(.1)),t=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(t),e.appendChild(o),e.appendChild(r),this.container.appendChild(e)}createButton(e,r){let t=document.createElement("button");return t.textContent=e,t.className="mermaid-control-button",t.addEventListener("click",r),window.addCleanup(()=>t.removeEventListener("click",r)),t}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}zoom(e){let r=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),t=this.content.getBoundingClientRect(),o=t.width/2,n=t.height/2,c=r-this.scale;this.currentPan.x-=o*c,this.currentPan.y-=n*c,this.scale=r,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){this.scale=1;let e=this.content.querySelector("svg");this.currentPan={x:e.getBoundingClientRect().width/2,y:e.getBoundingClientRect().height/2},this.updateTransform()}},C=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],E;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;E||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let r=E.default,t=new WeakMap;for(let n of e)t.set(n,n.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let a=t.get(s);a&&(s.innerHTML=a)}let n=C.reduce((s,a)=>(s[a]=window.getComputedStyle(document.documentElement).getPropertyValue(a),s),{}),c=document.documentElement.getAttribute("saved-theme")==="dark";r.initialize({startOnLoad:!1,securityLevel:"loose",theme:c?"dark":"base",themeVariables:{fontFamily:n["--codeFont"],primaryColor:n["--light"],primaryTextColor:n["--darkgray"],primaryBorderColor:n["--tertiary"],lineColor:n["--darkgray"],secondaryColor:n["--secondary"],tertiaryColor:n["--tertiary"],clusterBkg:n["--light"],edgeLabelBackground:n["--highlight"]}}),await r.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let n=0;n<e.length;n++){let v=function(){let g=l.querySelector("#mermaid-space"),m=l.querySelector(".mermaid-content");if(!m)return;y(m);let w=c.querySelector("svg").cloneNode(!0);m.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new h(g,m)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},c=e[n],s=c.parentElement,a=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(a),L=a.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),f(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>
