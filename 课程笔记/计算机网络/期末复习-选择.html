@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>期末复习-选择</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Sans SC:wght@400;700&amp;family=Noto Serif SC:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&amp;family=JetBrains Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="ING wiki"/><meta property="og:title" content="期末复习-选择"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="期末复习-选择"/><meta name="twitter:description" content="chapter1 intro OSI centralconcepts services 下层为上层提供的服务 interfaces 上下层之间沟通的接口 protocols 同一层之间沟通的协议 物理层 (Physical): 比特 (Bits)、网线、光纤。传的是原始的比特流（010101），因为电缆可能会有干扰，传过来的数据可能是乱的（有噪声）。 数据链路层 (Data Link): 帧 (Frames)、MAC 地址、相邻节点传输、差错检测。负责把这些比特打包成 帧 (Frame)，并进行差错检测（比如 CRC 校验）。如果发现错了，它可能会要求重传或者丢弃，从而给上层提供一个相对靠谱的..."/><meta property="og:description" content="chapter1 intro OSI centralconcepts services 下层为上层提供的服务 interfaces 上下层之间沟通的接口 protocols 同一层之间沟通的协议 物理层 (Physical): 比特 (Bits)、网线、光纤。传的是原始的比特流（010101），因为电缆可能会有干扰，传过来的数据可能是乱的（有噪声）。 数据链路层 (Data Link): 帧 (Frames)、MAC 地址、相邻节点传输、差错检测。负责把这些比特打包成 帧 (Frame)，并进行差错检测（比如 CRC 校验）。如果发现错了，它可能会要求重传或者丢弃，从而给上层提供一个相对靠谱的..."/><meta property="og:image:alt" content="chapter1 intro OSI centralconcepts services 下层为上层提供的服务 interfaces 上下层之间沟通的接口 protocols 同一层之间沟通的协议 物理层 (Physical): 比特 (Bits)、网线、光纤。传的是原始的比特流（010101），因为电缆可能会有干扰，传过来的数据可能是乱的（有噪声）。 数据链路层 (Data Link): 帧 (Frames)、MAC 地址、相邻节点传输、差错检测。负责把这些比特打包成 帧 (Frame)，并进行差错检测（比如 CRC 校验）。如果发现错了，它可能会要求重传或者丢弃，从而给上层提供一个相对靠谱的..."/><meta property="twitter:domain" content="im0x0ing.github.io"/><meta property="og:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/期末复习-选择"/><meta property="twitter:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/期末复习-选择"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="chapter1 intro OSI centralconcepts services 下层为上层提供的服务 interfaces 上下层之间沟通的接口 protocols 同一层之间沟通的协议 物理层 (Physical): 比特 (Bits)、网线、光纤。传的是原始的比特流（010101），因为电缆可能会有干扰，传过来的数据可能是乱的（有噪声）。 数据链路层 (Data Link): 帧 (Frames)、MAC 地址、相邻节点传输、差错检测。负责把这些比特打包成 帧 (Frame)，并进行差错检测（比如 CRC 校验）。如果发现错了，它可能会要求重传或者丢弃，从而给上层提供一个相对靠谱的..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  padding: 2rem;
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL2hvbWUvcnVubmVyL3dvcmsvaW0weDBpbmctYmxvZy1wcml2YXRlL2ltMHgwaW5nLWJsb2ctcHJpdmF0ZS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcGFkZGluZzogMnJlbTtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://im0x0ing.github.io/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/期末复习-选择-og-image.webp"/><meta property="og:image:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/期末复习-选择-og-image.webp"/><meta name="twitter:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/期末复习-选择-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="课程笔记/计算机网络/期末复习-选择"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">ING wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slug===\&quot;\&quot;||node.slug.startsWith(\&quot;\\u8BFE\\u7A0B\\u7B14\\u8BB0\&quot;)&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-174"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-174" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-3"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><header><nav class="my-navbar "><div class="links"><a href="/课程笔记/">课程笔记</a><a href="/技术积累/">技术积累</a><a href="/工具使用/">工具使用</a><a href="/生活杂谈/">生活杂谈</a></div></nav></header><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/">课程笔记</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/计算机网络/">计算机网络</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>期末复习 选择</a></div></nav><h1 class="article-title">期末复习-选择</h1><p show-comma="true" class="content-meta"><time datetime="2026-01-16T10:23:00.000Z">Jan 16, 2026</time><span>33 min read</span></p></div></div><article class="popover-hint"><h3 id="chapter1-intro">chapter1 intro<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chapter1-intro" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h5 id="osi">OSI<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#osi" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>centralconcepts<br/>
+services 下层为上层提供的服务<br/>
+interfaces 上下层之间沟通的接口<br/>
+protocols 同一层之间沟通的协议</p>
+<ul>
+<li><strong>物理层 (Physical):</strong> 比特 (Bits)、网线、光纤。传的是原始的比特流（010101），因为电缆可能会有干扰，传过来的数据可能是乱的（有噪声）。</li>
+<li><strong>数据链路层 (Data Link):</strong> 帧 (Frames)、MAC 地址、<strong>相邻节点</strong>传输、差错检测。负责把这些比特打包成 帧 (Frame)，并进行差错检测（比如 CRC 校验）。如果发现错了，它可能会要求重传或者丢弃，从而给上层提供一个相对靠谱的链路</li>
+<li><strong>网络层 (Network):</strong> 包 (Packets)、IP 地址、<strong>路由 (Routing)</strong>、源到目的。</li>
+<li><strong>传输层 (Transport):</strong> 段 (Segments)、端口号、<strong>端到端 (End-to-End)</strong>、可靠性 (TCP)。</li>
+<li><strong>会话层 (Session):</strong> 会话管理 (建立/断开连接)。</li>
+<li><strong>表示层 (Presentation):</strong> <strong>语法与语义 (Syntax &amp; Semantics)</strong>、加密、压缩、格式转换。</li>
+<li><strong>应用层 (Application):</strong> 用户接口、HTTP、Email。<br/>
+失败原因：timing technology implementations politics<br/>
+主要是复杂性 时机和生态 和price没关系<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115105742.png" width="auto" height="auto" alt/><br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115105732.png" width="auto" height="auto" alt/><br/>
+queuing delay 数据包在路由器里排队等待处理的时间，排队延迟，并不是传输机制<br/>
+store and forward transmission 现代分组交换网络最核心的工作机制<br/>
+packet switching 把数据切成packet来传，分组交换网络通常使用存储转发。<br/>
+propagation 传播 信号在电线、光纤里跑的时间</li>
+</ul>
+<p>Encapsulation<br/>
+每层进行封装</p>
+<h3 id="chapter2物理层">chapter2物理层<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chapter2物理层" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h5 id="多路复用技术">多路复用技术<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#多路复用技术" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>FDM frequency division multiplexing 频分复用<br/>
+收音机 simultaneous different frequencies复用不同频率<br/>
+TDM 时分复用 time 大家共用全部带宽 但是必须轮流讲<br/>
+WDM波分服用 专指光信号在光纤中传播。<br/>
+CDM (码分复用) 用数学编码区分，大家同时同频说话，但只有特定的解码器能听懂。</p>
+<h5 id="计算channel-capacitymaximum-data-rate">计算channel capacity/maximum data rate<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#计算channel-capacitymaximum-data-rate" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>nyquist 无噪声 或者给了信号级数(如果有16级 就要用4位来表示)<br/>
+数据传输率=2B(带宽)*log2V<br/>
+香农定理shannon<br/>
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.7667em;vertical-align:-0.0833em;"></span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mop"><span class="mop">lo<span style="margin-right:0.01389em;">g</span></span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.207em;"><span style="top:-2.4559em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.2441em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord">/</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mclose">)</span></span></span></span> 这里是信噪比<br/>
+M是10的6次方<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115121152.png" width="auto" height="auto" alt/><br/>
+分贝:db=10log10s/n 就是说 如果给了db=30 那么log10s/n就是3 s/n就是一千</p>
+<p>分组交换<br/>
+电路交换 老式电话网 打电话前先拨号建立线路<br/>
+报文交换 电报时代的产物,整个报文发到中转站,存下来再发给下一站</p>
+<p>数据链路层协议:</p>
+<ul>
+<li>HDLC high-level data link control 广域网点对点连接 数据链路层</li>
+<li>SDLC 一般有DLC的都是datalink control</li>
+<li>PPP 属于数据链路层 pointtopoint</li>
+</ul>
+<p>网络层:<br/>
+IP/ICMP/ARP<br/>
+最著名的就是ping命令,是被封装在ip包里的</p>
+<p>信道的数据传输速率也就是capacity (数字带宽就是datarate传输速率,模拟带宽是频带宽度hz)<br/>
+一秒钟能并行通过多少辆车（吞吐量/速率） 是由车道数量决定的，而不是车速决定的。<br/>
+<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.22222em;">V</span></span></span></span> (Level) 或 Modulation rate: <strong>调制速率</strong>（波特率），它决定了每秒能变多少次，进而影响能传多少 bit</p>
+<p>Which one can be used as a key component of optical transmission system? 光传输系统的关键组件<br/>
+UDP unshielded twistedpair 非屏蔽双绞线 普通网线 电信号<br/>
+semiconductor laser device 半导体激光器才可以发送光源<br/>
+HUB 网络连接设备 电信号<br/>
+wifi router 无线电设备 发送的是无线电波</p>
+<p>The Public Switched Telephone Network<br/>
+PSTN<br/>
+local loop 本地回路 连接你家和最近的电话局 铜线 (Twisted Pair) 是有线的<br/>
+<strong>”Toll office”</strong> 和 <strong>“End office”</strong> 端局就是离你最近的电话局 toll就是汇接局,连接不同电话局的 中间是trunk中继线</p>
+<p>有线的损伤:<br/>
+Different Fourier components propagating at different speed 不同频率传播速度不同,叫做distortion失真<br/>
+thermal noise 热噪声所有电子设备和电线都有这个问题 只要有温度电子就会产生噪音<br/>
+Crosstalk between two close wires 线间串扰 也是双绞线感应的问题</p>
+<p>无线:<br/>
+multipath fading 多径衰落\阴影效应</p>
+<h5 id="载波计算">载波计算<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#载波计算" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>T1channel是北美和日本使用的数字通信标准 24复用路数,每路8bit*24路 192bits 每帧加一个bit用来同步 193bits 然后每秒要传8000帧,<span class="text-highlight">1.544 Mbps</span><br/>
+<span class="text-highlight">中国用的是E1 2.048Mbps</span><br/>
+一路PCM信号的速率是4kbps 也叫DS0<br/>
+<strong>2.5 Gbps:</strong> 光纤网络（如 OC-48）的速率级别</p>
+<h3 id="chapter3-数据链路层">chapter3 数据链路层<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chapter3-数据链路层" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h5 id="比特填充">比特填充<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#比特填充" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><strong>HDLC (High-Level Data Link Control - 高级数据链路控制)</strong> 协议中的透明传输机制<br/>
+在 PPP 标准帧中：</p>
+<ul>
+<li><strong>Address</strong> 永远是 <code>0xFF</code> (表示广播/所有人)。</li>
+<li><strong>Control</strong> 永远是 <code>0x03</code> (表示无编号帧)。</li>
+<li>所以这两个字段是可以省略的</li>
+</ul>
+<h5 id="crc-循环冗余校验">CRC 循环冗余校验<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#crc-循环冗余校验" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>注意是异或除法!而且是首位1就可以</p>
+<h5 id="vlan的构建方法">VLAN的构建方法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#vlan的构建方法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>基于端口</li>
+<li>基于mac地址</li>
+<li>基于网络层协议,比如：“所有发 IPv4 协议的包去 VLAN 10，发 IPv6 协议的包去 VLAN 20”。</li>
+</ul>
+<h5 id="海明码">海明码<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#海明码" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>（纠错半径 t=3）：</strong> 我最多只能错 3 位，再错我就回不来了。<span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.3669em;"></span><span class="mrel">→</span></span></span></span> 这叫<strong>纠错能力</strong>，也就是“安全半径”。</li>
+<li><strong>书上的定义（最小距离 d=7）：</strong> 为了让你错 3 位还能找回来，<strong>正确的答案 A</strong> 和 <strong>正确的答案 B</strong> 之间，必须<strong>至少</strong>隔开 7 步远。 这里需要+1</li>
+<li>然后能检错的位数就是距离-1</li>
+</ul>
+<h5 id="gbn">GBN<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#gbn" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>回退N   其中 N 代表 sending window 的大小，而这种协议中 receiving window 的大小始终为 1</p>
+<p>发送窗口必须比序号总数(2的n次方)少 1 这样能保证序号不重复.因为你发完一轮的下一个发0 和ack丢了导致需要重传0会重复.</p>
+<h5 id="选择重传协议sr">选择重传协议SR<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#选择重传协议sr" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>通常在选择重传协议中，为了效率最大化，发送窗口和接收窗口的大小是相等的，<br/>
+接收窗口的大小不能大于 序号总数 2n次方/ 2。</p>
+<p>Piggybacking</p>
+<h3 id="chapter4-网络层">chapter4 网络层<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chapter4-网络层" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>通过单个新路由器连接的主机<br/>
+hub 啥都隔离不了 冲突域相同 广播域相同<br/>
+交换机 隔离冲突 冲突域不同（每个端口独立）（广播域相同（能广播的范围是一样的）<br/>
+路由器 冲突域不同（每个端口独立） 广播域不同（只能在一个网络内广播 不同网络广播包就会隔离）</p>
+<p>发送方发送了帧0~8 然后结束的时候收到了对帧135的确认 假设是回退n 且确认号表示最后一个正确接受收的帧号，那么重传的下一帧是6 发送678</p>
+<p>无线网络不用cd了,因为无线信号衰弱大,自己听自己的声音太大,会检测不到冲突.因此 会导致隐蔽战问题 hidden terminal AC都发给B,但是AC互相听不见就会在B处撞车.暴露战问题 Exposed terminal B发给A C听到了不敢发给D 其实不影响的</p>
+<p>CSMA/CA是碰撞避免. 既然检测不到冲突就避免冲突<br/>
+RTS/CTS<br/>
+RTS = Request To Send A 说：“我要发了，长度是 X” (RTS)。<br/>
+CTS = Clear To Send B 说：“好的，你发吧，长度是 X” (CTS)。<br/>
+周围的人（包括隐蔽站）听到 RTS 或 CTS，都知道由于长度 X，这段时间不能说话（NAV 倒计时）。</p>
+<ul>
+<li>如果 X 收到了 A 的 RTS，说明 X 在发送方 A 的附近。虽然 X 可能干扰不到接收方 B，但为了让 A 能顺利收到 B 回复的 CTS，X 应该闭嘴。而且 RTS 里包含了 NAV（网络分配矢量(Network Allocation Vector），告诉周围人“我要占线多久”，听到的人都得更新 NAV 并保持沉默。</li>
+<li>如果 X 收到了 RTS，但没收到 CTS，那么 X 可以发送数据.<strong>有争议但理论上可行</strong>的场景…X 听到了 A 的 RTS（X 靠近 A），但没听到 B 的 CTS（X 远离 B）这意味着：X 发送数据不会干扰到 B 的接收（因为离得远）。虽然标准协议通常比较保守（听到 RTS 就设 NAV），但在理论分析中，X 确实<strong>可以</strong>发送数据而不产生冲突。这个选项通常被认为是描述 CSMA/CA 在理想状况下试图解决的问题，或者至少它不是最明显的错误。</li>
+<li>如果 X 没收到 RTS，但收到了 CTS，那么 X 不可以发送数据- 说明 X 在接收方 B 的附近（是 B 的邻居）。 B 马上就要接收数据了。如果 X 这时候说话，信号会直接覆盖掉 A 发给 B 的数据，导致 B 接收失败（这就是隐蔽站干扰）。</li>
+</ul>
+<h5 id="vlan">VLAN<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#vlan" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>当交换机配置基于端口的vlan的时候<br/>
+access线路下 一个物理端口在同一时间只能属于一个vlan 通过这个端口的会被打上vlan标签或者撕掉vlan标签 一般是pc到交换机之间</p>
+<p>trunk线路就是允许各种vlan的标签通过 也不对vlan做修改.但是他本身也是只有一个vlan的</p>
+<h5 id="交换机转发表">交换机转发表<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#交换机转发表" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><strong>【动作拆解 - 第 1 帧】：</strong></p>
+<ul>
+<li><strong>Source (源地址)：</strong> A1（在端口 1）。</li>
+<li><strong>Destination (目的地址)：</strong> C1（在端口 3）。</li>
+<li><strong>Switch’s Reaction (交换机的反应)：</strong>
+<ol>
+<li><strong>Learning (学习)：</strong> 交换机收到帧，看到源 MAC 是 A1，是从 Port 1 进来的。于是它在转发表里记下一笔：<code>A1 -> Port 1</code>。</li>
+<li><strong>Lookup (查表)：</strong> 交换机看目的 MAC 是 C1。去查表，发现 <strong>表中没有 C1 的记录</strong>（Unknown Unicast，未知单播帧）。</li>
+<li><strong>Forwarding (转发决策)：</strong> 因为找不到人，只能 <strong>泛洪 (Flood)</strong></li>
+<li><strong>Result (结果)：</strong> 帧被复制并发往除来源口（Port 1）以外的所有活动端口。即 <strong>Port 2, 3</strong>。<br/>
+<strong>【考试关键词解析】：</strong></li>
+</ol>
+</li>
+<li><strong>Confirmation frame：</strong> 通常指 ACK 帧，反正就是回信。这意味着角色互换了：C 变成了发送方，A 变成了接收方。<br/>
+<strong>【动作拆解 - 第 2 帧】：</strong></li>
+<li><strong>Source (源地址)：</strong> C1（在端口 3）。</li>
+<li><strong>Destination (目的地址)：</strong> A1（在端口 1）。</li>
+<li><strong>Switch’s Reaction (交换机的反应)：</strong>
+<ol>
+<li><strong>Learning (学习)：</strong> 交换机收到帧，看到源 MAC 是 C1，是从 Port 3 进来的。于是它在表里记下一笔：<code>C1 -> Port 3</code>。（此时表里有 A, B, C 三个人了）。</li>
+<li><strong>Lookup (查表)：</strong> 交换机看目的 MAC 是 A1。去查表，发现 <strong>表中有 A1 的记录</strong>！
+<ul>
+<li><em>为什么有？</em> 因为在“第二句”里，交换机刚刚通过 A 发来的帧学会了 A 在 Port 1。</li>
+</ul>
+</li>
+<li><strong>Forwarding (转发决策)：</strong> 既然认识路，那就 <strong>单播 (Unicast)</strong>。</li>
+<li><strong>Result (结果)：</strong> 帧只会被发往 <strong>Port 1</strong>。</li>
+</ol>
+</li>
+</ul>
+<h3 id="chapter5">chapter5<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chapter5" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>Which is not the private address that will not appear in Internet datagram?“<br/>
+private address:</p>
+<ul>
+<li><strong>Class A:</strong> <code>10.0.0.0</code> 到 <code>10.255.255.255</code></li>
+<li><strong>Class B:</strong> <code>172.16.0.0</code> 到 <code>172.31.255.255</code> <strong>（注意这个范围！）</strong></li>
+<li><strong>Class C:</strong> <code>192.168.0.0</code> 到 <code>192.168.255.255</code><br/>
+这些范围以外的都是公网地址</li>
+</ul>
+<p>ipv6地址格式</p>
+<ul>
+<li><strong>IPv6 Address：</strong> <span class="text-highlight">长 128 位</span>。通常写成 <strong>8 组</strong>，每组 <strong>4 个十六进制数</strong>，中间用冒号 <code>:</code> 隔开。例如 <code>ABCD:EF01:2345:6789:ABCD:EF01:2345:6789</code>。</li>
+<li><strong>压缩规则 (Zero Compression)：</strong> 如果有一串连续的 <code>0</code>，可以用双冒号 <code>::</code> 代替，但<strong>只能出现一次</strong>。</li>
+<li><strong>混合记法：</strong> IPv6 也可以兼容 IPv4 的写法，比如 <code>::192.168.0.1</code>，这叫 IPv4-mapped IPv6 address。<br/>
+前96为0 后32位是ipv4</li>
+</ul>
+<h5 id="路由协议">路由协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#路由协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>下列都是动态的 dynamic routing protocol</p>
+<p>IGP interior gateway protocol 内部网关协议 在同一个自治系统AS内部使用的协议 包括</p>
+<ul>
+<li>
+<p>routing information protocol 路由信息协议 RIP</p>
+</li>
+<li>
+<p>OSPF<br/>
+EGP 外部网关协议</p>
+</li>
+<li>
+<p>距离向量:RIP的算法类型,通过跳数衡量距离 每隔30瞄把自己的整个路由表发给邻居</p>
+</li>
+<li>
+<p>linkstate OSPF的算法类型 只发链路状态信息来画地图</p>
+</li>
+</ul>
+<p>为了让数据包从一个 <strong>局域网 (LAN)</strong> 传输到 <strong>互联网 (Internet)</strong>，需要下列哪种设备？<br/>
+<strong>A. Bridge (网桥) / C. Switch (交换机) / D. Hub (集线器)：</strong></p>
+<ul>
+<li>这三个都是 <strong>Layer 2 (数据链路层)</strong> 或 <strong>Layer 1 (物理层)</strong> 的设备。</li>
+<li>它们只认识 MAC 地址，只能在<strong>同一个网络</strong>内部倒腾数据。它们出不了“村”。</li>
+</ul>
+<p>router才可以连接不同的网络</p>
+<p>链路状态路由的特点<br/>
+<strong>Link-State (链路状态，如 OSPF)：</strong></p>
+<ul>
+<li>每个人都画一张完整的地图（拓扑图）。</li>
+<li>路由器之间交换的是 <strong>LSA (链路状态通告)</strong>，即“我是谁，我邻居是谁，路费多少”。</li>
+<li><strong>关键点：</strong> 我只告诉你我的<strong>局部</strong>信息，但我会把这个信息告诉<strong>全网</strong>所有人（泛洪）。</li>
+</ul>
+<p><strong>Distance Vector (距离向量，如 RIP)：</strong></p>
+<ul>
+<li><strong>谣言路由：</strong> 我不画地图，我只听邻居说“去北京只要 3 跳”。</li>
+<li><strong>关键点：</strong> 我把我的<strong>整个路由表</strong>（我知道的所有路）交换给我的<strong>邻居</strong>。</li>
+</ul>
+<p><strong>第一步：打招呼 (Hello)</strong><br/>
+刚开，路由器通过发 Hello 包 发现身边的直连邻居。<br/>
+结果：我知道谁在我隔壁，以及我和他之间的路况（Cost/Metric）。<br/>
+<strong>第二步：写日记 (LSA - Link State Advertisement)</strong><br/>
+每个路由器写一张“小纸条”（这就是 链路状态通告 LSA）。<br/>
+内容：“我是路由器 X，我的邻居有 Y 和 Z，我和 Y 的距离是 10，和 Z 的距离是 5。”<br/>
+注意：我只描述我自己的局部视野。<br/>
+<strong>第三步：泛洪 (Flooding)</strong><br/>
+最关键的一步！大家把自己的“小纸条”发给所有人。<br/>
+路由器收到别人的 LSA 后，先存一份，然后立即转发给它的邻居（除了发给它的那个）。<br/>
+结果：一传十，十传百，只要网络是通的，最终全网所有路由器都会收到所有其他人写的纸条。<br/>
+<strong>第四步：拼地图 (LSDB - Link State Database)</strong><br/>
+每个路由器把收集到的成百上千张 LSA 汇总在一起，形成一个 链路状态数据库 (LSDB)。<br/>
+重点：此时，全网所有路由器的 LSDB 是完全一样的（也就是大家都拥有了同一份完整的网络拓扑图数据）。<br/>
+类比：每个人手里都拿到了同一个迷宫的完整图纸。<br/>
+<strong>第五步：算路径 (Dijkstra / SPF 算法)</strong><br/>
+有了完整地图（LSDB），每个路由器以自己为根 (Root)，独立运行 Dijkstra 最短路径优先算法 (SPF)。<br/>
+计算出从“我”出发，去往网络中每一个节点的最短树。<br/>
+<strong>最后一步：把算出来的最优路径，填入自己的路由表。</strong></p>
+<h5 id="cidrclassless-inter-domain-routing无类别域间路由-是一种更灵活的ip地址分配和管理方法">CIDR(Classless Inter-Domain Routing)无类别域间路由 是一种更灵活的ip地址分配和管理方法<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#cidrclassless-inter-domain-routing无类别域间路由-是一种更灵活的ip地址分配和管理方法" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>因为 CIDR 允许我们将很多零散的小网段，<strong>聚合 (Aggregate)</strong> 成一个大网段告诉全世界。</p>
+<ul>
+<li><strong>它消灭了 A/B/C 类</strong>：不再看 IP 开头是几来判断类别。</li>
+<li><strong>看掩码/斜线</strong>：掩码里有多少个 <code>1</code>（或者斜线后的数字是几），网络号长度就是多少位。<br/>
+<strong>举例：</strong> 如果不适用 CIDR，路由器可能需要记录 4 条路：</li>
+</ul>
+<ol>
+<li>去 192.168.0.0 的走左边</li>
+<li>去 192.168.1.0 的走左边</li>
+<li>去 192.168.2.0 的走左边</li>
+<li>去 192.168.3.0 的走左边<br/>
+有了 CIDR，路由器可以偷懒，把这 4 个 C 类合并成一条记录：</li>
+</ol>
+<ul>
+<li>“去 <code>192.168.0.0/22</code> （涵盖了上面 4 个）的全都走左边。”</li>
+</ul>
+<p><strong>最长前缀匹配原则 (Longest Prefix Match)</strong></p>
+<ul>
+<li>这是路由器的核心法则：如果一个目的 IP 同时匹配了路由表中的多行，路由器会选择<strong>子网掩码最长</strong>（也就是掩码中 1 更多、网段范围更小更精准）的那一条路由。</li>
+<li>默认路由 <code>0.0.0.0</code> 的掩码长度为 0，是优先级最低的保底选项。</li>
+</ul>
+<p>ARP是已知ip找mac RARP是反向arp 已知mac找ip</p>
+<p><span class="text-highlight">Traceroute工具</span><br/>
+Path (路径) / Routers along the path<br/>
+设计用来查找从主机到目的 IP 地址的 <strong>路径上的路由器 (Routers along the path)</strong> 的？<strong>Traceroute工具</strong><br/>
+利用的是IP头里的TTL生存时间,它先发一个 TTL=1 的包，第 1 个路由器收到后 TTL 减为 0，路由器报错“我死了”，发回一个 ICMP 包（暴露了第 1 个路由器的 IP）。- 再发 TTL=2，第 2 个路由器报错。</p>
+<ul>
+<li>以此类推，把沿途的路由器一个个“骗”出来。</li>
+</ul>
+<p><strong>Netstate (应该是 Netstat)：</strong> 用来查看自己电脑上的网络连接状态（开了哪些端口）。</p>
+<p>IP协议特性:<br/>
+best effort<br/>
+unreliable<br/>
+connectionless<br/>
+尽力而为 不可靠(tcp负责)  ,无链接(tcp负责)<br/>
+ip最大的本事就是路由</p>
+<h3 id="chapter6">chapter6<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chapter6" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p><strong>UDP 性格：</strong> 它是一个 <strong>不可靠 (Unreliable)</strong>、<strong>无连接 (Connectionless)</strong> 的协议。<br/>
+总之什么都不用 什么都不保证</p>
+<h5 id="tcp">TCP<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#tcp" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li><strong>Step 1 (A <span>→</span> B):</strong> <code>SYN=1</code>, <code>seq = x</code> (这里 x=220)。
+<ul>
+<li>意思：A 说“我想连你，我的起始序号是 220”。</li>
+</ul>
+</li>
+<li><strong>Step 2 (B <span>→</span> A):</strong> <strong>（本题考点！）</strong>
+<ul>
+<li><strong>Flags:</strong> 必须回应 <code>SYN=1</code> (我也想连你) 和 <code>ACK=1</code> (我收到你的请求了)。</li>
+<li><strong>ack (确认号):</strong> 必须是 A 的序号 + 1。
+<ul>
+<li>公式：<code>ack = x + 1</code></li>
+<li>计算：<code>220 + 1 = 221</code>。</li>
+<li>意思：“220 我收到了，下次请给我发 221”。</li>
+</ul>
+</li>
+<li><strong>seq (序号):</strong> B 自己的起始序号 <code>y</code>。通常是随机的。</li>
+</ul>
+</li>
+<li><strong>Step 3 (A <span>→</span> B):</strong> <code>ACK=1</code>, <code>seq=x+1</code>, <code>ack=y+1</code>。</li>
+</ul>
+<p>累计确认<br/>
+流量控制:滑动窗口</p>
+<ul>
+<li>TCP 头里有一个字段叫 <strong>Window Size (RWND, Receive Window)</strong>。</li>
+<li>接收方在给发送方回 ACK 的时候，顺便在头里带上：“我的缓存区还能装 <strong>X</strong> 个字节”。</li>
+<li>发送方看到后，就会控制自己：<strong>未确认的数据总量 <span>⇐</span> X</strong>。</li>
+<li>如果接收方缓存满了，它会发一个 <code>Window Size = 0</code> 的包，发送方就会<strong>暂停发送</strong>，进入等待状态（这就叫零窗口探测）。</li>
+</ul>
+<p>拥塞控制 congesion<br/>
+<strong>机制</strong>：发送方自己维护一个变量叫 <strong>CWND (Congestion Window)</strong>。发送方实际能发的窗口大小 = <code>min(RWND, CWND)</code>（取接收方能力和网络能力的最小值）。</p>
+<p><strong>四个经典阶段 (Slow Start &amp; Congestion Avoidance)</strong>：</p>
+<ol>
+<li><strong>慢启动 (Slow Start)</strong>：
+<ul>
+<li>刚开始不知道路况，只发 1 个包。收到 ACK 后，发 2 个，再发 4 个，8 个…… <strong>指数级增长</strong>。<em>现象</em>：窗口从 1 开始，指数级增长 (1, 2, 4, 8…)。</li>
+<li><em>逻辑</em>：快速试探网络的底线。</li>
+</ul>
+</li>
+<li><strong>拥塞避免 (Congestion Avoidance)</strong>：
+<ul>
+<li>当增长到一个阈值（ssthresh）后，改为<strong>线性增长</strong>（每次 +1）。</li>
+<li><em>逻辑</em>：小心翼翼地增加，防止突然堵车。</li>
+</ul>
+</li>
+<li><strong>快重传 (Fast Retransmit)</strong>：
+<ul>
+<li>如果发送方连续收到 <strong>3 个重复的 ACK</strong>（比如连续 3 次 ACK 200），说明 200 丢了，但网络没断（因为后面的 ACK 还能回来）。</li>
+<li><strong>立即重传</strong> 200，不需要等超时定时器。</li>
+</ul>
+</li>
+<li><strong>快恢复 (Fast Recovery)</strong>：
+<ul>
+<li>发生了快重传，说明网络有点堵，但没死透。于是把发送速度减半（而不是归零），然后继续线性增长。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115224312.png" width="auto" height="auto" alt/></li>
+</ul>
+</li>
+</ol>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115224347.png" width="auto" height="auto" alt/><strong>设定阈值 (ssthresh)</strong>：根据规则，阈值设为当前窗口的一半。</p>
+<ul>
+<li><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6944em;"></span><span class="mord mathnormal">ss</span><span class="mord mathnormal">t</span><span class="mord mathnormal">h</span><span class="mord mathnormal">res</span><span class="mord mathnormal">h</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">18/2</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">9</span></span></span></span> KB。</li>
+<li><strong>重置窗口</strong>：因为是超时，CWND 直接重置为 <strong>1 MSS</strong>。</li>
+<li><span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.07153em;">C</span><span class="mord mathnormal" style="margin-right:0.13889em;">W</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord mathnormal" style="margin-right:0.02778em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span> KB。</li>
+<li>然后<strong>进入阶段</strong>：<strong>慢启动 (Slow Start)</strong>。</li>
+</ul>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115224735.png" width="auto" height="auto" alt/></p>
+<p>序列号空间是基于字节的，而不是基于段的<br/>
+<strong>ACK 只能确认“连续收到的最后一位”</strong>。<br/>
+比如100<del>200丢了  200</del>300收到了 那么接下来发的ack应该是=100的 因为只能确认前面100 不能确认到300</p>
+<ul>
+<li><strong>原因</strong>：TCP 是 <strong>点对点 (Point-to-Point)</strong> 的协议。它必须在两个明确的 IP 和端口之间建立连接。</li>
+<li>广播（发给所有人）和组播（发给一组人）是 <strong>UDP</strong> 的特长，TCP 做不到。</li>
+<li></li>
+</ul>
+<h3 id="chapter7-应用层">chapter7 应用层<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chapter7-应用层" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<h5 id="dns">DNS<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#dns" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>DNS记录格式<br/>
+A记录 域名到ip地址<br/>
+TXT记录 域名到文本字符串<br/>
+SOA记录 起始授权机构 后面一大串参数<br/>
+MX记录 mail exchange 的标准格式必须包含一个优先级数字 IN MX 10 邮件服务器域名<br/>
+resolver 解析器<br/>
+client<br/>
+local name server 本地域名服务器: 通常由你的 ISP（电信/移动）或者学校网络中心自动分配给你（比如浙大的 DNS），或者你自己指定的（比如 Google 的 <code>8.8.8.8</code>）。<br/>
+root/TLDserver Top-Level Domain 根服务器和顶级域名服务器<br/>
+Authoritative Name Server (权威名称服务器<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260116092522.png" width="auto" height="auto" alt/></p>
+<p>电脑内部解析器对localnameserver说 查询<code>www.google.com</code> 的 IP.这是recursive query</p>
+<p>然后localname server开始查询,<br/>
+这里是迭代的 虽然得知了信息 但下一个级别的dns还是需要local name server去询问</p>
+<ol>
+<li>找根服务器 然后从后面开始一部分一部分找:先找.com</li>
+<li>.com顶级域名服务器 找google.com</li>
+<li>google.com的权威服务器:<a href="http://www.google.com%E7%9A%84ip%E6%98%AFxxxxxx" class="external">www.google.com的ip是xxxxxx<svg aria-hidden="true" class="external-icon" style="max-width:0.8em;max-height:0.8em;" viewBox="0 0 512 512"><path d="M320 0H288V64h32 82.7L201.4 265.4 178.7 288 224 333.3l22.6-22.6L448 109.3V192v32h64V192 32 0H480 320zM32 32H0V64 480v32H32 456h32V480 352 320H424v32 96H64V96h96 32V32H160 32z"></path></svg></a></li>
+</ol>
+<p>然后localnameserver再返回给client 同时这个会被记在cache里面</p>
+<h5 id="应用层协议及其对应端口号">应用层协议及其对应端口号<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#应用层协议及其对应端口号" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>电子邮件类:<br/>
+SMTP simple mail transfer protocol 25 TCP 发邮件<br/>
+POP3 post office protocol v3 110 TCP 收邮件特点是“下载并删除”（默认），对多设备同步不友好。<br/>
+IMAP internet message access protocol 143 TCP 收邮件特点是“同步”，邮件保存在服务器上，比 POP3 更强。</p>
+<p>远程连接类:<br/>
+telnet telecommunication network 23 TCP 远程登陆明文传输（极不安全），密码会被截获。<br/>
+<strong>SSH</strong> (Secure Shell) <strong>22</strong> TCP <strong>远程登录</strong>。<strong>加密传输</strong>（安全），它是 Telnet 的替代者。</p>
+<p>文件传输类<br/>
+FTP file transfer protocol 21/20 TCP<strong>传文件</strong>。注意它用两个端口！21是control 用来传指令 20是data专门传文件数据<br/>
+TFTP trivial FTP 69 UDP 简单文件传输 只传小文件不用握手</p>
+<p>网页与域名<br/>
+HTTP 80<strong>看网页</strong>。明文传输。<br/>
+HTTPS 443<strong>看网页（加密）</strong>。HTTP + SSL/TLS。<br/>
+DNS 53  UDP/TCP 查ip,域名解析  <strong>查IP</strong>。域名解析。通常查询用 UDP，主备服务器同步用 TCP。</p>
+<p><strong>第 91 题</strong>：传输技术分为 Point-to-point (点对点) 和 <strong>Broadcast links (广播链路)</strong>。</p>
+<ul>
+<li><em>记忆点</em>：这是物理层的分类，广播链路指共享介质（如 Wi-Fi、以太网）。</li>
+</ul>
+<ol>
+<li><strong>ARP 的归属层级</strong>：luxq 资料指出，ARP 最好被视为介于<strong>链路层和网络层边界</strong>的协议，但它为网络层提供服务。</li>
+<li><strong>OSI 与 TCP/IP 的对比</strong>：OSI 参考模型网络层支持无连接和面向连接，但 <strong>TCP/IP 的互联网层仅支持无连接通信（IP协议）</strong>。</li>
+<li><strong>SSH 端口误区</strong>：务必记住 <strong>SSH 是 22 端口</strong>，不要和 FTP 的 21 混淆。</li>
+<li><strong>MIME 编码</strong>：Base64 编码是将每 24 位（3字节）分割为 4 个 6 位的单元，并映射为 ASCII 字符。</li>
+<li><strong>HTTP 状态码</strong>：重点记住 <strong>200 (OK)</strong>、<strong>301 (永久重定向)</strong>、<strong>404 (找不到页面)</strong> 和 <strong>500 (服务器内部错误)</strong>。</li>
+</ol>
+<p>keep track of a user and its related information by the Web server?”</p>
+<ul>
+<li>HTTP 协议本身是 <strong>无状态 (Stateless)</strong> 的。这意味着你请求了第 1 页，再请求第 2 页，服务器根本不知道你是同一个人。</li>
+<li>为了记住“你是谁”（比如保持登录状态、购物车里的商品），服务器会发给你一个小纸条，让你下次请求时带上。这个小纸条就是 <strong>Cookie</strong>。</li>
+</ul>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115232707.png" width="auto" height="auto" alt/><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115232727.png" width="auto" height="auto" alt/><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115232741.png" width="auto" height="auto" alt/><br/>
+<strong>Cookie 存在哪？</strong>：<strong>浏览器 (Client)</strong>。</p>
+<h5 id="html标签语义">HTML标签语义<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#html标签语义" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115233341.png" width="auto" height="auto" alt/><br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115233359.png" width="auto" height="auto" alt/><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115233415.png" width="auto" height="auto" alt/><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115233549.png" width="auto" height="auto" alt/><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115233944.png" width="auto" height="auto" alt/><br/>
+HTTP是持久连接</p>
+<ul>
+<li><strong>无状态 (Stateless)：</strong> 描述的是**“记忆能力”**（应用层逻辑）。</li>
+<li><strong>持久连接 (Persistent Connection)：</strong> 描述的是**“传输通道”**（传输层/物理连接）。</li>
+</ul>
+<p>content delivery network<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115235549.png" width="auto" height="auto" alt/><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115235811.png" width="auto" height="auto" alt/></p>
+<h3 id="chapter8-网络安全">chapter8 网络安全<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#chapter8-网络安全" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>目标:保护以下的性质</p>
+<ul>
+<li>机密性 confidentiality 被截获</li>
+<li>完整性integrity 被篡改</li>
+<li>认证authentication 假身份</li>
+</ul>
+<p>块密码：<br/>
+AES DES老掉牙的对称加密</p>
+<p>工具 加密算法</p>
+<ul>
+<li>对称加密 symmetric encryption 快 但是有缺陷
+<ul>
+<li>加密和解密用同一个密钥,常见算法是AES<strong>Advanced Encryption Standard</strong>:块密码 block cipher 把数据切成一块一块做加密</li>
+<li>每一块独立加密:ECB 虽然解不开但是能看到图案和模式：如果两块一样 加密后也一样了</li>
+<li>cipher block chaining CBC 把前一块的加密结果混入下一块加密过程中</li>
+<li>因此:为了防止针对 ECB 的模式分析攻击，AES 必须配合 <strong>CBC</strong> 模式使用。</li>
+</ul>
+</li>
+<li>非对称加密 public-key cryptography 安全但是慢 主要的算法是<strong>RSA</strong> 唯一的它是目前最流行的公钥加密算法。
+<ul>
+<li>公钥 公开给所有人 用来锁 加密  或者验  验证签名</li>
+<li>私钥 用来开 解密Decrypt 或者签 数字签名</li>
+</ul>
+</li>
+</ul>
+<p>证书体系<br/>
+<strong>办证 (Issue)</strong>：</p>
+<ul>
+<li>淘宝把自己的公钥交给 <strong>CA (权威机构)</strong>。</li>
+<li>CA 审核通过后，用 <strong>CA 的私钥</strong> 在淘宝的公钥上盖了个章（数字签名），生成了<strong>证书</strong>。</li>
+<li>你的浏览器访问淘宝，淘宝出示证书。</li>
+<li>浏览器怎么知道这个证书上的章是真的？</li>
+<li>浏览器内置了 <strong>CA 的公钥</strong>（操作系统自带）。</li>
+<li>浏览器用 <strong>CA 的公钥</strong> 去解密/验证那个数字签名。如果解开了，说明这个章确实是 CA 盖的，证书是真的。</li>
+</ul>
+<p>验证网站证书的真伪，是验证 CA 的签名，所以要用 <strong>CA 的公钥</strong>。</p>
+<h5 id="时延相关">时延相关<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#时延相关" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>transmission delay 网卡把数据推到线路上的时间 是数据长度、带宽（datarate<br/>
+propagation delay 在物理介质里跑要花的时间<br/>
+T=物理距离/传播速度 跟数据包大小无关</p>
+<p>nslookup 查ip<br/>
+tracert  trace route<br/>
+arp 查mac地址<br/>
+netstat 查连接状态</p>
+<p>通信模式<br/>
+单播:一对一 unicasting<br/>
+广播 broadcasting<br/>
+组播/多播 multicasting <strong>场景</strong>：比如看“IPTV 网络电视”或者“Zoom 分组会议”。只有加入了“体育频道组”的人能收到体育频道的视频流，不看的人收不到。既不是只发给一个人，也不是发给全网所有人，而是发给<strong>特定的一群人（子集）</strong>。<br/>
+支持向机器的一个子集subnet</p>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260116094527.png" width="auto" height="auto" alt/></p>
+<h5 id="socket">socket<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#socket" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>primitive原语<br/>
+阻塞调用者: accept<br/>
+socket bind listen都是瞬时操作<br/>
+什么是基于udp的 RTP real time transport protocol</p>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260116095627.png" width="auto" height="auto" alt/></p></article><hr/><div class="page-footer"><div class="giscus" data-repo="im0x0ing/im0x0ing.github.io" data-repo-id="R_kgDOQevgrA" data-category="Announcements" data-category-id="DIC_kwDOQevgrM4CzLI8" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-input-position="top" data-light-theme="light" data-dark-theme="dark" data-theme-url="https://im0x0ing.github.io/static/giscus" data-lang="zh-CN"></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-104" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div class="toc-depth-control"><span class="depth-label">H3</span><input type="range" class="depth-slider" min="1" max="6" value="2" step="1"/></div><ul id="list-9" class="toc-content overflow"><li class="depth-0"><a href="#chapter1-intro" data-for="chapter1-intro">chapter1 intro</a></li><li class="depth-2"><a href="#osi" data-for="osi">OSI</a></li><li class="depth-0"><a href="#chapter2物理层" data-for="chapter2物理层">chapter2物理层</a></li><li class="depth-2"><a href="#多路复用技术" data-for="多路复用技术">多路复用技术</a></li><li class="depth-2"><a href="#计算channel-capacitymaximum-data-rate" data-for="计算channel-capacitymaximum-data-rate">计算channel capacity/maximum data rate</a></li><li class="depth-2"><a href="#载波计算" data-for="载波计算">载波计算</a></li><li class="depth-0"><a href="#chapter3-数据链路层" data-for="chapter3-数据链路层">chapter3 数据链路层</a></li><li class="depth-2"><a href="#比特填充" data-for="比特填充">比特填充</a></li><li class="depth-2"><a href="#crc-循环冗余校验" data-for="crc-循环冗余校验">CRC 循环冗余校验</a></li><li class="depth-2"><a href="#vlan的构建方法" data-for="vlan的构建方法">VLAN的构建方法</a></li><li class="depth-2"><a href="#海明码" data-for="海明码">海明码</a></li><li class="depth-2"><a href="#gbn" data-for="gbn">GBN</a></li><li class="depth-2"><a href="#选择重传协议sr" data-for="选择重传协议sr">选择重传协议SR</a></li><li class="depth-0"><a href="#chapter4-网络层" data-for="chapter4-网络层">chapter4 网络层</a></li><li class="depth-2"><a href="#vlan" data-for="vlan">VLAN</a></li><li class="depth-2"><a href="#交换机转发表" data-for="交换机转发表">交换机转发表</a></li><li class="depth-0"><a href="#chapter5" data-for="chapter5">chapter5</a></li><li class="depth-2"><a href="#路由协议" data-for="路由协议">路由协议</a></li><li class="depth-2"><a href="#cidrclassless-inter-domain-routing无类别域间路由-是一种更灵活的ip地址分配和管理方法" data-for="cidrclassless-inter-domain-routing无类别域间路由-是一种更灵活的ip地址分配和管理方法">CIDR(Classless Inter-Domain Routing)无类别域间路由 是一种更灵活的ip地址分配和管理方法</a></li><li class="depth-0"><a href="#chapter6" data-for="chapter6">chapter6</a></li><li class="depth-2"><a href="#tcp" data-for="tcp">TCP</a></li><li class="depth-0"><a href="#chapter7-应用层" data-for="chapter7-应用层">chapter7 应用层</a></li><li class="depth-2"><a href="#dns" data-for="dns">DNS</a></li><li class="depth-2"><a href="#应用层协议及其对应端口号" data-for="应用层协议及其对应端口号">应用层协议及其对应端口号</a></li><li class="depth-2"><a href="#html标签语义" data-for="html标签语义">HTML标签语义</a></li><li class="depth-0"><a href="#chapter8-网络安全" data-for="chapter8-网络安全">chapter8 网络安全</a></li><li class="depth-2"><a href="#时延相关" data-for="时延相关">时延相关</a></li><li class="depth-2"><a href="#socket" data-for="socket">socket</a></li><li class="overflow-end"></li></ul></div><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function f(i,e){if(!i)return;function r(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function t(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}i?.addEventListener("click",r),window.addCleanup(()=>i?.removeEventListener("click",r)),document.addEventListener("keydown",t),window.addCleanup(()=>document.removeEventListener("keydown",t))}function y(i){for(;i.firstChild;)i.removeChild(i.firstChild)}var h=class{constructor(e,r){this.container=e;this.content=r;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),r=this.onMouseMove.bind(this),t=this.onMouseUp.bind(this),o=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",r),document.addEventListener("mouseup",t),window.addEventListener("resize",o),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",r),()=>document.removeEventListener("mouseup",t),()=>window.removeEventListener("resize",o))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let r=this.createButton("+",()=>this.zoom(.1)),t=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(t),e.appendChild(o),e.appendChild(r),this.container.appendChild(e)}createButton(e,r){let t=document.createElement("button");return t.textContent=e,t.className="mermaid-control-button",t.addEventListener("click",r),window.addCleanup(()=>t.removeEventListener("click",r)),t}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}zoom(e){let r=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),t=this.content.getBoundingClientRect(),o=t.width/2,n=t.height/2,c=r-this.scale;this.currentPan.x-=o*c,this.currentPan.y-=n*c,this.scale=r,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){this.scale=1;let e=this.content.querySelector("svg");this.currentPan={x:e.getBoundingClientRect().width/2,y:e.getBoundingClientRect().height/2},this.updateTransform()}},C=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],E;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;E||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let r=E.default,t=new WeakMap;for(let n of e)t.set(n,n.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let a=t.get(s);a&&(s.innerHTML=a)}let n=C.reduce((s,a)=>(s[a]=window.getComputedStyle(document.documentElement).getPropertyValue(a),s),{}),c=document.documentElement.getAttribute("saved-theme")==="dark";r.initialize({startOnLoad:!1,securityLevel:"loose",theme:c?"dark":"base",themeVariables:{fontFamily:n["--codeFont"],primaryColor:n["--light"],primaryTextColor:n["--darkgray"],primaryBorderColor:n["--tertiary"],lineColor:n["--darkgray"],secondaryColor:n["--secondary"],tertiaryColor:n["--tertiary"],clusterBkg:n["--light"],edgeLabelBackground:n["--highlight"]}}),await r.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let n=0;n<e.length;n++){let v=function(){let g=l.querySelector("#mermaid-space"),m=l.querySelector(".mermaid-content");if(!m)return;y(m);let w=c.querySelector("svg").cloneNode(!0);m.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new h(g,m)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},c=e[n],s=c.parentElement,a=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(a),L=a.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),f(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>

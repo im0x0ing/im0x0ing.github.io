@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"><head><title>数据链路层 the link layer</title><meta charset="utf-8"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Sans SC:wght@400;700&amp;family=Noto Serif SC:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&amp;family=JetBrains Mono:wght@400;600&amp;display=swap"/><link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin="anonymous"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><meta name="og:site_name" content="ING wiki"/><meta property="og:title" content="数据链路层 the link layer"/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:title" content="数据链路层 the link layer"/><meta name="twitter:description" content="只关心点到点 数据链路层的功能 主要任务 发送方的网络层将数据包发给数据链路层，数据链路层通过物理层提供的服务将数据传输给接收方的数据链路层，接收方的数据链路层再将数据提供给网络层。 在这个过程中，数据链路层需要考虑的问题有： 物理层传输的是比特流，因此需要区分不同的数据包的界限 传输过程中可能发生的错误 发送方和接收方处理数据速率的不同 为了方便解决这些问题，数据链路层将网络层提供的每个数据包通过一些增加和修改封装成 帧 frame（也有可能拆分并封装成多个帧），在接收方的数据链路层，这些修改被还原。 头部 尾部信息 payload field就是packet具体的内容 需要说明的是，我们可..."/><meta property="og:description" content="只关心点到点 数据链路层的功能 主要任务 发送方的网络层将数据包发给数据链路层，数据链路层通过物理层提供的服务将数据传输给接收方的数据链路层，接收方的数据链路层再将数据提供给网络层。 在这个过程中，数据链路层需要考虑的问题有： 物理层传输的是比特流，因此需要区分不同的数据包的界限 传输过程中可能发生的错误 发送方和接收方处理数据速率的不同 为了方便解决这些问题，数据链路层将网络层提供的每个数据包通过一些增加和修改封装成 帧 frame（也有可能拆分并封装成多个帧），在接收方的数据链路层，这些修改被还原。 头部 尾部信息 payload field就是packet具体的内容 需要说明的是，我们可..."/><meta property="og:image:alt" content="只关心点到点 数据链路层的功能 主要任务 发送方的网络层将数据包发给数据链路层，数据链路层通过物理层提供的服务将数据传输给接收方的数据链路层，接收方的数据链路层再将数据提供给网络层。 在这个过程中，数据链路层需要考虑的问题有： 物理层传输的是比特流，因此需要区分不同的数据包的界限 传输过程中可能发生的错误 发送方和接收方处理数据速率的不同 为了方便解决这些问题，数据链路层将网络层提供的每个数据包通过一些增加和修改封装成 帧 frame（也有可能拆分并封装成多个帧），在接收方的数据链路层，这些修改被还原。 头部 尾部信息 payload field就是packet具体的内容 需要说明的是，我们可..."/><meta property="twitter:domain" content="im0x0ing.github.io"/><meta property="og:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/03-数据链路层-the-link-layer"/><meta property="twitter:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/03-数据链路层-the-link-layer"/><link rel="icon" href="../../static/icon.png"/><meta name="description" content="只关心点到点 数据链路层的功能 主要任务 发送方的网络层将数据包发给数据链路层，数据链路层通过物理层提供的服务将数据传输给接收方的数据链路层，接收方的数据链路层再将数据提供给网络层。 在这个过程中，数据链路层需要考虑的问题有： 物理层传输的是比特流，因此需要区分不同的数据包的界限 传输过程中可能发生的错误 发送方和接收方处理数据速率的不同 为了方便解决这些问题，数据链路层将网络层提供的每个数据包通过一些增加和修改封装成 帧 frame（也有可能拆分并封装成多个帧），在接收方的数据链路层，这些修改被还原。 头部 尾部信息 payload field就是packet具体的内容 需要说明的是，我们可..."/><meta name="generator" content="Quartz"/><link href="../../index.css" rel="stylesheet" type="text/css" data-persist="true"/><style>.expand-button {
+  position: absolute;
+  display: flex;
+  float: right;
+  padding: 0.4rem;
+  margin: 0.3rem;
+  right: 0;
+  color: var(--gray);
+  border-color: var(--dark);
+  background-color: var(--light);
+  border: 1px solid;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 0.2s;
+}
+.expand-button > svg {
+  fill: var(--light);
+  filter: contrast(0.3);
+}
+.expand-button:hover {
+  cursor: pointer;
+  border-color: var(--secondary);
+}
+.expand-button:focus {
+  outline: 0;
+}
+
+pre:hover > .expand-button {
+  opacity: 1;
+  transition: 0.2s;
+}
+
+#mermaid-container {
+  position: fixed;
+  contain: layout;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: none;
+  backdrop-filter: blur(4px);
+  background: rgba(0, 0, 0, 0.5);
+}
+#mermaid-container.active {
+  display: inline-block;
+}
+#mermaid-container > #mermaid-space {
+  border: 1px solid var(--lightgray);
+  background-color: var(--light);
+  border-radius: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 80vh;
+  width: 80vw;
+  overflow: hidden;
+}
+#mermaid-container > #mermaid-space > .mermaid-content {
+  padding: 2rem;
+  position: relative;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  overflow: visible;
+  min-height: 200px;
+  min-width: 200px;
+}
+#mermaid-container > #mermaid-space > .mermaid-content pre {
+  margin: 0;
+  border: none;
+}
+#mermaid-container > #mermaid-space > .mermaid-content svg {
+  max-width: none;
+  height: auto;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  padding: 8px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 2;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  background: var(--light);
+  color: var(--dark);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--bodyFont);
+  transition: all 0.2s ease;
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:hover {
+  background: var(--lightgray);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:active {
+  transform: translateY(1px);
+}
+#mermaid-container > #mermaid-space > .mermaid-controls .mermaid-control-button:nth-child(2) {
+  width: auto;
+  padding: 0 12px;
+  font-size: 14px;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VSb290IjoiL2hvbWUvcnVubmVyL3dvcmsvaW0weDBpbmctYmxvZy1wcml2YXRlL2ltMHgwaW5nLWJsb2ctcHJpdmF0ZS9xdWFydHovY29tcG9uZW50cy9zdHlsZXMiLCJzb3VyY2VzIjpbIm1lcm1haWQuaW5saW5lLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7O0FBR0Y7RUFDRTtFQUNBOztBQUdGO0VBQ0U7OztBQUtGO0VBQ0U7RUFDQTs7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7O0FBR0Y7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTs7QUFHRjtFQUNFO0VBQ0E7O0FBSUo7RUFDRTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBOztBQUVBO0VBQ0U7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTs7QUFFQTtFQUNFOztBQUdGO0VBQ0U7O0FBSUY7RUFDRTtFQUNBO0VBQ0EiLCJzb3VyY2VzQ29udGVudCI6WyIuZXhwYW5kLWJ1dHRvbiB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgZGlzcGxheTogZmxleDtcbiAgZmxvYXQ6IHJpZ2h0O1xuICBwYWRkaW5nOiAwLjRyZW07XG4gIG1hcmdpbjogMC4zcmVtO1xuICByaWdodDogMDsgLy8gTk9URTogcmlnaHQgd2lsbCBiZSBzZXQgaW4gbWVybWFpZC5pbmxpbmUudHNcbiAgY29sb3I6IHZhcigtLWdyYXkpO1xuICBib3JkZXItY29sb3I6IHZhcigtLWRhcmspO1xuICBiYWNrZ3JvdW5kLWNvbG9yOiB2YXIoLS1saWdodCk7XG4gIGJvcmRlcjogMXB4IHNvbGlkO1xuICBib3JkZXItcmFkaXVzOiA1cHg7XG4gIG9wYWNpdHk6IDA7XG4gIHRyYW5zaXRpb246IDAuMnM7XG5cbiAgJiA+IHN2ZyB7XG4gICAgZmlsbDogdmFyKC0tbGlnaHQpO1xuICAgIGZpbHRlcjogY29udHJhc3QoMC4zKTtcbiAgfVxuXG4gICY6aG92ZXIge1xuICAgIGN1cnNvcjogcG9pbnRlcjtcbiAgICBib3JkZXItY29sb3I6IHZhcigtLXNlY29uZGFyeSk7XG4gIH1cblxuICAmOmZvY3VzIHtcbiAgICBvdXRsaW5lOiAwO1xuICB9XG59XG5cbnByZSB7XG4gICY6aG92ZXIgPiAuZXhwYW5kLWJ1dHRvbiB7XG4gICAgb3BhY2l0eTogMTtcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xuICB9XG59XG5cbiNtZXJtYWlkLWNvbnRhaW5lciB7XG4gIHBvc2l0aW9uOiBmaXhlZDtcbiAgY29udGFpbjogbGF5b3V0O1xuICB6LWluZGV4OiA5OTk7XG4gIGxlZnQ6IDA7XG4gIHRvcDogMDtcbiAgd2lkdGg6IDEwMHZ3O1xuICBoZWlnaHQ6IDEwMHZoO1xuICBvdmVyZmxvdzogaGlkZGVuO1xuICBkaXNwbGF5OiBub25lO1xuICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoNHB4KTtcbiAgYmFja2dyb3VuZDogcmdiYSgwLCAwLCAwLCAwLjUpO1xuXG4gICYuYWN0aXZlIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gIH1cblxuICAmID4gI21lcm1haWQtc3BhY2Uge1xuICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgYmFja2dyb3VuZC1jb2xvcjogdmFyKC0tbGlnaHQpO1xuICAgIGJvcmRlci1yYWRpdXM6IDVweDtcbiAgICBwb3NpdGlvbjogZml4ZWQ7XG4gICAgdG9wOiA1MCU7XG4gICAgbGVmdDogNTAlO1xuICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xuICAgIGhlaWdodDogODB2aDtcbiAgICB3aWR0aDogODB2dztcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xuXG4gICAgJiA+IC5tZXJtYWlkLWNvbnRlbnQge1xuICAgICAgcGFkZGluZzogMnJlbTtcbiAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIHRyYW5zZm9ybS1vcmlnaW46IDAgMDtcbiAgICAgIHRyYW5zaXRpb246IHRyYW5zZm9ybSAwLjFzIGVhc2U7XG4gICAgICBvdmVyZmxvdzogdmlzaWJsZTtcbiAgICAgIG1pbi1oZWlnaHQ6IDIwMHB4O1xuICAgICAgbWluLXdpZHRoOiAyMDBweDtcblxuICAgICAgcHJlIHtcbiAgICAgICAgbWFyZ2luOiAwO1xuICAgICAgICBib3JkZXI6IG5vbmU7XG4gICAgICB9XG5cbiAgICAgIHN2ZyB7XG4gICAgICAgIG1heC13aWR0aDogbm9uZTtcbiAgICAgICAgaGVpZ2h0OiBhdXRvO1xuICAgICAgfVxuICAgIH1cblxuICAgICYgPiAubWVybWFpZC1jb250cm9scyB7XG4gICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgICBib3R0b206IDIwcHg7XG4gICAgICByaWdodDogMjBweDtcbiAgICAgIGRpc3BsYXk6IGZsZXg7XG4gICAgICBnYXA6IDhweDtcbiAgICAgIHBhZGRpbmc6IDhweDtcbiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWxpZ2h0KTtcbiAgICAgIGJvcmRlcjogMXB4IHNvbGlkIHZhcigtLWxpZ2h0Z3JheSk7XG4gICAgICBib3JkZXItcmFkaXVzOiA2cHg7XG4gICAgICBib3gtc2hhZG93OiAwIDJweCA0cHggcmdiYSgwLCAwLCAwLCAwLjEpO1xuICAgICAgei1pbmRleDogMjtcblxuICAgICAgLm1lcm1haWQtY29udHJvbC1idXR0b24ge1xuICAgICAgICBkaXNwbGF5OiBmbGV4O1xuICAgICAgICBhbGlnbi1pdGVtczogY2VudGVyO1xuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IGNlbnRlcjtcbiAgICAgICAgd2lkdGg6IDMycHg7XG4gICAgICAgIGhlaWdodDogMzJweDtcbiAgICAgICAgcGFkZGluZzogMDtcbiAgICAgICAgYm9yZGVyOiAxcHggc29saWQgdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHQpO1xuICAgICAgICBjb2xvcjogdmFyKC0tZGFyayk7XG4gICAgICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyO1xuICAgICAgICBmb250LXNpemU6IDE2cHg7XG4gICAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1ib2R5Rm9udCk7XG4gICAgICAgIHRyYW5zaXRpb246IGFsbCAwLjJzIGVhc2U7XG5cbiAgICAgICAgJjpob3ZlciB7XG4gICAgICAgICAgYmFja2dyb3VuZDogdmFyKC0tbGlnaHRncmF5KTtcbiAgICAgICAgfVxuXG4gICAgICAgICY6YWN0aXZlIHtcbiAgICAgICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoMXB4KTtcbiAgICAgICAgfVxuXG4gICAgICAgIC8vIFN0eWxlIHRoZSByZXNldCBidXR0b24gZGlmZmVyZW50bHlcbiAgICAgICAgJjpudGgtY2hpbGQoMikge1xuICAgICAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgICAgIHBhZGRpbmc6IDAgMTJweDtcbiAgICAgICAgICBmb250LXNpemU6IDE0cHg7XG4gICAgICAgIH1cbiAgICAgIH1cbiAgICB9XG4gIH1cbn1cbiJdfQ== */</style><link href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" rel="stylesheet" type="text/css" data-persist="true"/><script src="../../prescript.js" type="application/javascript" data-persist="true"></script><script type="application/javascript" data-persist="true">const fetchData = fetch("../../static/contentIndex.json").then(data => data.json())</script><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="https://im0x0ing.github.io/index.xml"/><meta property="og:image:width" content="1200"/><meta property="og:image:height" content="630"/><meta property="og:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/03-数据链路层-the-link-layer-og-image.webp"/><meta property="og:image:url" content="https://im0x0ing.github.io/课程笔记/计算机网络/03-数据链路层-the-link-layer-og-image.webp"/><meta name="twitter:image" content="https://im0x0ing.github.io/课程笔记/计算机网络/03-数据链路层-the-link-layer-og-image.webp"/><meta property="og:image:type" content="image/.webp"/></head><body data-slug="课程笔记/计算机网络/03-数据链路层-the-link-layer"><div id="quartz-root" class="page"><div id="quartz-body"><div class="left sidebar"><h2 class="page-title"><a href="../..">ING wiki</a></h2><div class="spacer mobile-only"></div><div class="flex-component" style="flex-direction: row; flex-wrap: nowrap; gap: 1rem;"><div style="flex-grow: 1; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><div class="search"><button class="search-button"><svg role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 19.9 19.7"><title>Search</title><g class="search-path" fill="none"><path stroke-linecap="square" d="M18.5 18.3l-5.4-5.4"></path><circle cx="8" cy="8" r="7"></circle></g></svg><p>Search</p></button><div class="search-container"><div class="search-space"><input autocomplete="off" class="search-bar" name="search" type="text" aria-label="Search for something" placeholder="Search for something"/><div class="search-layout" data-preview="true"></div></div></div></div></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="darkmode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="dayIcon" x="0px" y="0px" viewBox="0 0 35 35" style="enable-background:new 0 0 35 35" xml:space="preserve" aria-label="Dark mode"><title>Dark mode</title><path d="M6,17.5C6,16.672,5.328,16,4.5,16h-3C0.672,16,0,16.672,0,17.5    S0.672,19,1.5,19h3C5.328,19,6,18.328,6,17.5z M7.5,26c-0.414,0-0.789,0.168-1.061,0.439l-2,2C4.168,28.711,4,29.086,4,29.5    C4,30.328,4.671,31,5.5,31c0.414,0,0.789-0.168,1.06-0.44l2-2C8.832,28.289,9,27.914,9,27.5C9,26.672,8.329,26,7.5,26z M17.5,6    C18.329,6,19,5.328,19,4.5v-3C19,0.672,18.329,0,17.5,0S16,0.672,16,1.5v3C16,5.328,16.671,6,17.5,6z M27.5,9    c0.414,0,0.789-0.168,1.06-0.439l2-2C30.832,6.289,31,5.914,31,5.5C31,4.672,30.329,4,29.5,4c-0.414,0-0.789,0.168-1.061,0.44    l-2,2C26.168,6.711,26,7.086,26,7.5C26,8.328,26.671,9,27.5,9z M6.439,8.561C6.711,8.832,7.086,9,7.5,9C8.328,9,9,8.328,9,7.5    c0-0.414-0.168-0.789-0.439-1.061l-2-2C6.289,4.168,5.914,4,5.5,4C4.672,4,4,4.672,4,5.5c0,0.414,0.168,0.789,0.439,1.06    L6.439,8.561z M33.5,16h-3c-0.828,0-1.5,0.672-1.5,1.5s0.672,1.5,1.5,1.5h3c0.828,0,1.5-0.672,1.5-1.5S34.328,16,33.5,16z     M28.561,26.439C28.289,26.168,27.914,26,27.5,26c-0.828,0-1.5,0.672-1.5,1.5c0,0.414,0.168,0.789,0.439,1.06l2,2    C28.711,30.832,29.086,31,29.5,31c0.828,0,1.5-0.672,1.5-1.5c0-0.414-0.168-0.789-0.439-1.061L28.561,26.439z M17.5,29    c-0.829,0-1.5,0.672-1.5,1.5v3c0,0.828,0.671,1.5,1.5,1.5s1.5-0.672,1.5-1.5v-3C19,29.672,18.329,29,17.5,29z M17.5,7    C11.71,7,7,11.71,7,17.5S11.71,28,17.5,28S28,23.29,28,17.5S23.29,7,17.5,7z M17.5,25c-4.136,0-7.5-3.364-7.5-7.5    c0-4.136,3.364-7.5,7.5-7.5c4.136,0,7.5,3.364,7.5,7.5C25,21.636,21.636,25,17.5,25z"></path></svg><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="nightIcon" x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve" aria-label="Light mode"><title>Light mode</title><path d="M96.76,66.458c-0.853-0.852-2.15-1.064-3.23-0.534c-6.063,2.991-12.858,4.571-19.655,4.571  C62.022,70.495,50.88,65.88,42.5,57.5C29.043,44.043,25.658,23.536,34.076,6.47c0.532-1.08,0.318-2.379-0.534-3.23  c-0.851-0.852-2.15-1.064-3.23-0.534c-4.918,2.427-9.375,5.619-13.246,9.491c-9.447,9.447-14.65,22.008-14.65,35.369  c0,13.36,5.203,25.921,14.65,35.368s22.008,14.65,35.368,14.65c13.361,0,25.921-5.203,35.369-14.65  c3.872-3.871,7.064-8.328,9.491-13.246C97.826,68.608,97.611,67.309,96.76,66.458z"></path></svg></button></div><div style="flex-grow: 0; flex-shrink: 1; flex-basis: auto; order: 0; align-self: center; justify-self: center;"><button class="readermode"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" class="readerIcon" fill="currentColor" stroke="currentColor" stroke-width="0.2" stroke-linecap="round" stroke-linejoin="round" width="64px" height="64px" viewBox="0 0 24 24" aria-label="Reader mode"><title>Reader mode</title><g transform="translate(-1.8, -1.8) scale(1.15, 1.2)"><path d="M8.9891247,2.5 C10.1384702,2.5 11.2209868,2.96705384 12.0049645,3.76669482 C12.7883914,2.96705384 13.8709081,2.5 15.0202536,2.5 L18.7549359,2.5 C19.1691495,2.5 19.5049359,2.83578644 19.5049359,3.25 L19.5046891,4.004 L21.2546891,4.00457396 C21.6343849,4.00457396 21.9481801,4.28672784 21.9978425,4.6528034 L22.0046891,4.75457396 L22.0046891,20.25 C22.0046891,20.6296958 21.7225353,20.943491 21.3564597,20.9931534 L21.2546891,21 L2.75468914,21 C2.37499337,21 2.06119817,20.7178461 2.01153575,20.3517706 L2.00468914,20.25 L2.00468914,4.75457396 C2.00468914,4.37487819 2.28684302,4.061083 2.65291858,4.01142057 L2.75468914,4.00457396 L4.50368914,4.004 L4.50444233,3.25 C4.50444233,2.87030423 4.78659621,2.55650904 5.15267177,2.50684662 L5.25444233,2.5 L8.9891247,2.5 Z M4.50368914,5.504 L3.50468914,5.504 L3.50468914,19.5 L10.9478955,19.4998273 C10.4513189,18.9207296 9.73864328,18.5588115 8.96709342,18.5065584 L8.77307039,18.5 L5.25444233,18.5 C4.87474657,18.5 4.56095137,18.2178461 4.51128895,17.8517706 L4.50444233,17.75 L4.50368914,5.504 Z M19.5049359,17.75 C19.5049359,18.1642136 19.1691495,18.5 18.7549359,18.5 L15.2363079,18.5 C14.3910149,18.5 13.5994408,18.8724714 13.0614828,19.4998273 L20.5046891,19.5 L20.5046891,5.504 L19.5046891,5.504 L19.5049359,17.75 Z M18.0059359,3.999 L15.0202536,4 L14.8259077,4.00692283 C13.9889509,4.06666544 13.2254227,4.50975805 12.7549359,5.212 L12.7549359,17.777 L12.7782651,17.7601316 C13.4923805,17.2719483 14.3447024,17 15.2363079,17 L18.0059359,16.999 L18.0056891,4.798 L18.0033792,4.75457396 L18.0056891,4.71 L18.0059359,3.999 Z M8.9891247,4 L6.00368914,3.999 L6.00599909,4.75457396 L6.00599909,4.75457396 L6.00368914,4.783 L6.00368914,16.999 L8.77307039,17 C9.57551536,17 10.3461406,17.2202781 11.0128313,17.6202194 L11.2536891,17.776 L11.2536891,5.211 C10.8200889,4.56369974 10.1361548,4.13636104 9.37521067,4.02745763 L9.18347055,4.00692283 L8.9891247,4 Z"></path></g></svg></button></div></div><div class="explorer" data-behavior="link" data-collapsed="collapsed" data-savestate="true" data-data-fns="{&quot;order&quot;:[&quot;filter&quot;,&quot;map&quot;,&quot;sort&quot;],&quot;sortFn&quot;:&quot;(a,b)=>!a.isFolder&amp;&amp;!b.isFolder||a.isFolder&amp;&amp;b.isFolder?a.displayName.localeCompare(b.displayName,void 0,{numeric:!0,sensitivity:\&quot;base\&quot;}):!a.isFolder&amp;&amp;b.isFolder?1:-1&quot;,&quot;filterFn&quot;:&quot;node=>node.slug===\&quot;\&quot;||node.slug.startsWith(\&quot;\\u8BFE\\u7A0B\\u7B14\\u8BB0\&quot;)&quot;,&quot;mapFn&quot;:&quot;node=>node&quot;}"><button type="button" class="explorer-toggle mobile-explorer hide-until-loaded" data-mobile="true" aria-controls="explorer-163"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg></button><button type="button" class="title-button explorer-toggle desktop-explorer" data-mobile="false" aria-expanded="true"><h2>Explorer</h2><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div id="explorer-163" class="explorer-content" aria-expanded="false" role="group"><ul class="explorer-ul overflow" id="list-3"><li class="overflow-end"></li></ul></div><template id="template-file"><li><a href="#"></a></li></template><template id="template-folder"><li><div class="folder-container"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="5 8 14 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="folder-icon"><polyline points="6 9 12 15 18 9"></polyline></svg><div><button class="folder-button"><span class="folder-title"></span></button></div></div><div class="folder-outer"><ul class="content"></ul></div></li></template></div></div><div class="center"><div class="page-header"><header><nav class="my-navbar "><div class="links"><a href="/课程笔记/">课程笔记</a><a href="/技术积累/">技术积累</a><a href="/工具使用/">工具使用</a><a href="/生活杂谈/">生活杂谈</a></div></nav></header><div class="popover-hint"><nav class="breadcrumb-container" aria-label="breadcrumbs"><div class="breadcrumb-element"><a href="../../">Home</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/">课程笔记</a><p> ❯ </p></div><div class="breadcrumb-element"><a href="../../课程笔记/计算机网络/">计算机网络</a><p> ❯ </p></div><div class="breadcrumb-element"><a href>数据链路层 the link layer</a></div></nav><h1 class="article-title">数据链路层 the link layer</h1><p show-comma="true" class="content-meta"><time datetime="2026-01-15T20:04:00.000Z">Jan 15, 2026</time><span>38 min read</span></p></div></div><article class="popover-hint"><p>只关心点到点</p>
+<h2 id="数据链路层的功能">数据链路层的功能<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据链路层的功能" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h5 id="主要任务">主要任务<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#主要任务" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>发送方的网络层将数据包发给数据链路层，数据链路层通过物理层提供的服务将数据传输给接收方的数据链路层，接收方的数据链路层再将数据提供给网络层。</li>
+<li>在这个过程中，数据链路层需要考虑的问题有：
+<ul>
+<li>物理层传输的是比特流，因此需要<strong>区分不同的数据包的界限</strong></li>
+<li>传输过程中可能发生的<strong>错误</strong></li>
+<li>发送方和接收方<strong>处理数据速率的不同</strong></li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>为了方便解决这些问题，数据链路层将<span class="text-highlight">网络层提供的每个数据包</span>通过一些增加和修改封装成 帧 frame（也有可能拆分并封装成多个帧），在接收方的数据链路层，这些修改被还原。<img src="../../Public/课程笔记/计算机网络/attachments/Pasted-image-20250930101925.png" width="auto" height="auto" alt/>
+<ul>
+<li>头部 尾部信息</li>
+<li>payload field就是packet具体的内容</li>
+</ul>
+</li>
+<li>需要说明的是，我们可以想象在两个 host 之间的数据链路层直接通信。这是因为，数据链路层<span class="text-highlight">无需关心物理层是怎么传输这些信息的</span>；这种“不关心”也是有好处的，因为这说明物理层保证实现方式的任何修改不会影响到数据链路层。<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633767579865-fae7df98-acfc-47c0-90d0-d2835c62bf87.png" alt/></li>
+</ol>
+<h5 id="数据链路层在哪里实现">数据链路层在哪里实现<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#数据链路层在哪里实现" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>路由器router中的线路卡line card</li>
+<li>大部分在主机host的硬件hardware上，一部分在 software that runs on the host’s CPU</li>
+<li>在大多数情况下，链路层由网络适配器network adapter实现，有时也称为网络接口卡network interface card（NIC ）。
+<ul>
+<li>网络适配器的核心是链路层控制器，通常是一个单独的专用芯片，负责实现许多链路层服务（帧、链路访问、流量控制、差错检测等）。<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20250930101623.png" width="auto" height="auto" alt/></li>
+</ul>
+</li>
+</ul>
+<h3 id="提供给网络层的服务">提供给网络层的服务<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#提供给网络层的服务" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>检错在哪个层都可以做,但是越晚做成本越大.但是过早检错本身也有一个成本.所以就要平衡早晚.<br/>
+因此数据链路层可以<span class="text-highlight">根据需要设计不同的协议</span>，提供的具体服务根据不同的协议有所差异。</p>
+<blockquote>
+<p>物理层提供给数据链路层的服务是单一的：将发送方数据链路层发来的帧想办法发送给接收方的数据链路层</p>
+</blockquote>
+<p>通常，数据链路层可能会提供如下 3 种服务之一：</p>
+<h5 id="无确认的无连接服务">无确认的无连接服务<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#无确认的无连接服务" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>Unacknowledged Connectless Service<br/>
+这种服务不会尝试对丢帧情况进行检查，因此也不可能试图对丢失的数据进行恢复。这种服务适合错误率很低的情况（如光纤传输），或者即时通讯、直播等对即时性要求很高，且偶尔的丢失和错误关系不大的情况。</p>
+<h5 id="有确认的无连接服务">有确认的无连接服务<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#有确认的无连接服务" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>Acknowledged Connectless Service<br/>
+这种服务发送的每一帧需要单独确认；如果发送方发送一个帧后在指定的时间内还没有得到确认，则重新发送该帧。适用于不可靠信道，比如无线系统（802.11 WiFi）。</p>
+<h5 id="有确认的面向连接服务">有确认的面向连接服务<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#有确认的面向连接服务" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>Acknowledged Connect-Oriented Service<br/>
+这种服务在传输数据前在发送方和接收方之间建立一个连接，保证每个帧都按序、不重复地被接收方接收，传输结束后连接和维护连接的资源被释放。为了保证正确性，双方需要维护一些变量和计数器，记录哪些帧已经收到，哪些还没有收到。适用于<span class="text-highlight">长距离且不可靠</span>的链路，如卫星信道和长途电话电路。</p>
+<h3 id="成帧">成帧<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#成帧" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>成帧 Framing 的核心任务是设计一种方案将比特流划分为帧
+<ul>
+<li>使得接收方很容易找到每个帧的开始，从而将比特流还原成一个个帧；</li>
+<li>同时不能占用太多带宽。<br/>
+我们考察 4 种定界方式。</li>
+</ul>
+</li>
+</ul>
+<h5 id="字节计数法-byte-count">字节计数法 byte count<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#字节计数法-byte-count" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../Public/课程笔记/计算机网络/attachments/Pasted-image-20250930102525.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>如图所示，这种方式在每个 frame 的开头用一个 byte 保存这个 frame 的 byte 数目。</li>
+<li>但是当这个计数值出现错误时，即使接收方通过错误检验发现了错误，也再也无法知道下一帧的开始位置（<strong>失去同步 get out of sync</strong>）。因此，字节计数法一般不会被采用。</li>
+</ul>
+<h5 id="标志字节法-flag-bytes">标志字节法 Flag bytes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#标志字节法-flag-bytes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../Public/课程笔记/计算机网络/attachments/Pasted-image-20250930103116.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>这种方式用一个固定的特殊字节标明帧的头部和尾部，如上图 (a)。这个字节称为 flag byte (FLAG)。</li>
+<li>当传输的数据内部出现 FLAG 时，用一个转义字节 escape byte (ESC) 在其前面进行标识；同时需要发送 ESC 本身时也在其前面增加一个 ESC，如上图 (b)。这种技术也称为 <strong>字节填充 byte stuffing。</strong></li>
+<li>但是如果要发的数据全都是esc,那就会有百分之百的overhead</li>
+</ul>
+<h5 id="标志比特法-flag-bits">标志比特法 Flag bits<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#标志比特法-flag-bits" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="../../Public/课程笔记/计算机网络/attachments/Pasted-image-20250930103452.png" width="auto" height="auto" alt/></p>
+<ul>
+<li>考虑到帧的划分也可以是比特级的，这种标志和填充也可以精确到比特级。例如 HDLC 的标志方式是：每个帧的开始和结束用序列 01111110 (0x7E 连续的6个1) 标识</li>
+<li>同时<span class="text-highlight">发送方</span>的数据链路层在数据中每发现连续的 5 个 1，发送时就在其后面添加一个 0；<span class="text-highlight">接收方</span>的数据链路层在发现 111110 时将最后一个 0 舍弃。这种技术称为 <strong>比特填充 bit stuffing。</strong></li>
+<li>即使发的全是1也只有百分之二十的overhead</li>
+<li>不太好用软件(字节单位)实现,但是用硬件好实现</li>
+</ul>
+<h5 id="物理层编码违禁法-physical-layer-coding-violations">物理层编码违禁法 Physical layer coding violations<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#物理层编码违禁法-physical-layer-coding-violations" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>对于 4B/5B 编码方式或者 Manchester 编码，<span class="text-highlight">有相当一部分信号组合是不可能出现的</span>。我们可以使用这样的信号组合作为帧的开始和结束。相对于上面两种填充方法，这种方法不再需要填充数据。IEEE 802 标准就采用了这种方法。</li>
+<li>违反分层原则:下层改变实现细节,不能影响上层调用.但是这个方法的话如果下层修改了编码方式就不行了.但是性能实在优越所以还算常用</li>
+</ul>
+<h3 id="检错和纠错">检错和纠错<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#检错和纠错" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>信号在传输中有可能出现<strong>错误</strong>或者<strong>丢失</strong>。</li>
+<li><span class="text-highlight">确认:</span>如果我们需要排除丢失的情况，我们可以在协议中要求接收方在收到帧后发回一个确认；发送方得到确认后才可以发下一帧，如果一段时间内没有收到确认则需重新发送。</li>
+<li><span class="text-highlight">检错与纠错:</span>如果我们需要排除错误的情况，我们可以尝试直接对错误进行恢复<span class="orange-comment">[比如wifi]</span>；也可以尝试只检查错误，如果发现错误则要求发送方重传。</li>
+<li><strong>无论是纠错码还是检错码都无法处理所有可能的错误，因为提供保护的冗余位与数据信息位一样，有可能被接收成错误。</strong></li>
+</ul>
+<h4 id="基本定义和原理">基本定义和原理<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本定义和原理" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="codeword码字">codeword码字<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#codeword码字" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>如果想要检查一串数据是否出现过错误，我们显然需要一些额外的信息。</p>
+<ul>
+<li>如果一帧有 m 个数据位存储信息</li>
+<li>有 r 个冗余位 (redundant / check bits) 用来校验</li>
+<li>那么这个包含了数据位和冗余位的 n = m + r 位数据块就称为一个 n 位 码字 codeword。</li>
+</ul>
+<h5 id="code-rate-码率">code rate 码率<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#code-rate-码率" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>码率 code rate 为 codeword 中数据位所占的比例，即 m/n。通常<span class="text-highlight">在越高质量的信道上设计的 code rate 越高</span>，因为相比于有噪声的信道，高质量的信道通常需要更少的冗余位用来检错或纠错。</li>
+<li>比如光纤这种可能只需要奇偶校验就能检查出来</li>
+</ul>
+<h5 id="hamming-distance-d海明距离">Hamming distance d海明距离<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#hamming-distance-d海明距离" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>两个等长的码字中<span class="text-highlight">不相同的位的个数</span>称为这两个码字的 海明距离 Hamming distance d，代表一个码字需要出现 d 个 1bit 的错误才会变成另一个码字。</li>
+</ul>
+<ol>
+<li>如果我们想<strong>可靠地检测</strong>可能的 e 个错误，我们需要一个海明距离为 e + 1 的编码方案（即，任意两个合法码字之间的距离不小于 e + 1）。**
+<ul>
+<li>因为这样任意 e 个错误不可能将一个合法码字变成另一个合法码字**；</li>
+<li>当我们发现一个非法码字时，我们就知道出现了错误。</li>
+</ul>
+</li>
+<li>如果我们想<strong>可靠地纠正</strong>可能的 e 个错误，我们需要一个海明距离为 2e + 1 的编码方案。
+<ul>
+<li>因为这样任意的 e 个错误发生后，原来的码字仍然是离现在的码字距离最近的那一个。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>海明距离为3的编码方案,可不可以纠正1个可能错误的同时检测可能的2个错误? 不能</p>
+</blockquote>
+<h4 id="其他概念">其他概念<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#其他概念" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<p><span class="text-highlight">纠错码方案的不同特征:</span></p>
+<ul>
+<li>
+<p><strong>块码 block code</strong> 是指 r 个校验位是由 m 个数据位按块处理得到的,一次性拿到m个数据,输出n个码字.</p>
+</li>
+<li>
+<p><strong>系统码 systematic code</strong> 是指数据位和校验位是分开而没有交叉的；在最终的n位码字中,数据本身是不被改变的</p>
+</li>
+<li>
+<p><strong>线性码 linear code</strong> 校验位是对数据位做线性组合得到的<br/>
+比如汉明码就同时满足上述三种特征.</p>
+</li>
+<li>
+<p>现实中常见的错误有两种。</p>
+</li>
+</ul>
+<ol>
+<li>第一种是偶现的问题导致单个比特错误；</li>
+<li>另一种是突发的问题导致一段信息发生错误（不一定每个比特都发生错误）。</li>
+<li>其他类型错误 <img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633785261253-ccf53285-0954-4a3a-8601-9bb96b00d9bc.png" alt/></li>
+</ol>
+<h4 id="纠错码">纠错码<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#纠错码" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>除了卷积码是线性码不是块码以外，其他三种编码都是线性块码。</li>
+<li>纠错码广泛运用于<span class="text-highlight">无线链路</span>。无线链路容易出错，如果没有纠错码很可能获得不到任何完全正确的信息。另外对于单工信道(广播站)的情况，接收方如果检测到了错误也没有办法发回一个重发请求，因此也适用纠错码。</li>
+</ul>
+<h5 id="海明码-hamming-codes">海明码 Hamming codes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#海明码-hamming-codes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>假设我们需要设计一种编码方案，每个码字有 m 个信息位和 r 个冗余位，并且能够纠正所有的 1bit 错误。加起来应该是n位(m+r)</li>
+<li>那么对于 2^m 种合法的信息(因为m位信息)，每个信息都应唯一对应 n 个非法码字，它们与该信息的距离为 1。
+<ul>
+<li>n种错误情况+自己本身1种合法情况=n+1种情况,是归给合法信息管辖.因为1bit错误,所以距离为1</li>
+<li>如果2位:<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251121192716.png" width="auto" height="auto" alt/><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251121192901.png" width="auto" height="auto" alt/></li>
+<li>要注意的是,是一串码字表示一个信息,而不是一个位表示一个信息.</li>
+</ul>
+</li>
+<li>因此这里就共有 (n+1)2^m 种情况，因此有 (n+1)2^m≤2^n，亦即 (m+r+1)≤2^r。在 m 给定的情况下，我们可以通过这一不等式确定 <strong>r 的下界</strong><span class="orange-comment">[至少要多少个冗余位才能够满足条件]</span>。海明码给出了这一下界的一个获得方式。编码方式见下图。</li>
+<li><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633780033206-f1895446-759e-4322-b2e7-9d261849f6a6.png" alt/></li>
+<li>2的幂次方位置上有1的数进行异或,正好得到1101.再跟非2的幂次方位置的数字异或,一定得到0<span class="orange-comment">[自己异或自己]</span></li>
+<li>如果不是0,疑惑得到的结果就是错误的哪一位.谁翻转了,异或的时候就会露出马脚</li>
+</ul>
+<p>一般见到的是偶校验海明码,奇校验海明码就是异或完之后反一下再填到2的幂次方位置</p>
+<h5 id="卷积码-convolutional-codes">卷积码 convolutional codes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#卷积码-convolutional-codes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633781377678-87179752-fcf0-42ee-bf63-6b4dfb5f339c.png" alt/></p>
+<ul>
+<li>
+<p>卷积码的输出由当前输入和之前若干位输入决定，影响当前输出的此前输入位数称为 <strong>约束长度 constraint length</strong>。</p>
+</li>
+<li>
+<p>如图这种卷积码的约束长度为 6<span class="orange-comment">[就是图上的s1~6]</span>，每个输出 bit 会带来 2 bits 的输出，</p>
+<ul>
+<li>其中第一个是第 0, 2, 3, 5, 6 位的模二加法<span class="orange-comment">[就是异或]</span>（0 指输入位，1<del>6 指 S1</del>S6 的值），</li>
+<li>第二个是第 0, 1, 2, 3, 6 位的模二加法。</li>
+</ul>
+</li>
+<li>
+<p>比如输入序列为 111，输入第一个 1 时 0<del>6 位是 1000000，因此输出是 11，然后 S1</del>S6 右移一位变成 100000；输入第二个 1 时为 1100000，因此输出是 10；输入第三个 1 时为 1110000，因此输出是 01。因此编码后为 111001。</p>
+</li>
+<li>
+<p>一个输入码可以得到两个输出结果,3bit可以得到6bit的冗余数据.</p>
+</li>
+<li>
+<p>卷积码的解码是通过最大似然法。在所有可能的输出序列中找出与接收到的序列最相近的那一个，解码为这个序列对应的输入序列。</p>
+</li>
+<li>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633781886385-644e5d2e-028e-4782-a7eb-9ba9f61dcf8f.png" alt/></p>
+</li>
+</ul>
+<h5 id="里所罗门码-reed-solomon-codes">里所罗门码 Reed-Solomon codes<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#里所罗门码-reed-solomon-codes" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<h5 id="低密度奇偶校验码-ldpc-low-density-parity-check">低密度奇偶校验码 LDPC, Low-Density Parity Check<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#低密度奇偶校验码-ldpc-low-density-parity-check" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<h4 id="检错码">检错码<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#检错码" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>光纤和高品质铜线的错误率较低，因此对偶现的错误进行检错和重传更加有效。下面介绍三种检错码，它们都是<span class="text-highlight">线性的系统块码</span>。</li>
+</ul>
+<h5 id="奇偶校验位-parity-bit">奇偶校验位 parity bit<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#奇偶校验位-parity-bit" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>n-1 位信息，1 位冗余。
+<ul>
+<li>奇校验码：在加上该位后 ,1的个数为奇数；</li>
+<li>偶校验码:  在加上该位后,1的个数则为偶数。</li>
+</ul>
+</li>
+<li>交错校验 interleaving 技术可以一定程度上防止突发的若干比特范围内<span class="orange-comment">[如果发生偶数个反转,就检测不出来了]</span>的错误。将数据块作为 k 行 n 列处理，每列计算一个 parity bit 后附在数据块最后发送。这样除非突发错误持续 n 个 bit 以上，否则仍然可以被检测出来。</li>
+<li>横着发,竖着验,可以避免一行连续错误.这里考虑的是单次干扰,不考虑一个错了之后隔了n个又错一个的这种情况<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633786410386-07939cb2-10e2-4765-9a18-4295915f8ff3.png" alt/></li>
+</ul>
+<h5 id="校验和-checksum">校验和 checksum<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#校验和-checksum" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>对数据进行一些求和运算。然后得到结果后,到那边看看结果还一不一样.
+<ul>
+<li>奇偶校验位也可以看做校验和的一个例子。</li>
+</ul>
+</li>
+<li>另一个实际例子是 Internet Checksum。规则是：
+<ul>
+<li>首先将数据分割成 16 bit 的若干段（最后一段不足 16 bit 则在末尾补 0）；</li>
+<li>然后将这些段相加，最高位进位 wrap around<span class="orange-comment">[最高位的进位再加回最低位]</span></li>
+<li>最后将结果按位取反 (?) 作为校验。</li>
+<li>检查时再次计算数据之和，加上校验，如果结果不为全 1 则发生过错误。<span class="orange-comment">[取反之后加上原数字,当然全为1了]</span> <span class="orange-comment">[如果传输过程中哪个位翻转了,那么当然破坏了完美的互补]</span></li>
+</ul>
+</li>
+<li>解释 wrap-around carry bit (src)<img src="https://cdn.nlark.com/yuque/0/2021/jpeg/641515/1633786648621-964f42a1-3365-4bfc-bbb2-cb4a961a530b.jpeg" alt/><br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251121175112.png" width="auto" height="auto" alt/><br/>
+1001+1100=10101=0101+1=0110<br/>
+0110+1010=0001<br/>
+0001+0011=0100 这个得到的就叫checksum,但是放到帧里去用的时候需要取反</li>
+</ul>
+<h5 id="循环冗余码-crc-cyclic-redundancy-code">循环冗余码 CRC, Cyclic Redundancy Code<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#循环冗余码-crc-cyclic-redundancy-code" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>又称 <span class="text-highlight">多项式码 polynomial code</span>，计算方式见下图。其中 G(x) 是发送方和接收方预先商定的一个多项式，称为 生成多项式 generator polynomial，其最高位和最低位一定是 1。<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633787725725-b51772a7-b360-4132-bc4a-6db2130a7a1a.png" alt/><img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633787731268-92e77024-4064-4807-96d5-66e40d006cf6.png" alt/>
+<ul>
+<li>将除数转换成多项式,n位除数,最高次项就是n-1,然后给被除数末尾添上n-1个0.然后正式开始除法之后,加法和减法全都视为异或进行计算.</li>
+</ul>
+</li>
+<li>由于模 2 除法的一些性质，这种方法有优秀的检测能力，具体可以参看中文课本 166~167 页。</li>
+</ul>
+<blockquote class="callout note" data-callout="note">
+<div class="callout-title">
+                  <div class="callout-icon"></div>
+                  <div class="callout-title-inner"><p>例题 </p></div>
+                  
+                </div>
+<div class="callout-content">
+<ol start="7">
+<li>一个比特流 <code>10011101</code> 使用文中描述的标准 CRC 方法进行传输。生成多项式为 <span class="katex"><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">x</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="base"><span class="strut" style="height:0.6444em;"></span><span class="mord">1</span></span></span></span>。</li>
+<li>展示实际传输的比特串。</li>
+<li>假设在传输过程中，从左边数的第 3 个比特发生了反转（0变1，或1变0）。证明接收端能检测出这个错误。</li>
+<li>给出一个接收端无法检测到的比特错误示例。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251121191801.png" width="auto" height="auto" alt/></li>
+</ol>
+<ul>
+<li>实际传输的比特串 = 原始数据 + 余数 = <code>10011101</code> + <code>100</code> = <strong><code>10011101100</code></strong>.
+<ul>
+<li>也就是说 最终的比特串是可以整除除数的.那么发生了错误之后自然不能整除.</li>
+</ul>
+</li>
+<li>如果比特串错误的部分正好可以符合整数倍除数,那就不能被检测出来</li>
+</ul>
+</div>
+</blockquote>
+<h3 id="流量控制与一些基本协议">流量控制与一些基本协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#流量控制与一些基本协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<p>考虑单工停等协议:单工simplex,停等stop and wait<br/>
+这里的单工是只发消息,那边往回发一个确认,发送方得到确认后才会发下一个帧.</p>
+<h4 id="一些单工协议">一些单工协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#一些单工协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="一个乌托邦式的单工协议">一个乌托邦式的单工协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#一个乌托邦式的单工协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>A Utopian Simplex Protocol</p>
+<ul>
+<li>发送方不断地从网络层获取数据包并构造一个帧，通过物理层发送该帧；</li>
+<li>接收方不断等待唯一可能的事件 FRAME_ARRIVAL 发生，将该帧从物理层取得，处理后将数据部分发送给网络层。这种方案的问题是，如果发送方发送帧的速度大于接收方处理的速度，接收方就会被淹没 (flood)。</li>
+</ul>
+<h5 id="无错信道上的单工停-等协议">无错信道上的单工停-等协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#无错信道上的单工停-等协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>A Simplex Stop-and-Wait Protocol for an Error-Free Channel</p>
+<ul>
+<li>接收方每当接收一个帧并处理完成后，发回一个确认帧；</li>
+<li>发送方在收到确认帧后（不需要处理，因为此时唯一的可能就是确认帧），则可以发送下一帧。这种协议在<span class="text-highlight">数据传输上是单工</span><span class="orange-comment">[发”数据消息”确实是单向的]</span>的，但是接收方需要发回消息，因此需要使用<span class="text-highlight">半双工信道</span>。</li>
+<li>这种方案的实际问题在于，没有考虑出现错误的情况。</li>
+</ul>
+<h5 id="有错信道上的单工停-等协议">有错信道上的单工停-等协议<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#有错信道上的单工停-等协议" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<p>A Simplex Stop-and-Wait Protocol for a Noisy Channel<br/>
+这种协议在上一种的基础上考虑 3 种可能的错误</p>
+<ol>
+<li><strong>接收到的帧检出错误</strong>
+<ul>
+<li>为了解决第 1 种错误，我们引入一个新的事件 CKSUM_ERR 表示校验和有误；</li>
+<li>因而接收方在收到一个帧后应当校验正确性，发回一个表示正确或者错误的确认帧；</li>
+<li>如果检出错误，则直接抛弃该帧等待重传。如果发送方收到了<span class="text-highlight">表示错误的确认帧</span>导致事件 CKSUM_ERR 发生，那么发送方将重新发送上一帧。</li>
+</ul>
+</li>
+<li><strong>发送方发送的帧完全丢失</strong>
+<ul>
+<li>对于第 2 种错误，接收方完全没有接到一个帧，因而也不可能对此作出确认。</li>
+<li>为了避免这种情况，发送方每次发送一个帧后<span class="text-highlight">启动或重置一个计时器</span>，这个计时器的时间应当长于预期正常情况下收到确认帧的时间。</li>
+<li>如果计时器超时发送方仍未收到确认帧（事件 TIMEOUT），那么第 2 种错误有可能发生，此时发送方会将（缓存下来的）刚刚发出去的那一帧重新发出一次。</li>
+<li>直至发送方收到一个积极的确认帧，此时发送方再加载下一帧，上一帧的缓存即可以被覆盖掉。</li>
+</ul>
+</li>
+<li><strong>接收方的确认帧丢失</strong>
+<ul>
+<li>但是需要考虑的是，除了第 2 种错误，这种问题也可能导致发送方没有收到确认帧，因此可能会将一个正确收到（没有被抛弃）的帧重发，导致接收方收到两个该帧；如果不加限制，接收方的网络层则可能收到重复两次的该数据段，引起错误。</li>
+<li>我们需要防止这种重复的发生。考虑到发送方发送第 i + 1 帧的充要条件是第 i 帧已经收到了正确的确认，而这一确认的必要条件是接收方已经正确收到了第 i 帧。因此我们只需记录<span class="text-highlight">每一帧序号的奇偶性</span>，并将其包含在帧头中（称为字段 seq ）。</li>
+<li>如果接收方接收到了预期的（与前一帧相反的）奇偶标记，那么就将其保存；否则就说明前一帧被重复发送了，此时则直接抛弃该帧，同时发回一个确认（作为对前一个丢失确认帧的补充）。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>这种在接收到肯定确认之前定时重传的协议也称为 <strong>自动重复请求 ARQ, Automatic Repeat reQuest</strong> 或 <strong>带重传的肯定确认 PAR, Positive Acknowledgement with Retransmission</strong>。</li>
+</ul>
+<h4 id="捎带确认-piggybacking">捎带确认 piggybacking<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#捎带确认-piggybacking" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<ul>
+<li>需要注意的一个问题是，前面两种带有确认的协议都需要使用半双工传输，而这种传输和全双工传输一样都需要往返两条信道；因此实际上同一条链路最好用来往返传输数据。这种情况下，某一帧的接收方就可以<strong>把该帧的确认包含在它发回的另一帧的帧头中</strong>，这种方式就称为<span class="text-highlight">捎带确认</span><span class="orange-comment">[驮运]</span>。</li>
+<li>捎带确认引入的另一个问题是，需要发回确认的那一方并不知道网络层什么时候会让它发送下一个数据包，以便它将确认包含在其帧头中（称为字段 ack）。<span class="orange-comment">[打不到车]</span>
+<ul>
+<li>为了解决这个问题，发回确认的那一方也可以设置一个<strong>计时器</strong>，在计时器结束前如果网络层交付了一个数据包让它发送，那么就将确认包含在其中；否则就直接发送一个单独的确认帧。</li>
+</ul>
+</li>
+<li>一个捎带确认的双工停-等协议<img src="https://cdn.nlark.com/yuque/0/2021/png/641515/1633865587339-94e9856d-7502-43dc-8749-c2555165374e.png" alt/>
+<ul>
+<li>收到0 就发一个ack0表示希望下一个是1</li>
+</ul>
+</li>
+</ul>
+<h4 id="滑动窗口协议-sliding-window-protocols">滑动窗口协议 Sliding Window Protocols<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#滑动窗口协议-sliding-window-protocols" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h4>
+<h5 id="基本思想">基本思想<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#基本思想" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>在现实世界中，帧送往接收方途中和确认帧返回发送方的时间<span class="orange-comment">[两个灰色]</span>可能比发出一个帧<span class="orange-comment">[仅指推上传送带的过程,绿色]</span>的时间长出很多
+<ul>
+<li>这会导致带宽的利用率很低。因此我们引出滑动窗口协议。<br/>
+<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251121195801.png" width="auto" height="auto" alt/></li>
+</ul>
+</li>
+<li>滑动窗口协议的基本思想
+<ul>
+<li><strong>发送窗口 sending window</strong>任意时刻发送方维护<strong>一组</strong>允许发送的帧的序号（同样用 seq 字段保存，但这时可能不止 1 个 bit）</li>
+<li><strong>接收窗口 receiving window</strong>接收方维护一组允许接收的帧的序号.</li>
+<li>这两个窗口的大小不必相同，但是是固定的。</li>
+</ul>
+</li>
+<li>发送方一个每收到确认帧，就将发送窗口向前滑动一个位置；如果没有可以发送的帧（即发送了窗口大小那么多的帧但是还没有收到确认）就停止发送（定时重发）</li>
+<li>接收方每收到一个帧，如果在接收窗口内则接收，否则丢弃。</li>
+<li>事实上，stop-and-wait 协议就可以视为是发送和接收窗口大小均为 1 的滑动窗口协议。</li>
+<li>需要再次注意的是，接收方的数据链路层需要尽可能将数据包按<strong>正确的顺序</strong>传递给网络层。</li>
+<li>关于窗口大小的理论分析（更正：ACK 0 应当是 ACK 1）<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251129220211.png" width="auto" height="auto" alt/></li>
+<li><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251129220219.png" width="auto" height="auto" alt/></li>
+<li>根据上面的理论分析，我们定义 链路利用率 Line Utilization = Frame Length / (Frame Length + 2 * Bandwidth * Propagation Delay)更常见的表述是 Line Utilization = Frame Length / (Frame Length + Bandwidth * Round-Trip Delay)。</li>
+<li>进一步我们定义 链路吞吐率 Throughput = Utilization * Sending Data Rate</li>
+</ul>
+<h5 id="回退-n-协议-gbn-go-back-n">回退 N 协议 GBN, Go-Back-N<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#回退-n-协议-gbn-go-back-n" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>回退 N 协议是一种滑动窗口协议；<span class="text-highlight">其中 N 代表 sending window 的大小，而这种协议中 receiving window 的大小始终为 1</span>。当当前 sending window 的第一帧的计时器（实际上每一帧发出后都启动一个独立的计时器）超时仍未得到 ACK 时，<strong>回退 N 位到 sending window 的开头重新发送这 N 帧</strong>；而由于 receiving window 的大小是 1，因此提前到达的帧都会被抛弃。如下图。</li>
+<li><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251129220228.png" width="auto" height="auto" alt/></li>
+<li>另外引入一种确认方式：累计确认 cumulative acknowledgement，这种确认方式为：当接收方发回 ACK n 的确认，其中表示 n 和 n 之前的所有帧都已经收到；如果 n 之前有任何没有收到的帧，则 ACK n 不会被发出。</li>
+<li>考虑 GBN 中 seq 段 bit 数和 N 的关系。如果 seq 的取值为 0~MAX_SEQ，即共有 1 + MAX_SEQ = 2^size_in_bit(seq) 种取值，那么 N 最大为 MAX_SEQ 而不能是 1 + MAX_SEQ。
+<ul>
+<li>考虑这样的一个情况。假如 MAX_SEQ 是 7，而 N (i.e. sending window size) 是 8；发送方一次性发出了 0~7 这 8 个帧，而接收方发回的 8 个确认帧全部丢失了；那么发送方认为得超时重传0号帧,接收方认为刚才都确认了,要等全新的0号帧</li>
+<li>接着发送方重发了这些帧，而此时接收方以为这是全新的 8 个帧，导致了传递给网络层的数据出现了重复。因此 N 不能是 8。</li>
+</ul>
+</li>
+</ul>
+<h5 id="选择重传协议-sr-selective-repeat">选择重传协议 SR, Selective Repeat<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#选择重传协议-sr-selective-repeat" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h5>
+<ul>
+<li>如果错误很少发生，那么 GBN 是一个良好的策略；而当错误频繁发生，GBN 的重发方式会浪费大量的带宽。GBN 协议可以有两种思路的优化。</li>
+</ul>
+<ol>
+<li>当接收方发现了发来的帧有错误或者不是所期待的那个帧时，发送一个否定的确认信息 NAK, Negative Acknowledgement 并说明想要的下一帧，这样可以不用等到 timeout 再回退重发；</li>
+<li>增大 receiving window size，这样当错误发生时可以先缓存一部分发来的后面的帧，这样发送方只需重发 NAK 的帧即可。</li>
+</ol>
+<ul>
+<li>综合上述两种优化和累计确认的一个例子如下；这就是 选择重传协议。</li>
+<li><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251129220235.png" width="auto" height="auto" alt/></li>
+<li>选择重传协议对每一帧只发送一个 NAK，防止一次性发送大量相同 NAK 的情况。但是，这也有可能带来问题。<img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251223222210.png" width="auto" height="auto" alt/>解决方法: 当接收方收到“非预期”的帧（比如我要 7，你给我 0），并且发现自己<strong>已经发过 NAK</strong> 了，它就启动一个 <strong>辅助计时器</strong>。如果计时器时间到了（Expires），还没收到 7，接收方就会<strong>强制</strong>再发一次 ACK/NAK。</li>
+<li>接收窗口的大小不能大于 (MAX_SEQ + 1) / 2。一般来说，选择重传协议的接收窗口和发送窗口的大小是一样的。如果窗口跨度太大,就会把旧帧当作下一轮的新帧缓存起来,导致数据错乱,所以SR大小必须减半,保证新旧序号在窗口中绝对不会重叠.</li>
+</ul>
+<h2 id="点对点传输协议实例">点对点传输协议实例<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#点对点传输协议实例" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h2>
+<h3 id="高级数据链路控制-hdlc-high-level-data-link-control">高级数据链路控制 HDLC, High-Level Data Link Control<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#高级数据链路控制-hdlc-high-level-data-link-control" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>HDLC 是一种 bit-oriented protocol，使用全双工通信；有顺序编号和校验，传输可靠性高。其帧结构如下图</li>
+<li><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251129220244.png" width="auto" height="auto" alt/></li>
+<li>每个帧的开始和结束用序列 01111110 (0x7E) 标识。</li>
+<li>同时发送方的数据链路层在数据中每发现连续的 5 个 1，发送时就在其后面添加一个 0；</li>
+<li>接收方的数据链路层在发现 111110 时将最后一个 0 舍弃。</li>
+<li>这样整个帧中只会有头和尾的 FLAG 有 01111110 这样的序列了。</li>
+<li>当链路上没有需要传输的内容时，HDLC 也会通过不断发送形式为 01111110 的帧以保持双方的同步。（实际上，HDLC 最开始是作为 SDLC, Synchronous Data Link Control 被提出的。）</li>
+<li>按照 Control 字段的前 2 个 bit 可以将 HDLC 帧划分为 3 类：
+<ul>
+<li>信息帧 Information frame，第 1 位是 0，用来承载正常的信息；</li>
+<li>管理帧 Supervisory frame，前两位是 10，用来进行流量控制和差错控制，如单独的 ACK、NAK 等；这种帧没有 Information 字段；</li>
+<li>无编号帧 Un-numbered frame，前两位是 11，用来进行其他的功能，如链路管理等。</li>
+</ul>
+</li>
+<li>FCS 是根据 Address, Control 和 Information 字段计算 CRC 的结果。</li>
+</ul>
+<h3 id="点对点协议-ppp-point-to-point-protocol">点对点协议 PPP, Point-to-Point Protocol<a role="anchor" aria-hidden="true" tabindex="-1" data-no-popover="true" href="#点对点协议-ppp-point-to-point-protocol" class="internal"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></a></h3>
+<ul>
+<li>PPP 是一种 byte-oriented protocol。HDLC 提供了可靠的数据传输；而 PPP 通常不编号、提供一种无连接无确认的服务。</li>
+<li>PPP 协议有 3 个组成部分：</li>
+</ul>
+<ol>
+<li>一种成帧方法。</li>
+<li>链路控制协议 LCP, Link Control Protocol，用于启动、测试、配置（协商参数）、关闭链路。</li>
+<li>网络控制协议 NCP, Network Control Protocol。</li>
+</ol>
+<p>PPP 是由 SLIP 发展而来的；<br/>
+SLIP 的问题在于它只能用于传送 IP Packet；<br/>
+PPP 则支持对于网络层运行其他协议以及两端网络层运行的协议不同的情况下仍使用 PPP 进行传输。<br/>
+对于每一个支持的网路层协议，都有一个相应的 NCP 进行配置。其帧结构如下：</p>
+<ul>
+<li><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251129220249.png" width="auto" height="auto" alt/></li>
+<li>前后的 FLAG 都沿用 HDLC 的 0x7E，但填充方式有所不同。PPP 是 byte-oriented 的，因此使用 byte stuffing。</li>
+<li>在数据中发现的 0x7E 将被替换为 0x7D 0x5E 两个字节；</li>
+<li>而 0x7D 将被替换为 0x7D 0x5D。这样可以保证唯一出现 0x7E 的地方就是帧的开始和结束。</li>
+<li><span class="text-highlight">Address 段始终为 0xFF，表示广播，即所有计算机都接收；</span></li>
+<li><span class="text-highlight">Control 的值为 0x03，表示这是一个无编号帧；由于这两个字段的值始终为定值，因此可以通过 LCP 协商省略这两个字段。</span></li>
+<li>Protocol 包含关于 LCP 和 NCP 的信息，默认 2 byte，但是可以通过 LCP 协商为 1 byte；</li>
+<li>Information 的默认长度是 1500 byte，但是也可以通过 LCP 协商，可能利用 Padding 进行填充以满足长度要求；</li>
+<li>Frame Check Sequence 默认 2 byte，但是也可以协商使用 4 byte，也是 CRC。</li>
+<li><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20251129220255.png" width="auto" height="auto" alt/></li>
+<li>PPP 协议在用于不同链路上时可能也有不同的成帧方式。例如 PPP 用于 SONET 等同步链路时会使用 HDLC 那样的 bit stuffing 而不是 byte stuffing；用于 SONET 时还需要进行链路的建立以及扰码 (scrambling)。</li>
+</ul>
+<p><img src="../../课程笔记/计算机网络/attachments/Pasted-image-20260115180852.png" width="auto" height="auto" alt/></p></article><hr/><div class="page-footer"><div class="giscus" data-repo="im0x0ing/im0x0ing.github.io" data-repo-id="R_kgDOQevgrA" data-category="Announcements" data-category-id="DIC_kwDOQevgrM4CzLI8" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-input-position="top" data-light-theme="light" data-dark-theme="dark" data-theme-url="https://im0x0ing.github.io/static/giscus" data-lang="zh-CN"></div></div></div><div class="right sidebar"><div class="toc desktop-only"><button type="button" class="toc-header" aria-controls="toc-94" aria-expanded="true"><h3>Table of Contents</h3><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fold"><polyline points="6 9 12 15 18 9"></polyline></svg></button><div class="toc-depth-control"><span class="depth-label">H3</span><input type="range" class="depth-slider" min="1" max="6" value="2" step="1"/></div><ul id="list-9" class="toc-content overflow"><li class="depth-0"><a href="#数据链路层的功能" data-for="数据链路层的功能">数据链路层的功能</a></li><li class="depth-3"><a href="#主要任务" data-for="主要任务">主要任务</a></li><li class="depth-3"><a href="#数据链路层在哪里实现" data-for="数据链路层在哪里实现">数据链路层在哪里实现</a></li><li class="depth-1"><a href="#提供给网络层的服务" data-for="提供给网络层的服务">提供给网络层的服务</a></li><li class="depth-3"><a href="#无确认的无连接服务" data-for="无确认的无连接服务">无确认的无连接服务</a></li><li class="depth-3"><a href="#有确认的无连接服务" data-for="有确认的无连接服务">有确认的无连接服务</a></li><li class="depth-3"><a href="#有确认的面向连接服务" data-for="有确认的面向连接服务">有确认的面向连接服务</a></li><li class="depth-1"><a href="#成帧" data-for="成帧">成帧</a></li><li class="depth-3"><a href="#字节计数法-byte-count" data-for="字节计数法-byte-count">字节计数法 byte count</a></li><li class="depth-3"><a href="#标志字节法-flag-bytes" data-for="标志字节法-flag-bytes">标志字节法 Flag bytes</a></li><li class="depth-3"><a href="#标志比特法-flag-bits" data-for="标志比特法-flag-bits">标志比特法 Flag bits</a></li><li class="depth-3"><a href="#物理层编码违禁法-physical-layer-coding-violations" data-for="物理层编码违禁法-physical-layer-coding-violations">物理层编码违禁法 Physical layer coding violations</a></li><li class="depth-1"><a href="#检错和纠错" data-for="检错和纠错">检错和纠错</a></li><li class="depth-2"><a href="#基本定义和原理" data-for="基本定义和原理">基本定义和原理</a></li><li class="depth-3"><a href="#codeword码字" data-for="codeword码字">codeword码字</a></li><li class="depth-3"><a href="#code-rate-码率" data-for="code-rate-码率">code rate 码率</a></li><li class="depth-3"><a href="#hamming-distance-d海明距离" data-for="hamming-distance-d海明距离">Hamming distance d海明距离</a></li><li class="depth-2"><a href="#其他概念" data-for="其他概念">其他概念</a></li><li class="depth-2"><a href="#纠错码" data-for="纠错码">纠错码</a></li><li class="depth-3"><a href="#海明码-hamming-codes" data-for="海明码-hamming-codes">海明码 Hamming codes</a></li><li class="depth-3"><a href="#卷积码-convolutional-codes" data-for="卷积码-convolutional-codes">卷积码 convolutional codes</a></li><li class="depth-3"><a href="#里所罗门码-reed-solomon-codes" data-for="里所罗门码-reed-solomon-codes">里所罗门码 Reed-Solomon codes</a></li><li class="depth-3"><a href="#低密度奇偶校验码-ldpc-low-density-parity-check" data-for="低密度奇偶校验码-ldpc-low-density-parity-check">低密度奇偶校验码 LDPC, Low-Density Parity Check</a></li><li class="depth-2"><a href="#检错码" data-for="检错码">检错码</a></li><li class="depth-3"><a href="#奇偶校验位-parity-bit" data-for="奇偶校验位-parity-bit">奇偶校验位 parity bit</a></li><li class="depth-3"><a href="#校验和-checksum" data-for="校验和-checksum">校验和 checksum</a></li><li class="depth-3"><a href="#循环冗余码-crc-cyclic-redundancy-code" data-for="循环冗余码-crc-cyclic-redundancy-code">循环冗余码 CRC, Cyclic Redundancy Code</a></li><li class="depth-1"><a href="#流量控制与一些基本协议" data-for="流量控制与一些基本协议">流量控制与一些基本协议</a></li><li class="depth-2"><a href="#一些单工协议" data-for="一些单工协议">一些单工协议</a></li><li class="depth-3"><a href="#一个乌托邦式的单工协议" data-for="一个乌托邦式的单工协议">一个乌托邦式的单工协议</a></li><li class="depth-3"><a href="#无错信道上的单工停-等协议" data-for="无错信道上的单工停-等协议">无错信道上的单工停-等协议</a></li><li class="depth-3"><a href="#有错信道上的单工停-等协议" data-for="有错信道上的单工停-等协议">有错信道上的单工停-等协议</a></li><li class="depth-2"><a href="#捎带确认-piggybacking" data-for="捎带确认-piggybacking">捎带确认 piggybacking</a></li><li class="depth-2"><a href="#滑动窗口协议-sliding-window-protocols" data-for="滑动窗口协议-sliding-window-protocols">滑动窗口协议 Sliding Window Protocols</a></li><li class="depth-3"><a href="#基本思想" data-for="基本思想">基本思想</a></li><li class="depth-3"><a href="#回退-n-协议-gbn-go-back-n" data-for="回退-n-协议-gbn-go-back-n">回退 N 协议 GBN, Go-Back-N</a></li><li class="depth-3"><a href="#选择重传协议-sr-selective-repeat" data-for="选择重传协议-sr-selective-repeat">选择重传协议 SR, Selective Repeat</a></li><li class="depth-0"><a href="#点对点传输协议实例" data-for="点对点传输协议实例">点对点传输协议实例</a></li><li class="depth-1"><a href="#高级数据链路控制-hdlc-high-level-data-link-control" data-for="高级数据链路控制-hdlc-high-level-data-link-control">高级数据链路控制 HDLC, High-Level Data Link Control</a></li><li class="depth-1"><a href="#点对点协议-ppp-point-to-point-protocol" data-for="点对点协议-ppp-point-to-point-protocol">点对点协议 PPP, Point-to-Point Protocol</a></li><li class="overflow-end"></li></ul></div><div class="graph"><h3>Graph View</h3><div class="graph-outer"><div class="graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:1,&quot;scale&quot;:1.1,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.3,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:false,&quot;enableRadial&quot;:false}"></div><button class="global-graph-icon" aria-label="Global Graph"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 55 55" fill="currentColor" xml:space="preserve"><path d="M49,0c-3.309,0-6,2.691-6,6c0,1.035,0.263,2.009,0.726,2.86l-9.829,9.829C32.542,17.634,30.846,17,29,17
+                s-3.542,0.634-4.898,1.688l-7.669-7.669C16.785,10.424,17,9.74,17,9c0-2.206-1.794-4-4-4S9,6.794,9,9s1.794,4,4,4
+                c0.74,0,1.424-0.215,2.019-0.567l7.669,7.669C21.634,21.458,21,23.154,21,25s0.634,3.542,1.688,4.897L10.024,42.562
+                C8.958,41.595,7.549,41,6,41c-3.309,0-6,2.691-6,6s2.691,6,6,6s6-2.691,6-6c0-1.035-0.263-2.009-0.726-2.86l12.829-12.829
+                c1.106,0.86,2.44,1.436,3.898,1.619v10.16c-2.833,0.478-5,2.942-5,5.91c0,3.309,2.691,6,6,6s6-2.691,6-6c0-2.967-2.167-5.431-5-5.91
+                v-10.16c1.458-0.183,2.792-0.759,3.898-1.619l7.669,7.669C41.215,39.576,41,40.26,41,41c0,2.206,1.794,4,4,4s4-1.794,4-4
+                s-1.794-4-4-4c-0.74,0-1.424,0.215-2.019,0.567l-7.669-7.669C36.366,28.542,37,26.846,37,25s-0.634-3.542-1.688-4.897l9.665-9.665
+                C46.042,11.405,47.451,12,49,12c3.309,0,6-2.691,6-6S52.309,0,49,0z M11,9c0-1.103,0.897-2,2-2s2,0.897,2,2s-0.897,2-2,2
+                S11,10.103,11,9z M6,51c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S8.206,51,6,51z M33,49c0,2.206-1.794,4-4,4s-4-1.794-4-4
+                s1.794-4,4-4S33,46.794,33,49z M29,31c-3.309,0-6-2.691-6-6s2.691-6,6-6s6,2.691,6,6S32.309,31,29,31z M47,41c0,1.103-0.897,2-2,2
+                s-2-0.897-2-2s0.897-2,2-2S47,39.897,47,41z M49,10c-2.206,0-4-1.794-4-4s1.794-4,4-4s4,1.794,4,4S51.206,10,49,10z"></path></svg></button></div><div class="global-graph-outer"><div class="global-graph-container" data-cfg="{&quot;drag&quot;:true,&quot;zoom&quot;:true,&quot;depth&quot;:-1,&quot;scale&quot;:0.9,&quot;repelForce&quot;:0.5,&quot;centerForce&quot;:0.2,&quot;linkDistance&quot;:30,&quot;fontSize&quot;:0.6,&quot;opacityScale&quot;:1,&quot;showTags&quot;:true,&quot;removeTags&quot;:[],&quot;focusOnHover&quot;:true,&quot;enableRadial&quot;:true}"></div></div></div></div><footer class><p>Created with <a href="https://quartz.jzhao.xyz/">Quartz v4.5.2</a> © 2026</p><ul><li><a href="https://github.com/jackyzha0/quartz">GitHub</a></li><li><a href="https://discord.gg/cRFFHYye7t">Discord Community</a></li></ul></footer></div></div></body><script type="application/javascript" data-persist="true">function n(){let t=this.parentElement;t.classList.toggle("is-collapsed");let e=t.getElementsByClassName("callout-content")[0];if(!e)return;let l=t.classList.contains("is-collapsed");e.style.gridTemplateRows=l?"0fr":"1fr"}function c(){let t=document.getElementsByClassName("callout is-collapsible");for(let e of t){let l=e.getElementsByClassName("callout-title")[0],s=e.getElementsByClassName("callout-content")[0];if(!l||!s)continue;l.addEventListener("click",n),window.addCleanup(()=>l.removeEventListener("click",n));let o=e.classList.contains("is-collapsed");s.style.gridTemplateRows=o?"0fr":"1fr"}}document.addEventListener("nav",c);
+</script><script type="module" data-persist="true">function f(i,e){if(!i)return;function r(o){o.target===this&&(o.preventDefault(),o.stopPropagation(),e())}function t(o){o.key.startsWith("Esc")&&(o.preventDefault(),e())}i?.addEventListener("click",r),window.addCleanup(()=>i?.removeEventListener("click",r)),document.addEventListener("keydown",t),window.addCleanup(()=>document.removeEventListener("keydown",t))}function y(i){for(;i.firstChild;)i.removeChild(i.firstChild)}var h=class{constructor(e,r){this.container=e;this.content=r;this.setupEventListeners(),this.setupNavigationControls(),this.resetTransform()}isDragging=!1;startPan={x:0,y:0};currentPan={x:0,y:0};scale=1;MIN_SCALE=.5;MAX_SCALE=3;cleanups=[];setupEventListeners(){let e=this.onMouseDown.bind(this),r=this.onMouseMove.bind(this),t=this.onMouseUp.bind(this),o=this.resetTransform.bind(this);this.container.addEventListener("mousedown",e),document.addEventListener("mousemove",r),document.addEventListener("mouseup",t),window.addEventListener("resize",o),this.cleanups.push(()=>this.container.removeEventListener("mousedown",e),()=>document.removeEventListener("mousemove",r),()=>document.removeEventListener("mouseup",t),()=>window.removeEventListener("resize",o))}cleanup(){for(let e of this.cleanups)e()}setupNavigationControls(){let e=document.createElement("div");e.className="mermaid-controls";let r=this.createButton("+",()=>this.zoom(.1)),t=this.createButton("-",()=>this.zoom(-.1)),o=this.createButton("Reset",()=>this.resetTransform());e.appendChild(t),e.appendChild(o),e.appendChild(r),this.container.appendChild(e)}createButton(e,r){let t=document.createElement("button");return t.textContent=e,t.className="mermaid-control-button",t.addEventListener("click",r),window.addCleanup(()=>t.removeEventListener("click",r)),t}onMouseDown(e){e.button===0&&(this.isDragging=!0,this.startPan={x:e.clientX-this.currentPan.x,y:e.clientY-this.currentPan.y},this.container.style.cursor="grabbing")}onMouseMove(e){this.isDragging&&(e.preventDefault(),this.currentPan={x:e.clientX-this.startPan.x,y:e.clientY-this.startPan.y},this.updateTransform())}onMouseUp(){this.isDragging=!1,this.container.style.cursor="grab"}zoom(e){let r=Math.min(Math.max(this.scale+e,this.MIN_SCALE),this.MAX_SCALE),t=this.content.getBoundingClientRect(),o=t.width/2,n=t.height/2,c=r-this.scale;this.currentPan.x-=o*c,this.currentPan.y-=n*c,this.scale=r,this.updateTransform()}updateTransform(){this.content.style.transform=`translate(${this.currentPan.x}px, ${this.currentPan.y}px) scale(${this.scale})`}resetTransform(){this.scale=1;let e=this.content.querySelector("svg");this.currentPan={x:e.getBoundingClientRect().width/2,y:e.getBoundingClientRect().height/2},this.updateTransform()}},C=["--secondary","--tertiary","--gray","--light","--lightgray","--highlight","--dark","--darkgray","--codeFont"],E;document.addEventListener("nav",async()=>{let e=document.querySelector(".center").querySelectorAll("code.mermaid");if(e.length===0)return;E||=await import("https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.4.0/mermaid.esm.min.mjs");let r=E.default,t=new WeakMap;for(let n of e)t.set(n,n.innerText);async function o(){for(let s of e){s.removeAttribute("data-processed");let a=t.get(s);a&&(s.innerHTML=a)}let n=C.reduce((s,a)=>(s[a]=window.getComputedStyle(document.documentElement).getPropertyValue(a),s),{}),c=document.documentElement.getAttribute("saved-theme")==="dark";r.initialize({startOnLoad:!1,securityLevel:"loose",theme:c?"dark":"base",themeVariables:{fontFamily:n["--codeFont"],primaryColor:n["--light"],primaryTextColor:n["--darkgray"],primaryBorderColor:n["--tertiary"],lineColor:n["--darkgray"],secondaryColor:n["--secondary"],tertiaryColor:n["--tertiary"],clusterBkg:n["--light"],edgeLabelBackground:n["--highlight"]}}),await r.run({nodes:e})}await o(),document.addEventListener("themechange",o),window.addCleanup(()=>document.removeEventListener("themechange",o));for(let n=0;n<e.length;n++){let v=function(){let g=l.querySelector("#mermaid-space"),m=l.querySelector(".mermaid-content");if(!m)return;y(m);let w=c.querySelector("svg").cloneNode(!0);m.appendChild(w),l.classList.add("active"),g.style.cursor="grab",u=new h(g,m)},M=function(){l.classList.remove("active"),u?.cleanup(),u=null},c=e[n],s=c.parentElement,a=s.querySelector(".clipboard-button"),d=s.querySelector(".expand-button"),p=window.getComputedStyle(a),L=a.offsetWidth+parseFloat(p.marginLeft||"0")+parseFloat(p.marginRight||"0");d.style.right=`calc(${L}px + 0.3rem)`,s.prepend(d);let l=s.querySelector("#mermaid-container");if(!l)return;let u=null;d.addEventListener("click",v),f(l,M),window.addCleanup(()=>{u?.cleanup(),d.removeEventListener("click",v)})}});
+</script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/copy-tex.min.js" type="application/javascript" data-persist="true"></script><script src="../../postscript.js" type="module" data-persist="true"></script></html>
